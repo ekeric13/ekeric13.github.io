@@ -92,10 +92,8 @@
       var music;
       SC.stream("/tracks/70441944", function(sound){
         sound.play();
-        console.log(sound, i %2);
         window.setInterval(function(){
-          console.log("here", sound.muted, i % 2)
-          i % 2 ? sound.unmute() : sound.mute();
+          i % 2 ? sound.resume() : sound.pause();
         }, 100)
       });
     });
