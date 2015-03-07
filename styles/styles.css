@@ -4,10 +4,18 @@ body {
 }
 
 .main {
-    position:relative;
+  margin-left: 240px;
+  padding: 0px 0px;
+
+}
+
+.white {
+  padding: 1rem 0rem;
+  padding: 65px;
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2) inset;
-       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2) inset;
-            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2) inset;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2) inset;
+
 }
 
 /*.main:before, .main:after {
@@ -70,11 +78,6 @@ a:hover {
   overflow-y: auto;
 }
 
-.main {
-  margin-left: 240px;
-  padding: 65px;
-}
-
 .name {
   text-align: center;
   color: rgba(17,17,17,.6);
@@ -133,11 +136,6 @@ ul.nav {
 
 .parallax-container {
       height: 300px;
-}
-
-.white {
-  background-color: #FFFFFF !important;
-  padding: 1rem 0rem
 }
 
 .sidebar-content{
