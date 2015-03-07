@@ -138,6 +138,10 @@ ul.nav {
       height: 425px;
 }
 
+.parallax-image {
+  background-repeat: no-repeat;
+}
+
 .sidebar-content{
   padding-top: 65px;
 }
