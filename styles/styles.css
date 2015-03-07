@@ -82,10 +82,36 @@ body {
 .name {
   text-align: center;
   color: rgba(17,17,17,.6);
+  border-bottom: 2px solid #d9d9d9;
+  -webkit-transition: color 1.5s ease-in;
+  -moz-transition: color 1.5s ease-in;
+  -o-transition: color 1.5s ease-in;
+  transition: color 1.5s ease-in;
+}
+
+.name:hover {
+  /*transition: border-bottom .5s ease-out;*/
+  transition: all 1s ease-out;
+  color: #039be5;
+  border-bottom: 2px solid white;
+}
+
+.name-grow {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+
+.name-grow:hover, .name-grow:focus, .name-grow:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1) translateZ(0);
 }
 
 h3.name {
-  margin: 0;
+  margin: 0rem 0rem 0rem 2rem;
 }
 
 ul.nav {
@@ -134,3 +160,145 @@ a {
   /*display: none;*/
   height: 20px;
 }
+
+.about-me {
+  border-bottom: 2px solid #d9d9d9;
+  -webkit-animation: aboutMe 4s infinite;
+  -webkit-animation-direction: alternate;
+  animation: aboutMe 4s infinite;
+  animation-direction: alternate;
+  transition: border-bottom 1s ease-in-out;
+}
+
+.about-me:hover{
+  border-bottom: 2px solid #045C88;
+}
+
+@-webkit-keyframes aboutMe {
+    0%   {color: rgba(13,13,13, 1); }
+    25%  {color: rgba(2, 40, 58, 0.9); }
+    50%  {color: rgba(9, 86, 123, 0.9);}
+    75%  {color: rgba(14, 125, 179, 0.9);}
+    100% {color: #039be5; }
+}
+
+@keyframes aboutMe {
+    0%   {color: rgba(13,13,13, 1); }
+    25%  {color: rgba(2, 40, 58, 0.9); }
+    50%  {color: rgba(9, 86, 123, 0.9);}
+    75%  {color: rgba(14, 125, 179, 0.9);}
+    100% {color: #039be5; }
+}
+
+.section-header {
+  border-bottom: 2px solid #d9d9d9;
+  transition: color 1s ease-in-out;
+
+}
+
+.section-header:hover {
+  transition: border-bottom .5s ease-out;
+  color: #039be5;
+  border-bottom: 2px solid #045C88;
+}
+
+.grow{
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.grow:before{
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-property: transform;
+   transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+   transition-timing-function: ease-out;
+}
+
+.grow:hover:before, .grow:focus:before, .grow:active:before {
+  -webkit-transform: scale(1.5) translateZ(0);
+  transform: scale(1.5) translateZ(0);
+}
+
+.shake{
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+}
+
+.shake:hover:before, .shake:focus:before, .shake:active:before {
+  -webkit-animation-name: hvr-icon-buzz-out;
+  animation-name: hvr-icon-buzz-out;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+
+.pop{
+  transition-duration: .8s;
+  -webkit-transition-duration: .8s;
+}
+
+.pop:hover:before, .pop:focus:before, .pop:active:before {
+  -webkit-animation-name: hvr-icon-pop;
+  animation-name: hvr-icon-pop;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+
+.jump {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+
+.jump:before {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.jump:hover:before, .jump:focus:before, .jump:active:before {
+  -webkit-animation-name: hvr-icon-wobble-vertical;
+  animation-name: hvr-icon-wobble-vertical;
+  -webkit-animation-duration: 1.5s;
+  animation-duration: 1.5s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: 2;
+  animation-iteration-count: 2;
+}
+
+.overline {
+          position: relative;
+        }
+        .overline:after {
+          display: block;
+          position: absolute;
+          left: 0;
+          bottom: -1.5px;
+          width: 0;
+          height: 1.75px;
+          background-color: #045C88;
+          content: "";
+          transition: width 1.5s;
+        }
+        .overline:hover:after {
+          width: 100%;
+        }
+
+
+
+
+

@@ -4,24 +4,25 @@
   <title></title>
   <link rel="shortcut icon" href="styles/assets/favicon.ico">
   <link rel="icon" href="styles/assets/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="styles/ionicons.css">
   <link rel="stylesheet" type="text/css" href="styles/materialize.css">
+  <link rel="stylesheet" type="text/css" href="styles/hover.css">
   <link rel="stylesheet" type="text/css" href="styles/styles.css">
-  <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 <body>
 <!-- Hey! :) -->
 <div class="body-container">
   <div class="sidebar">
     <div class="sidebar-content">
-      <h3 class="name">Eric Kennedy</h3>
+      <h3 class="name overline name-grow">Eric Kennedy</h3>
       <ul class="medium nav">
-        <li><a class="ion-social-wordpress" href="http://ekeric13.github.io/blog"></a></li>
-        <li><a class="ion-social-github" href="https://github.com/ekeric13"></a></li>
-        <li><a class="ion-social-linkedin" href="https://www.linkedin.com/in/ekeric13"></a></li>
+        <li><a class="ion-social-wordpress pop" href="http://ekeric13.github.io/blog"></a></li>
+        <li><a class="ion-social-github pop" href="https://github.com/ekeric13"></a></li>
+        <li><a class="ion-social-linkedin pop" href="https://www.linkedin.com/in/ekeric13"></a></li>
       </ul>
       <ul class="medium nav">
-        <li><a class="ion-ios-game-controller-a" href="http://ekeric13.github.io/spaceshipgame"></a></li>
-        <li><a class="ion-music-note music-note"></a><span class="swap"><a id="musicPlayer" class="ion-android-volume-up" href="index.html#"></a></span></li>
+        <li><a class="ion-ios-game-controller-a shake" href="http://ekeric13.github.io/spaceshipgame"></a></li>
+        <li><a class="ion-music-note music-note jump"></a><span class="swap"><a id="musicPlayer" class="ion-android-volume-up grow" href="index.html#"></a></span></li>
       </ul>
   </div>
   </div>
@@ -33,13 +34,13 @@
     </div>
     <div class="white">
 
-        <h2>About me</h2>
+        <h2><span class="about-me">About me</span></h2>
         <div class="about">
           <div class="large">I like to laugh a lot.</div>
           <div class="medium">Have seen way to many movies. Let me know your favorite me and I will tell you what I think of it. Feel free to ask for recommendations.</div>
           <div class="small">Love running. Always down to do something athletic like biking, hiking, basketball, etc.</div>
         </div>
-        <h4>Some movies I like:</h4>
+        <h4><span class="section-header">Some movies I like:</span></h4>
         <ul class="small">
           <li><a href="https://www.youtube.com/watch?v=GB2yiIoEtXw">Singin' in the Rain</a></li>
           <li><a href="https://www.youtube.com/watch?v=6RFH9_M0OaY">Annie Hall</a></li>
@@ -47,7 +48,7 @@
           <li><a href="https://www.youtube.com/watch?v=5vO92REraUo">There Will Be Blood</a></li>
           <li><a href="https://www.youtube.com/watch?v=lMd2gB9L8So">Rushmore</a></li>
         </ul>
-        <h4>Some songs I am currently listening to:</h4>
+        <h4><span class="section-header">Some songs I am currently listening to:</span></h4>
         <ul class="small">
           <li><a href="https://www.youtube.com/watch?v=GAkw_Wi4yIo">Tchaikovsky : Violin Concerto in D major op.35</a></li>
           <li><a href="https://www.youtube.com/watch?v=9KpIV57PSeo">Stan Getz & Joao Gilberto - Getz/Gilberto (1963)</a></li>
@@ -80,8 +81,8 @@
     $(document).ready(function(){
       var i = 0;
       $('.parallax').parallax();
-      var muted = '<a class="ion-android-volume-up" href="index.html#"></a>';
-      var notMuted = '<a class="ion-android-volume-mute" href="index.html#"></a>';
+      var muted = '<a class="ion-android-volume-up grow" href="index.html#"></a>';
+      var notMuted = '<a class="ion-android-volume-mute grow" href="index.html#"></a>';
 
       $(".swap").on("click", function(e){
         e.preventDefault();
