@@ -1,0 +1,6 @@
+HANDOFF.md
+node_modules/
+playwright-report/
+test-results/
+projects/ai-contact-center-matching/
+projects/ai-agent-gateway/
