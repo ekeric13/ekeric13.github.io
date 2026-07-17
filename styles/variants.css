@@ -943,6 +943,27 @@ a {
   color: var(--v1-muted);
 }
 
+.v4-testimonial {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border-left: 3px solid var(--v1-green);
+  background: rgba(11, 107, 85, 0.07);
+}
+
+.v4-testimonial blockquote {
+  margin: 0;
+  color: var(--v1-ink);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.v4-testimonial figcaption {
+  margin-top: 8px;
+  color: var(--v1-muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
 .v4-project-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
