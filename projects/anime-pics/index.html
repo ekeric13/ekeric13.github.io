@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AnimePics Architecture · Eric Kennedy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#111216;--bg2:#0b0c10;--panel:#191b22;--panel2:#20242d;--line:#303541;--line2:#232832;
+--ink:#f2eee7;--dim:#a8a39a;--faint:#706d67;
+--product:#f0a05a;--ml:#c982ff;--data:#68c6d8;--ops:#80bd7f;--stop:#e66f66;
+--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+--disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+--body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:var(--bg2);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{--pad-top:5vh;--pad-x:8vw;--pad-bottom:8vh;--hud-space:56px;position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;
+padding:var(--pad-top) var(--pad-x) calc(var(--pad-bottom) + var(--hud-space));opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);
+transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .42s;
+background:radial-gradient(900px 520px at 85% -8%,rgba(240,160,90,.08),transparent 60%),
+radial-gradient(760px 460px at 7% 10%,rgba(104,198,216,.06),transparent 58%),var(--bg)}
+.slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px)}
+.slide>*{position:relative;z-index:1}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.face{display:none;flex-direction:column;justify-content:center;flex:0 0 auto;min-height:calc(100vh - var(--pad-top) - var(--pad-bottom) - var(--hud-space))}
+.slide.active .face.overview{display:flex}
+.slide.active.flip .face.overview{display:none}
+.slide.active.flip .face.detail{display:flex;animation:faceIn .25s ease}
+@keyframes faceIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.flipchip{position:absolute;top:calc(5vh + 2px);right:8vw;z-index:5;display:inline-flex;align-items:center;gap:8px;
+font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:7px 13px;border-radius:999px;
+background:var(--panel);border:1px solid var(--line);color:var(--dim);cursor:pointer;user-select:none}
+.flipchip .sw{width:26px;height:14px;border-radius:999px;background:var(--line);position:relative}
+.flipchip .sw::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--faint);transition:.18s}
+.slide.flip .flipchip{border-color:var(--ml);color:var(--ml)}
+.slide.flip .flipchip .sw{background:rgba(201,130,255,.34)}
+.slide.flip .flipchip .sw::after{left:14px;background:var(--ml)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--product);
+display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.eyebrow::after{content:"";flex:1;max-width:220px;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.eyebrow .ph{padding:3px 10px;border:1px solid currentColor;border-radius:999px;font-size:10px}
+.eyebrow.ml{color:var(--ml)}.eyebrow.data{color:var(--data)}.eyebrow.ops{color:var(--ops)}
+h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1;margin:0}
+.title-xl{font-size:clamp(38px,6.2vw,82px)}
+.title-lg{font-size:clamp(30px,4.35vw,60px)}
+h1 .p{color:var(--product)}h1 .m{color:var(--ml)}h1 .d{color:var(--data)}h1 .o{color:var(--ops)}
+.sub{font-size:clamp(15px,1.56vw,21px);color:var(--dim);max-width:72ch;margin:clamp(14px,2.2vh,22px) 0 0;line-height:1.55}
+.sub strong{color:#fff;font-weight:600}
+code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2px 7px;border:1px solid var(--line2);border-radius:5px;color:#e0c3ff}
+.back{position:absolute;top:28px;left:32px;z-index:20;color:var(--faint);font-family:var(--mono);font-size:11px;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}
+.back:hover{color:var(--ink)}
+.split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,4vw,52px);align-items:center;margin-top:16px}
+.bullets{list-style:none;margin:clamp(16px,2.5vh,28px) 0 0;padding:0}
+.bullets li{position:relative;margin:clamp(10px,1.7vh,18px) 0;padding-left:30px;font-size:clamp(14px,1.48vw,16px);line-height:1.5;color:var(--ink)}
+.bullets li::before{content:"";position:absolute;left:0;top:8px;width:11px;height:11px;border-radius:3px;background:var(--c,var(--product));box-shadow:0 0 12px var(--c,var(--product))}
+.bullets span{color:var(--dim)}
+.strip{margin-top:26px;max-width:82ch;border-left:3px solid var(--c,var(--product));background:rgba(240,160,90,.07);
+padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
+.strip .lb{display:block;margin-bottom:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c,var(--product))}
+.levers,.stats,.arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}
+.lever,.stat,.card,.tcard,.phasebox{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+.lever::before,.stat::before,.card::before,.tcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--x,var(--product))}
+.ix,.tag,.det-head{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--x,var(--product))}
+.lever h3,.card h3{font-family:var(--disp);font-size:23px;line-height:1.12;margin:8px 0 10px}
+.lever p,.card p,.tcard p,.phasebox p{color:var(--dim);font-size:14px;line-height:1.55;margin:0}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stat .big{font-family:var(--disp);font-size:clamp(30px,3.2vw,42px);font-weight:700;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+.stat .lab{margin-top:10px;color:var(--dim);font-size:13px;line-height:1.45}
+.det-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;color:var(--ml)}
+.det-head::after{content:"";height:1px;max-width:220px;flex:1;background:linear-gradient(90deg,rgba(201,130,255,.45),transparent)}
+.det-title{font-family:var(--disp);font-size:clamp(24px,3.3vw,40px);font-weight:600;letter-spacing:-.02em;line-height:1.07;margin-bottom:10px}
+.det-title .p{color:var(--product)}.det-title .m{color:var(--ml)}.det-title .d{color:var(--data)}.det-title .o{color:var(--ops)}
+.det-sub{color:var(--dim);font-size:clamp(14px,1.45vw,17px);line-height:1.55;max-width:82ch;margin:0}
+.tcard{padding:18px}.tcard .tag{display:inline-block;margin-bottom:10px;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,.06)}
+.tcard .nm{font-family:var(--mono);font-weight:700;font-size:14px;word-break:break-word}.tcard .role{font-family:var(--mono);font-size:10.5px;color:var(--x,var(--product));margin:3px 0 9px;letter-spacing:.03em}
+.cont{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin-top:36px;max-width:1040px}
+.phasebox.old{border-color:rgba(230,111,102,.34)}.phasebox.new{border-color:rgba(128,189,127,.34)}
+.phasebox .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.phasebox .n{font-family:var(--disp);font-weight:700;font-size:24px;margin:4px 0 14px}.phasebox.old .n{color:var(--stop)}.phasebox.new .n{color:var(--ops)}
+.row{display:flex;gap:10px;align-items:center;color:var(--dim);font-size:14px;margin:10px 0}.dotc{width:10px;height:10px;border-radius:50%;flex:none}
+.equals{display:grid;place-items:center;padding:0 26px}.equals .eq{font-family:var(--disp);font-weight:700;font-size:38px;color:var(--data)}.equals .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center;max-width:120px}
+.diagram{background:linear-gradient(180deg,var(--panel),rgba(25,27,34,.55));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.cap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.flowrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.node{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);font-family:var(--mono);font-size:12px;color:var(--ink);text-align:center}.node.product{border-color:rgba(240,160,90,.42);background:rgba(240,160,90,.09)}.node.ml{border-color:rgba(201,130,255,.42);background:rgba(201,130,255,.09)}.node.data{border-color:rgba(104,198,216,.42);background:rgba(104,198,216,.08)}.node.ops{border-color:rgba(128,189,127,.42);background:rgba(128,189,127,.08)}.node.bad{border-color:rgba(230,111,102,.42);background:rgba(230,111,102,.09)}.arr{font-family:var(--mono);color:var(--faint);font-weight:700}
+.journey{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:28px}.step{border:1px solid var(--line);border-radius:14px;background:rgba(11,12,16,.68);padding:16px;min-height:128px}.step .num{font-family:var(--mono);font-size:11px;color:var(--product);letter-spacing:.1em}.step .name{font-family:var(--disp);font-size:20px;font-weight:700;margin:8px 0}.step p{font-size:13px;color:var(--dim);line-height:1.45;margin:0}
+.pipeline{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center}.stack{display:grid;gap:10px}.wide{grid-column:1/-1}
+.queueviz{display:grid;grid-template-columns:1fr 1fr;gap:18px}.qbox{border:1px solid var(--line);border-radius:14px;padding:16px;background:rgba(11,12,16,.68)}.qbox h4{font-family:var(--disp);font-size:18px;margin:0 0 12px}.qbox p{margin:12px 0 0;color:var(--dim);font-size:13px;line-height:1.45}
+.costline{height:220px;width:100%;display:block}.hud{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:16px}.nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:22px;cursor:pointer}.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border:0;border-radius:50%;background:var(--line);padding:0;cursor:pointer}.dots button.on{background:var(--product);box-shadow:0 0 12px var(--product)}.count{position:absolute;right:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:11px;color:var(--faint)}.hint{position:absolute;left:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
+.shot{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:12px;box-shadow:0 24px 70px rgba(0,0,0,.38);transform:rotate(1deg)}
+.shot img{display:block;width:100%;height:auto;border-radius:11px}.shot .cap{margin:10px 4px 2px}
+.resultgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.resultgrid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+.imageband{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:12px;margin-top:22px}.imageband img{width:100%;height:130px;object-fit:cover;border-radius:12px;border:1px solid var(--line);background:var(--panel)}
+.slide--intro,.slide--model{--pad-top:6.75vh;--pad-bottom:8vh}
+.slide--intro .title-xl{font-size:clamp(36px,5vw,70px);line-height:.96}.slide--intro .sub{margin-top:16px;font-size:clamp(14px,1.22vw,17px);line-height:1.48;max-width:66ch}.slide--intro .cont{margin-top:20px}.slide--intro .phasebox{padding:17px}.slide--intro .phasebox .n{font-size:20px;margin-bottom:10px}.slide--intro .row{font-size:12.5px;line-height:1.32;margin:7px 0}
+@media(min-width:901px) and (max-height:920px){.slide{--pad-top:5vh;--pad-bottom:6vh}.slide--intro,.slide--model{--pad-top:6.75vh;--pad-bottom:6vh}.slide--intro .title-xl{font-size:clamp(34px,4.55vw,64px)}.slide--intro .sub{margin-top:12px;font-size:15px;line-height:1.4}.slide--intro .cont{margin-top:15px}.slide--intro .phasebox{padding:14px}.slide--intro .phasebox .n{font-size:18px;margin-bottom:8px}.slide--intro .row{font-size:12px;line-height:1.24;margin:5px 0}.slide--intro .equals{padding:0 18px}.slide--intro .equals .eq{font-size:30px}.slide--intro .equals .lbl{font-size:9px}.slide--model .title-lg{font-size:clamp(30px,4vw,56px)}.slide--model .split{gap:28px}.slide--model .sub{font-size:16px;line-height:1.44}.slide--model .diagram{padding:18px}.slide--model .resultgrid{gap:8px}.slide--model .resultgrid img{aspect-ratio:auto;height:clamp(170px,24vh,220px)}}
+@media(max-width:900px){.slide{--pad-top:5vh;--pad-x:6vw;--pad-bottom:8vh;--hud-space:56px;overflow-x:hidden}.slide--intro,.slide--model{--pad-top:6.75vh;--pad-bottom:8vh}.split,.levers,.stats,.arch,.journey,.queueviz,.imageband{grid-template-columns:1fr}.split,.split>*,.cont,.pipeline{min-width:0}.title-xl{overflow-wrap:anywhere}.slide--intro .title-xl{font-size:clamp(31px,9vw,42px)}.cont,.pipeline{grid-template-columns:1fr;gap:14px}.imageband img{height:auto}.equals{padding:4px}.arr{transform:rotate(90deg);justify-self:center}.shot{transform:none}.flipchip{right:6vw}.hint{display:none}}
+</style>
+</head>
+<body>
+<a target="_blank" rel="noopener noreferrer" class="back" href="../../">Back to portfolio</a>
+<div class="deck">
+
+<section class="slide slide--intro active">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow"><span class="ph">00</span> 2023 · Product constraint</div>
+<div class="split">
+<div>
+<h1 class="title-xl">AnimePics let users upload photos and see themselves as <span class="m">anime</span>.</h1>
+<p class="sub">Built in 2023, before later image models made this interaction feel instant and trivial. AnimePics was a consumer funnel that collected subject info, payment, and training photos, then used GPU-backed ML to create personalized portrait galleries.</p>
+<div class="cont">
+<div class="phasebox old"><div class="h">Risk</div><div class="n">Non-deterministic ML</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>input quality drives output quality</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>GPU work is slow and expensive</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>users leave before async value arrives</div></div>
+<div class="equals"><div class="eq">-></div><div class="lbl">needed product and systems design</div></div>
+<div class="phasebox new"><div class="h">Shape</div><div class="n">Order pipeline</div><div class="row"><span class="dotc" style="background:var(--ops)"></span>fast mobile purchase flow</div><div class="row"><span class="dotc" style="background:var(--ops)"></span>validated, cropped training images</div><div class="row"><span class="dotc" style="background:var(--ops)"></span>async GPU fulfillment and gallery delivery</div></div>
+</div>
+</div>
+<div class="shot"><img src="../../assets/logos/animepics.png" alt="AnimePics product screenshot"><div class="cap">product screenshot · upload photos, get generated anime portraits</div></div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · system shape</div>
+<div class="det-title">The work was a whole product system, not just a diffusion script.</div>
+<p class="det-sub">The system split into a Next.js frontend, a Python API/worker backend, a GPU diffusion server, and a separate image workspace for style experiments and regularization assets. The frontend code shows the user path directly: subject info, theme/package selection, Stripe checkout, upload, dashboard/order completion, and gallery delivery.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--product)"><span class="tag">product surface</span><div class="nm">Funnel and delivery</div><div class="role">checkout, upload, email, gallery</div><p>Mobile-first flow for guest checkout, paid upload, async status, and return-to-gallery email delivery.</p></div>
+<div class="tcard" style="--x:var(--data)"><span class="tag">service layer</span><div class="nm">Order system</div><div class="role">Postgres, S3, Stripe, Kafka</div><p>Durable order state, photo storage, payment transitions, queue handoff, and result persistence.</p></div>
+<div class="tcard" style="--x:var(--ml)"><span class="tag">generation layer</span><div class="nm">GPU pipeline</div><div class="role">custom training and inference</div><p>Validated image inputs became personalized checkpoints, style merges, prompt batches, and final portrait sets.</p></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow"><span class="ph">01</span> Funnel</div>
+<h1 class="title-lg">The flow had to feel simple before the <span class="p">long wait</span>.</h1>
+<div class="journey">
+<div class="step"><div class="num">01</div><div class="name">Choose</div><p>User selects package, themes, and subject traits needed by prompts.</p></div>
+<div class="step"><div class="num">02</div><div class="name">Pay</div><p>Stripe checkout creates a durable paid order before expensive GPU work starts.</p></div>
+<div class="step"><div class="num">03</div><div class="name">Upload</div><p>Browser validates faces and crops images to the model's expected 512x512 input.</p></div>
+<div class="step"><div class="num">04</div><div class="name">Wait</div><p>Backend queues a training job and shows progress as an order, not a blocking request.</p></div>
+<div class="step"><div class="num">05</div><div class="name">Share</div><p>Gallery supports public/private viewing, trial unlocks, downloads, and bonus content.</p></div>
+</div>
+<div class="strip"><span class="lb">Product decision</span> Keep the customer-facing steps familiar: choose, pay, upload, leave, return by email. The expensive GPU work runs after the product has the inputs it needs.</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · frontend implementation</div>
+<div class="det-title">The UX gathered model parameters without exposing the user to model language.</div>
+<p class="det-sub">The Next.js app stored funnel state with Zustand, authenticated with NextAuth, used Stripe checkout, and passed subject traits such as hair color, eye color, glasses, sex, and age into the backend order. The upload page then created a multipart payload of training photos under the `training_photos` field.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--product)"><span class="tag">frontend</span><div class="nm">Next.js + Tailwind</div><div class="role">mobile-first flow</div><p>Pages covered landing, subject info, themes, payment success, upload, dashboard, and gallery.</p></div>
+<div class="tcard" style="--x:var(--data)"><span class="tag">state</span><div class="nm">Zustand + React Query</div><div class="role">flow state and cache</div><p>Local state carried the funnel; query invalidation refreshed dashboard status after upload.</p></div>
+<div class="tcard" style="--x:var(--ops)"><span class="tag">growth loop</span><div class="nm">Email, analytics, chat</div><div class="role">operating a consumer app</div><p>Amplitude, GA, pixels, email links, and live chat made the product measurable and supportable.</p></div>
+</div>
+<div class="imageband">
+<img src="../../assets/anime-pics/hero-no-text.jpeg" alt="AnimePics transformation product graphic">
+<img src="../../assets/anime-pics/result-american.jpeg" alt="AnimePics generated result">
+<img src="../../assets/anime-pics/result-cartoon.jpeg" alt="AnimePics generated result">
+<img src="../../assets/anime-pics/result-shinkai.jpeg" alt="AnimePics generated result">
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow data"><span class="ph">02</span> Input quality</div>
+<h1 class="title-lg">Better input photos made the <span class="d">customer result</span> better.</h1>
+<div class="split">
+<div>
+<p class="sub">Picture quality had an outsized effect on whether customers liked the final gallery. I added ML face detection and smart cropping in the browser so users could fix bad inputs before the async training process started.</p>
+<ul class="bullets" style="--c:var(--data)">
+<li><strong>Minimum input size.</strong> <span>Images below 512 by 512 were rejected.</span></li>
+<li><strong>Face count checks.</strong> <span>No-face and likely multi-face photos were rejected.</span></li>
+<li><strong>Centered crop.</strong> <span>Smartcrop used the detected face as a boost region and emitted 512 by 512 files.</span></li>
+</ul>
+</div>
+<div class="diagram">
+<div class="cap">client-side gate</div>
+<div class="flowrow"><span class="node product">Phone photos</span><span class="arr">-></span><span class="node data">face-api.js</span><span class="arr">-></span><span class="node data">smartcrop</span><span class="arr">-></span><span class="node ops">S3-ready files</span></div>
+<div style="height:18px"></div>
+<div class="flowrow"><span class="node bad">no face</span><span class="node bad">too small</span><span class="node bad">face too large</span><span class="node bad">likely multiple people</span></div>
+</div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · quality tradeoff</div>
+<div class="det-title">Client validation improved satisfaction, but moved compute into the upload UX.</div>
+<p class="det-sub">The browser loaded face detection models and warned that validation could take several seconds per uploaded photo. That was an intentional product tradeoff: a slightly slower upload flow was better than letting customers wait for a gallery trained on faces that were too small, missing, or mixed with other people.</p>
+<div class="strip" style="--c:var(--data)"><span class="lb">Why this mattered</span> The ML pipeline used up to 20 training photos. Better crops and cleaner face selection gave the personalization step a much stronger signal, which directly affected whether the final portraits looked like the customer.</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow data"><span class="ph">03</span> Web backend</div>
+<h1 class="title-lg">The backend tracked orders, stored photos, and handed off <span class="d">GPU jobs</span>.</h1>
+<div class="split">
+<div>
+<p class="sub">The Python web service tracked payment state, user sessions, order metadata, photo metadata, and queue handoff. S3 stored the image files. Kafka connected the web server to the GPU worker without keeping HTTP requests open.</p>
+<ul class="bullets" style="--c:var(--data)">
+<li><strong>Postgres:</strong> <span>users, payors, orders, themes, training photos, result photos.</span></li>
+<li><strong>S3:</strong> <span>training and result image objects organized by order ID.</span></li>
+<li><strong>Redis:</strong> <span>session and cache state updated after payment and upload transitions.</span></li>
+</ul>
+</div>
+<div class="diagram">
+<div class="cap">web service boundary</div>
+<div class="pipeline">
+<span class="node product">Next.js</span><span class="arr">-></span>
+<div class="stack"><span class="node data">Litestar API</span><span class="node data">Postgres</span></div><span class="arr">-></span>
+<div class="stack"><span class="node ops">S3 photos</span><span class="node ml">Kafka job</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · payment consistency</div>
+<div class="det-title">Expensive work starts after the order enters a paid or admin-approved state.</div>
+<p class="det-sub">Order creation upserts a started order and creates a Stripe checkout session. The Stripe webhook marks the order paid, stores payment intent information, updates the user's `order_in_progress`, and emails guest users an upload link. Upload refuses started, already training, or already trained orders.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--product)"><span class="tag">funnel</span><div class="nm">guest checkout</div><div class="role">lower conversion friction</div><p>Users could pay with an email and receive a magic upload path even without an active session.</p></div>
+<div class="tcard" style="--x:var(--data)"><span class="tag">integrity</span><div class="nm">status machine</div><div class="role">started, paid, training, trained</div><p>Backend guards prevented unpaid uploads and duplicate training transitions.</p></div>
+<div class="tcard" style="--x:var(--ops)"><span class="tag">idempotency</span><div class="nm">fulfilled_at check</div><div class="role">result save guard</div><p>The result save endpoint exits if the order was already fulfilled, limiting duplicate queue effects.</p></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ml"><span class="ph">04</span> Async jobs</div>
+<h1 class="title-lg">A single queue message represented a <span class="m">long GPU transaction</span>.</h1>
+<div class="split">
+<div>
+<p class="sub">The web server published one training job message with the order ID and subject traits. The GPU consumer pulled one job at a time, allowed a six-hour poll interval, retried failures, and manually committed offsets after the handler completed.</p>
+<ul class="bullets" style="--c:var(--ml)">
+<li><strong>Why Kafka:</strong> <span>durable async handoff between web traffic and scarce GPU workers.</span></li>
+<li><strong>Why one record:</strong> <span>one personalized model job is naturally large and stateful.</span></li>
+<li><strong>Risk:</strong> <span>partial progress inside the job is not broker-visible.</span></li>
+</ul>
+</div>
+<div class="diagram">
+<div class="cap">job handoff</div>
+<div class="queueviz">
+<div class="qbox"><h4>Web worker</h4><div class="flowrow"><span class="node data">upload complete</span><span class="arr">-></span><span class="node ml">training job</span></div><p>Order status changes to training before the GPU worker starts.</p></div>
+<div class="qbox"><h4>GPU worker</h4><div class="flowrow"><span class="node ml">consume one</span><span class="arr">-></span><span class="node ops">commit after success</span></div><p>Max records is one because each job can monopolize a GPU for a long time.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · orchestration tradeoff</div>
+<div class="det-title">The pipeline was one queue job, with restartable artifacts between stages.</div>
+<p class="det-sub">Inside one handler, the GPU server downloaded training photos, created models, ran inference, uploaded results, cleaned local files, and then produced a result-save job back to the web service. I kept stage outputs on disk while the job was active, so a failure during inference or upload did not automatically mean starting from raw photos again.</p>
+<div class="strip" style="--c:var(--ml)"><span class="lb">Scaling implication</span> For one operator and scarce GPUs, local stage artifacts were enough to restart failed work manually. At higher volume, the natural evolution is to make those stage checkpoints explicit in the backend: downloaded, model trained, inference complete, uploaded, persisted, notified.</div>
+</div>
+</section>
+
+<section class="slide slide--model">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ml"><span class="ph">05</span> Model pipeline</div>
+<h1 class="title-lg">Training created a person model, then merged it into <span class="m">style systems</span>.</h1>
+<div class="split">
+<div>
+<p class="sub">The GPU server trained a personalized checkpoint, then merged that identity model with themed secondary checkpoints such as cartoon, ghibli, shinkai, and pixar before running prompt batches. The result was not a single prompt call; it was a multi-stage personalization and generation pipeline.</p>
+<ul class="bullets" style="--c:var(--ml)">
+<li><strong>Base model:</strong> <span>personal identity captured from user photos.</span></li>
+<li><strong>Style systems:</strong> <span>theme checkpoints blended with the personalized model.</span></li>
+<li><strong>Prompt batches:</strong> <span>sex, age, hair, eyes, and glasses filled prompt templates.</span></li>
+</ul>
+</div>
+<div class="diagram">
+<div class="cap">model assembly</div>
+<div class="resultgrid">
+<img src="../../assets/anime-pics/result-american.jpeg" alt="AnimePics generated portrait in American illustration style">
+<img src="../../assets/anime-pics/result-cartoon.jpeg" alt="AnimePics generated portrait in cartoon style">
+<img src="../../assets/anime-pics/result-ghibli.jpeg" alt="AnimePics generated portrait in anime style">
+<img src="../../assets/anime-pics/result-shinkai.jpeg" alt="AnimePics generated portrait in cinematic anime style">
+</div>
+<div style="height:18px"></div>
+<div class="flowrow"><span class="node data">20 crops</span><span class="arr">-></span><span class="node ml">custom training</span><span class="arr">-></span><span class="node ml">identity checkpoint</span><span class="arr">-></span><span class="node ops">themed gallery</span></div>
+</div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · ML engineering reality</div>
+<div class="det-title">The hard part was turning research tooling into a repeatable product pipeline.</div>
+<p class="det-sub">The training service customized more than the base algorithm: dynamic epoch count based on uploaded image count, sex-specific regularization sets, tuned optimizer and scheduler parameters, checkpoint merging, model switching, prompt templates, deterministic seed lists, high-resolution fix, and upscaling. It also restarted the image-generation service after training to work around memory pressure before inference.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--ml)"><span class="tag">customized</span><div class="nm">Training parameters</div><div class="role">identity quality</div><p>Adjusted optimizer, epochs, regularization, precision, and checkpoint behavior around real customer photo sets.</p></div>
+<div class="tcard" style="--x:var(--ops)"><span class="tag">failed pain</span><div class="nm">GPU package management</div><div class="role">environment fragility</div><p>Version pinning and binary compatibility consumed more time than expected.</p></div>
+<div class="tcard" style="--x:var(--product)"><span class="tag">lesson</span><div class="nm">ML took longer</div><div class="role">product quality lived here</div><p>The web app was straightforward compared with getting identity, style, prompt quality, and GPU reliability right.</p></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ops"><span class="ph">06</span> Reliability</div>
+<h1 class="title-lg">The system had to recover without <span class="o">keeping everything forever</span>.</h1>
+<div class="split">
+<div>
+<p class="sub">Media files were the operational center of gravity. The web service stored durable S3 keys and DB rows. The GPU worker used local disk for transient training photos, model checkpoints, result images, and training artifacts, then cleaned them after upload.</p>
+<ul class="bullets" style="--c:var(--ops)">
+<li><strong>Durable:</strong> <span>order state, S3 training photos, S3 result photos, result metadata.</span></li>
+<li><strong>Temporary:</strong> <span>local GPU files and generated checkpoints after fulfillment.</span></li>
+<li><strong>Cost control:</strong> <span>scheduled cleanup deletes old training photos after fulfillment.</span></li>
+</ul>
+</div>
+<div class="diagram">
+<div class="cap">storage lifecycle</div>
+<canvas class="costline" id="costChart" width="680" height="260"></canvas>
+</div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · reliability choices</div>
+<div class="det-title">The cleanup model reduced cost, but narrowed the replay window.</div>
+<p class="det-sub">The backend has a cron path for deleting training photos once orders are fulfilled and older than a threshold. The GPU worker also deletes local per-order photos, result images, model files, and training directories after upload. This is the right instinct for a cost-sensitive consumer product, but it trades easy future reprocessing for lower storage and disk pressure.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--ops)"><span class="tag">good</span><div class="nm">bounded disk use</div><div class="role">GPU worker cleanup</div><p>Long-running workers cannot let checkpoints and images pile up per order.</p></div>
+<div class="tcard" style="--x:var(--data)"><span class="tag">good</span><div class="nm">result save guard</div><div class="role">fulfilled_at</div><p>Duplicate result-save messages do not create a second fulfillment pass.</p></div>
+<div class="tcard" style="--x:var(--stop)"><span class="tag">tradeoff</span><div class="nm">limited replay</div><div class="role">cost versus recovery</div><p>After cleanup, reproducing an order requires new customer inputs or retained model artifacts.</p></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ops"><span class="ph">07</span> Scaling path</div>
+<h1 class="title-lg">The first architecture was right for <span class="o">scarce GPUs</span>, not unbounded demand.</h1>
+<div class="levers">
+<div class="lever" style="--x:var(--product)"><div class="ix">Product</div><h3>Async promise,<br>not realtime</h3><p>Users expected to leave and come back later, which made one-GPU, hour-plus jobs viable.</p></div>
+<div class="lever" style="--x:var(--ml)"><div class="ix">Compute</div><h3>One job per<br>GPU worker</h3><p>Simple scheduling matches a system where the bottleneck is expensive, stateful GPU time.</p></div>
+<div class="lever" style="--x:var(--data)"><div class="ix">Data</div><h3>Object keys between<br>services</h3><p>Web and GPU services exchanged S3 keys and job schemas instead of streaming image files through APIs.</p></div>
+</div>
+<div class="strip" style="--c:var(--ops)"><span class="lb">Next scaling step</span> Add durable per-stage state, GPU capacity-aware scheduling, dead-letter queues, artifact retention policy by order status, and user-visible ETA based on queue depth and historical job time.</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · what I would change at higher scale</div>
+<div class="det-title">The system needs more state before it needs more clever ML.</div>
+<div class="arch">
+<div class="tcard" style="--x:var(--ops)"><span class="tag">scheduler</span><div class="nm">capacity-aware queueing</div><div class="role">GPU pool pressure</div><p>Separate paid jobs, trials, retries, and manual reruns into priorities with clear concurrency limits.</p></div>
+<div class="tcard" style="--x:var(--data)"><span class="tag">state</span><div class="nm">stage checkpoints</div><div class="role">resume and observability</div><p>Persist each pipeline transition so support can answer where an order is stuck.</p></div>
+<div class="tcard" style="--x:var(--ml)"><span class="tag">quality</span><div class="nm">output ranking</div><div class="role">reduce manual curation</div><p>Automated scoring or human review queues would matter once result volume increases.</p></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ops"><span class="ph">08</span> Failures</div>
+<h1 class="title-lg">The product was technically differentiated.<br>The business did not have <span class="o">distribution</span>.</h1>
+<div class="levers">
+<div class="lever" style="--x:var(--ml)"><div class="ix">Edge</div><h3>Owned GPU and<br>custom ML</h3><p>Running my own GPU meant I was not just reselling a commodity API. I could tune quality and spend real compute per order.</p></div>
+<div class="lever" style="--x:var(--product)"><div class="ix">Constraint</div><h3>Cost forced<br>revenue</h3><p>That same edge made the product expensive to operate. It needed paid conversion, not just usage.</p></div>
+<div class="lever" style="--x:var(--stop)"><div class="ix">Failure</div><h3>No GTM<br>flywheel</h3><p>The product was better than competitors at the time, but marketing was weak and there was no built-in distribution loop.</p></div>
+</div>
+<div class="strip" style="--c:var(--ops)"><span class="lb">Market lesson</span> The idea was directionally right. Later, when the OpenAI image model made "Ghibli-fying" yourself a fad, the mass-market version won on speed, quality, and breadth: roughly seconds instead of an hour, plus support for multiple people, pets, and more arbitrary scenes.</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · why it ended</div>
+<div class="det-title">Quality alone was not enough to overcome speed, cost, and distribution.</div>
+<p class="det-sub">AnimePics could produce higher-quality personalized outputs because it controlled the GPU workflow and spent meaningful time per order. But the experience was not magical enough to sell itself: delivery could take hours, the product needed revenue to cover compute, and I did not build a repeatable channel or social sharing flywheel that made acquisition cheaper over time.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--ml)"><span class="tag">technical win</span><div class="nm">Not commodity API wrapper</div><div class="role">custom pipeline</div><p>Owning the GPU and model path created room to compete on output quality.</p></div>
+<div class="tcard" style="--x:var(--product)"><span class="tag">product miss</span><div class="nm">Not magical enough</div><div class="role">delay hurt delight</div><p>One-hour-plus delivery made the payoff less immediate than consumer AI users increasingly expected.</p></div>
+<div class="tcard" style="--x:var(--stop)"><span class="tag">business miss</span><div class="nm">No distribution engine</div><div class="role">marketing and GTM</div><p>Poor marketing and no durable acquisition loop meant quality did not translate into scale.</p></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow"><span class="ph">Recap</span> product · architecture · learning</div>
+<h1 class="title-lg">Quality-first output.<br>Async GPU pipeline.<br>Email-driven delivery.</h1>
+<div class="levers">
+<div class="lever" style="--x:var(--product)"><div class="ix">Ownership</div><h3>Built the whole<br>product loop</h3><p>Checkout, upload guidance, async expectations, email delivery, gallery, support, and trial upsell.</p></div>
+<div class="lever" style="--x:var(--data)"><div class="ix">Architecture</div><h3>Orders in Postgres.<br>Images in S3.</h3><p>Postgres tracked order state. S3 stored photos. Kafka bridged the web app and the single GPU worker.</p></div>
+<div class="lever" style="--x:var(--ml)"><div class="ix">ML system</div><h3>Custom training to<br>prompt batches</h3><p>Personalized checkpoints were merged with style models and used to generate themed galleries.</p></div>
+</div>
+<div class="strip"><span class="lb">The through-line</span> AnimePics was a product and systems exercise: set expectations that quality takes time, spend real GPU time per order, and make an asynchronous consumer workflow feel reliable through status, email, and gallery delivery.</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · quality and delivery</div>
+<div class="det-title">The product chose async delivery so the model could spend enough time on quality.</div>
+<p class="det-sub">A key product decision was not to promise instant results. With one GPU, a single personalized job could take more than an hour, and a queue of orders could push delivery into multiple hours. The user experience was built around that reality: pay, upload validated photos, leave, then come back from email when the gallery was ready.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--product)"><span class="tag">expectation</span><div class="nm">Async by design</div><div class="role">quality over immediacy</div><p>The wait was not hidden; the product flow made long-running generation normal.</p></div>
+<div class="tcard" style="--x:var(--ml)"><span class="tag">constraint</span><div class="nm">One GPU</div><div class="role">serial expensive work</div><p>GPU scarcity made queueing, status, and support more important than realtime UX.</p></div>
+<div class="tcard" style="--x:var(--ops)"><span class="tag">delivery</span><div class="nm">Email integration</div><div class="role">return path</div><p>Payment, upload, and fulfillment emails brought users back to finish uploads or view completed galleries.</p></div>
+</div>
+</div>
+</section>
+
+</div>
+<div class="hud"><div class="nav"><button id="prev" aria-label="previous slide">&lsaquo;</button></div><div class="dots" id="dots"></div><div class="nav"><button id="next" aria-label="next slide">&rsaquo;</button></div></div>
+<div class="hint">left/right advance · detail toggle / space flips detail</div>
+<div class="count"><span id="cur">1</span>/<span id="tot">10</span></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dotsWrap=document.getElementById('dots');
+let i=0;
+function slideFromUrl(){const n=Number(new URLSearchParams(location.search).get('slide'));return Number.isInteger(n)?n-1:0}
+function syncUrl(){const url=new URL(location.href);url.searchParams.set('slide',String(i+1));history.replaceState({slide:i+1},'',url)}
+document.getElementById('tot').textContent=slides.length;
+slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',e=>{e.stopPropagation();go(n)});dotsWrap.appendChild(b)});
+const dots=[...dotsWrap.children];
+function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k!==i)s.classList.remove('flip')});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;drawCost();if(updateUrl)syncUrl()}
+function next(){go(i+1)}function prev(){go(i-1)}function flip(){slides[i].classList.toggle('flip')}
+document.getElementById('next').addEventListener('click',e=>{e.stopPropagation();next()});
+document.getElementById('prev').addEventListener('click',e=>{e.stopPropagation();prev()});
+document.querySelectorAll('.flipchip').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();flip()}));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();next()}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}else if(e.key===' '){e.preventDefault();flip()}});
+window.addEventListener('popstate',()=>go(slideFromUrl(),false));
+function drawCost(){
+const c=document.getElementById('costChart');if(!c)return;const ctx=c.getContext('2d');const w=c.width,h=c.height;ctx.clearRect(0,0,w,h);
+ctx.strokeStyle='rgba(242,238,231,.12)';ctx.lineWidth=1;ctx.font='22px Inter';ctx.fillStyle='rgba(242,238,231,.82)';ctx.fillText('Per-order artifact footprint',26,34);
+for(let y=65;y<h-26;y+=38){ctx.beginPath();ctx.moveTo(34,y);ctx.lineTo(w-24,y);ctx.stroke()}
+ctx.strokeStyle='#c982ff';ctx.lineWidth=5;ctx.beginPath();let pts=[[36,204],[96,176],[150,136],[220,72],[300,58],[372,88],[445,130],[525,168],[640,198]];pts.forEach((p,idx)=>idx?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();
+ctx.fillStyle='rgba(168,163,154,.92)';ctx.font='15px JetBrains Mono';ctx.fillText('upload',38,224);ctx.fillText('train + infer',230,54);ctx.fillText('cleanup after S3',488,224)
+}
+go(slideFromUrl());
+</script>
+</body>
+</html>

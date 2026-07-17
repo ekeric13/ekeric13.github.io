@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Contact Center Matching · Eric Kennedy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#0e1518;--bg2:#0b1114;--panel:#152025;--panel2:#182a30;--line:#243840;--line2:#1b2b31;
+--ink:#e7f0f2;--dim:#8fa4a9;--faint:#5f767c;--evidence:#54b8c9;--plan:#e0a458;--control:#9a7be0;--ok:#5fb87a;--stop:#e06a5c;
+--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;--disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden}body{background:var(--bg2);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}a{color:inherit}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;padding:6.5vh 8vw 12vh;opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .42s;background:radial-gradient(1100px 620px at 82% -6%,rgba(84,184,201,.07),transparent 60%),radial-gradient(820px 480px at 6% 8%,rgba(154,123,224,.05),transparent 58%),var(--bg)}
+.slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.011) 0 1px,transparent 1px 3px)}.slide>*{position:relative;z-index:1}.slide.active{opacity:1;visibility:visible;transform:none}
+.back{position:absolute;top:28px;left:32px;z-index:20;color:var(--faint);font-family:var(--mono);font-size:11px;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}.back:hover{color:var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--evidence);display:flex;align-items:center;gap:16px;margin-bottom:22px}.eyebrow::after{content:"";flex:1;max-width:220px;height:1px;background:linear-gradient(90deg,var(--line),transparent)}.eyebrow .ph{padding:3px 10px;border:1px solid currentColor;border-radius:999px;font-size:10px}.eyebrow.plan{color:var(--plan)}.eyebrow.control{color:var(--control)}.eyebrow.ok{color:var(--ok)}
+h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1;margin:0}.title-xl{font-size:clamp(38px,6.8vw,86px)}.title-lg{font-size:clamp(30px,4.5vw,62px)}h1 .e{color:var(--evidence)}h1 .p{color:var(--plan)}h1 .c{color:var(--control)}h1 .g{color:var(--ok)}
+.sub{font-size:clamp(15px,1.58vw,21px);color:var(--dim);max-width:72ch;margin:clamp(14px,2.2vh,22px) 0 0;line-height:1.55}.sub strong{color:#fff;font-weight:600}
+.split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,4vw,52px);align-items:center;margin-top:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:30px}
+.card,.step,.phasebox{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}.card::before,.step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--x,var(--evidence))}
+.ix,.tag{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--x,var(--evidence))}.card h3{font-family:var(--disp);font-size:23px;line-height:1.12;margin:8px 0 10px}.card p,.step p,.phasebox p{color:var(--dim);font-size:14px;line-height:1.55;margin:0}
+.bullets{list-style:none;margin:clamp(16px,2.5vh,28px) 0 0;padding:0}.bullets li{position:relative;margin:clamp(10px,1.7vh,18px) 0;padding-left:30px;font-size:clamp(14px,1.48vw,16px);line-height:1.5;color:var(--ink)}.bullets li::before{content:"";position:absolute;left:0;top:8px;width:11px;height:11px;border-radius:3px;background:var(--c,var(--evidence));box-shadow:0 0 12px var(--c,var(--evidence))}.bullets span{color:var(--dim)}
+.strip{margin-top:26px;max-width:78ch;border-left:3px solid var(--c,var(--evidence));background:rgba(84,184,201,.06);padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}.strip .lb{display:block;margin-bottom:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c,var(--evidence))}
+.flow{display:grid;gap:12px}.step{display:grid;grid-template-columns:132px 1fr;gap:18px;align-items:start}.step b{font-family:var(--disp);font-size:18px}.step span{color:var(--dim);font-size:14px;line-height:1.5}
+.cont{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin-top:36px;max-width:1000px}.phasebox.old{border-color:rgba(224,106,92,.34)}.phasebox.new{border-color:rgba(95,184,122,.34)}.phasebox .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}.phasebox .n{font-family:var(--disp);font-weight:700;font-size:24px;margin:4px 0 14px}.phasebox.old .n{color:var(--stop)}.phasebox.new .n{color:var(--ok)}.row{display:flex;gap:10px;align-items:flex-start;color:var(--dim);font-size:14px;margin:10px 0;line-height:1.4}.dotc{width:10px;height:10px;border-radius:50%;flex:none;margin-top:5px}.equals{display:grid;place-items:center;padding:0 26px}.equals .eq{font-family:var(--disp);font-weight:700;font-size:38px;color:var(--evidence)}.equals .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center;max-width:120px}
+.hud{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:16px}.nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:22px;cursor:pointer}.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border:0;border-radius:50%;background:var(--line);padding:0;cursor:pointer}.dots button.on{background:var(--evidence);box-shadow:0 0 12px var(--evidence)}.count{position:absolute;right:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:11px;color:var(--faint)}.hint{position:absolute;left:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
+@media(max-width:900px){.slide{padding:6.5vh 6vw 12vh}.split,.grid3,.grid2,.cont{grid-template-columns:1fr}.equals{padding:4px}.step{grid-template-columns:1fr}.hint{display:none}}
+</style>
+</head>
+<body>
+<a target="_blank" rel="noopener noreferrer" class="back" href="../../">Back to portfolio</a>
+<div class="deck">
+
+<section class="slide active">
+<div class="eyebrow"><span class="ph">00</span> The problem</div>
+<h1 class="title-xl">Routing plans were becoming <span class="e">too expensive</span> to maintain by hand.</h1>
+<p class="sub">Contact-center routing sits at the intersection of customer intent, staffing reality, quality standards, and operational policy. Manual plan authoring can work for a small surface area, but it breaks down as queues, intents, and staffing conditions keep changing.</p>
+<div class="cont">
+<div class="phasebox old"><div class="h">Before</div><div class="n">Human-authored plans</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>slow to create and revise</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>hard to keep aligned with quality signals</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>fallback behavior depended on operator judgment</div></div>
+<div class="equals"><div class="eq">-&gt;</div><div class="lbl">needed a data workflow</div></div>
+<div class="phasebox new"><div class="h">After</div><div class="n">AI-assisted planning</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>recommendations built from evidence</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>reviewable before production use</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>live routing stays deterministic</div></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow plan"><span class="ph">01</span> Constraints</div>
+<h1 class="title-lg">The plan is configuration, product behavior, and operational policy.</h1>
+<div class="grid3">
+<div class="card" style="--x:var(--evidence)"><div class="ix">Evidence</div><h3>Ground it in operating signals</h3><p>Structured fields were only part of the picture. Quality-control signals and routing history helped keep plans current.</p></div>
+<div class="card" style="--x:var(--plan)"><div class="ix">Supply</div><h3>Account for availability</h3><p>The best specialist is not always free. A good plan needs an ordered fallback path.</p></div>
+<div class="card" style="--x:var(--control)"><div class="ix">Control</div><h3>Make trust incremental</h3><p>Operators needed to inspect and promote recommendations before trusting more automation.</p></div>
+</div>
+<div class="strip" style="--c:var(--plan)"><span class="lb">Core tension</span> A plan that is too narrow creates wait time. A plan that is too broad loses the benefit of specialization.</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow"><span class="ph">02</span> System shape</div>
+<h1 class="title-lg">Separate <span class="e">learning</span> from serving.</h1>
+<div class="split">
+<div>
+<p class="sub">The architecture kept expensive intelligence away from the live customer path. Analysis and planning happened before routing. Runtime only consumed already-approved configuration.</p>
+<ul class="bullets">
+<li><strong>Offline analysis.</strong> <span>Prior interaction patterns become bounded evidence about routing demand and quality-control outcomes.</span></li>
+<li><strong>Candidate planning.</strong> <span>Evidence feeds a recommendation workflow that proposes specialist-first routing plus fallbacks.</span></li>
+<li><strong>Deterministic runtime.</strong> <span>The live path reads promoted configuration instead of waiting on model calls.</span></li>
+</ul>
+</div>
+<div class="flow">
+<div class="step"><b>Read history</b><span>Analyze prior routing patterns, demand, and quality-control outcomes.</span></div>
+<div class="step"><b>Build evidence</b><span>Convert operating history into constrained, reviewable signals.</span></div>
+<div class="step"><b>Generate plan</b><span>Recommend routing behavior and fallback steps.</span></div>
+<div class="step"><b>Promote</b><span>Move only reviewed output into production configuration.</span></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow plan"><span class="ph">03</span> Key decisions</div>
+<h1 class="title-lg">The system design mattered more than the prompt.</h1>
+<div class="grid2">
+<div class="card" style="--x:var(--evidence)"><div class="ix">Decision 1</div><h3>Batch analysis over runtime inference</h3><p>Model calls are easier to retry, inspect, sample, and control when they are not blocking a live decision.</p></div>
+<div class="card" style="--x:var(--evidence)"><div class="ix">Decision 2</div><h3>Constrained labels over free-form output</h3><p>The model mapped evidence into bounded routing concepts instead of inventing arbitrary labels.</p></div>
+<div class="card" style="--x:var(--plan)"><div class="ix">Decision 3</div><h3>Fallback plans over best-match only</h3><p>The useful artifact was the ordered relaxation path when the ideal expert was unavailable.</p></div>
+<div class="card" style="--x:var(--control)"><div class="ix">Decision 4</div><h3>Human in the loop first, then remove it</h3><p>The first version made generated plans staged artifacts. Later, the same boundary became the path to more automated promotion.</p></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow control"><span class="ph">04</span> Operating model</div>
+<h1 class="title-lg">The human gate was a <span class="c">temporary trust boundary</span>.</h1>
+<p class="sub">The first safe version kept people in the loop. That was the right initial product choice: generated plans were staged, reviewed, and promoted explicitly. Once the evidence, checks, and operational confidence improved, the same boundary could be reversed into an automation path.</p>
+<div class="grid3">
+<div class="card" style="--x:var(--control)"><div class="ix">Phase 1</div><h3>Human in the loop</h3><p>Operators inspected recommendations before they affected routing behavior.</p></div>
+<div class="card" style="--x:var(--evidence)"><div class="ix">Bridge</div><h3>Earn confidence</h3><p>Evidence, diffs, checks, and rollback made generated plans easier to trust.</p></div>
+<div class="card" style="--x:var(--ok)"><div class="ix">Phase 2</div><h3>Automate the gate</h3><p>The review boundary could shift from manual promotion toward automated checks and promotion.</p></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow ok"><span class="ph">05</span> Lessons</div>
+<h1 class="title-lg">Applied AI succeeds or fails around the model.</h1>
+<ul class="bullets" style="--c:var(--ok)">
+<li><strong>Review is a product feature.</strong> <span>AI systems earn trust faster when the first version makes review cheap instead of demanding full autonomy.</span></li>
+<li><strong>Operators care about behavior.</strong> <span>Predictability, clear failure modes, and rollback matter more than model sophistication.</span></li>
+<li><strong>The workflow is the product.</strong> <span>Evidence quality, promotion gates, observability, and ownership boundaries decide whether the system can run.</span></li>
+</ul>
+<div class="strip" style="--c:var(--ok)"><span class="lb">Through-line</span> The important move was separating offline intelligence from online execution, then wrapping generated output in the same controls as any other production configuration.</div>
+</section>
+
+</div>
+<div class="hud"><div class="nav"><button id="prev" aria-label="previous slide">&lt;</button></div><div class="dots" id="dots"></div><div class="nav"><button id="next" aria-label="next slide">&gt;</button></div></div>
+<div class="hint">&lt; &gt; advance</div><div class="count"><span id="cur">1</span>/<span id="tot">6</span></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dotsWrap=document.getElementById('dots');
+let i=0;
+function slideFromUrl(){const n=Number(new URLSearchParams(location.search).get('slide'));return Number.isInteger(n)?n-1:0}
+function syncUrl(){const url=new URL(location.href);url.searchParams.set('slide',String(i+1));history.replaceState({slide:i+1},'',url)}
+document.getElementById('tot').textContent=slides.length;
+slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',()=>go(n));dotsWrap.appendChild(b)});
+const dots=[...dotsWrap.children];
+function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('active',k===i));dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;if(updateUrl)syncUrl()}
+function next(){go(i+1)}function prev(){go(i-1)}
+document.getElementById('next').addEventListener('click',next);document.getElementById('prev').addEventListener('click',prev);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();next()}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}else if(e.key==='Home'){go(0)}else if(e.key==='End'){go(slides.length-1)}});
+window.addEventListener('popstate',()=>go(slideFromUrl(),false));go(slideFromUrl());
+</script>
+</body>
+</html>

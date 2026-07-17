@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Agent Gateway · Eric Kennedy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#0f1216;--bg2:#0b0d10;--panel:#171b21;--panel2:#1c222a;--line:#2a3138;--line2:#1f252b;
+--ink:#eaeef2;--dim:#98a4af;--faint:#647079;--gateway:#5b8def;--agent:#4fb0a0;--policy:#a77be0;--ops:#c79a4a;--ok:#5fb87a;--stop:#e06a5c;
+--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;--disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden}body{background:var(--bg2);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}a{color:inherit}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;padding:6.5vh 8vw 12vh;opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .42s;background:radial-gradient(1100px 620px at 82% -6%,rgba(91,141,239,.07),transparent 60%),radial-gradient(820px 480px at 6% 8%,rgba(199,154,74,.05),transparent 58%),var(--bg)}
+.slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.011) 0 1px,transparent 1px 3px)}.slide>*{position:relative;z-index:1}.slide.active{opacity:1;visibility:visible;transform:none}
+.back{position:absolute;top:28px;left:32px;z-index:20;color:var(--faint);font-family:var(--mono);font-size:11px;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}.back:hover{color:var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gateway);display:flex;align-items:center;gap:16px;margin-bottom:22px}.eyebrow::after{content:"";flex:1;max-width:220px;height:1px;background:linear-gradient(90deg,var(--line),transparent)}.eyebrow .ph{padding:3px 10px;border:1px solid currentColor;border-radius:999px;font-size:10px}.eyebrow.agent{color:var(--agent)}.eyebrow.policy{color:var(--policy)}.eyebrow.ops{color:var(--ops)}.eyebrow.ok{color:var(--ok)}
+h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1;margin:0}.title-xl{font-size:clamp(38px,6.8vw,86px)}.title-lg{font-size:clamp(30px,4.5vw,62px)}h1 .g{color:var(--gateway)}h1 .a{color:var(--agent)}h1 .p{color:var(--policy)}h1 .o{color:var(--ops)}h1 .k{color:var(--ok)}
+.sub{font-size:clamp(15px,1.58vw,21px);color:var(--dim);max-width:72ch;margin:clamp(14px,2.2vh,22px) 0 0;line-height:1.55}.sub strong{color:#fff;font-weight:600}
+.split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,4vw,52px);align-items:center;margin-top:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:30px}
+.card,.step,.phasebox{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}.card::before,.step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--x,var(--gateway))}
+.ix,.tag{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--x,var(--gateway))}.card h3{font-family:var(--disp);font-size:23px;line-height:1.12;margin:8px 0 10px}.card p,.step p,.phasebox p{color:var(--dim);font-size:14px;line-height:1.55;margin:0}
+.bullets{list-style:none;margin:clamp(16px,2.5vh,28px) 0 0;padding:0}.bullets li{position:relative;margin:clamp(10px,1.7vh,18px) 0;padding-left:30px;font-size:clamp(14px,1.48vw,16px);line-height:1.5;color:var(--ink)}.bullets li::before{content:"";position:absolute;left:0;top:8px;width:11px;height:11px;border-radius:3px;background:var(--c,var(--gateway));box-shadow:0 0 12px var(--c,var(--gateway))}.bullets span{color:var(--dim)}
+.strip{margin-top:26px;max-width:78ch;border-left:3px solid var(--c,var(--gateway));background:rgba(91,141,239,.06);padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}.strip .lb{display:block;margin-bottom:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c,var(--gateway))}
+.flow{display:grid;gap:12px}.step{display:grid;grid-template-columns:142px 1fr;gap:18px;align-items:start}.step b{font-family:var(--disp);font-size:18px}.step span{color:var(--dim);font-size:14px;line-height:1.5}
+.cont{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin-top:36px;max-width:1000px}.phasebox.old{border-color:rgba(224,106,92,.34)}.phasebox.new{border-color:rgba(95,184,122,.34)}.phasebox .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}.phasebox .n{font-family:var(--disp);font-weight:700;font-size:24px;margin:4px 0 14px}.phasebox.old .n{color:var(--stop)}.phasebox.new .n{color:var(--ok)}.row{display:flex;gap:10px;align-items:flex-start;color:var(--dim);font-size:14px;margin:10px 0;line-height:1.4}.dotc{width:10px;height:10px;border-radius:50%;flex:none;margin-top:5px}.equals{display:grid;place-items:center;padding:0 26px}.equals .eq{font-family:var(--disp);font-weight:700;font-size:38px;color:var(--gateway)}.equals .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center;max-width:120px}
+.hud{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:16px}.nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:22px;cursor:pointer}.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border:0;border-radius:50%;background:var(--line);padding:0;cursor:pointer}.dots button.on{background:var(--gateway);box-shadow:0 0 12px var(--gateway)}.count{position:absolute;right:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:11px;color:var(--faint)}.hint{position:absolute;left:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
+@media(max-width:900px){.slide{padding:6.5vh 6vw 12vh}.split,.grid3,.grid2,.cont{grid-template-columns:1fr}.equals{padding:4px}.step{grid-template-columns:1fr}.hint{display:none}}
+</style>
+</head>
+<body>
+<a target="_blank" rel="noopener noreferrer" class="back" href="../../">Back to portfolio</a>
+<div class="deck">
+
+<section class="slide active">
+<div class="eyebrow"><span class="ph">00</span> The platform</div>
+<h1 class="title-xl">Production agents need <span class="g">platform mechanics</span>, not just prompts.</h1>
+<p class="sub">A prototype agent can be useful with a prompt, a few tools, and a friendly user. A production agent platform needs resumable state, consistent identity, bounded tool execution, review points, observability, and a way for teams to add domain behavior without forking the runtime.</p>
+<div class="cont">
+<div class="phasebox old"><div class="h">Before</div><div class="n">Prototype gravity</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>each workflow solves state differently</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>safety and audit drift by entry point</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>handoffs lose context</div></div>
+<div class="equals"><div class="eq">-&gt;</div><div class="lbl">needed one harness</div></div>
+<div class="phasebox new"><div class="h">After</div><div class="n">Shared gateway</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>one runtime path</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>actions gated at execution time</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>domain behavior composes above it</div></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow agent"><span class="ph">01</span> Constraints</div>
+<h1 class="title-lg">The hard parts were around the agent.</h1>
+<div class="grid3">
+<div class="card" style="--x:var(--gateway)"><div class="ix">Runtime</div><h3>State must survive normal failure</h3><p>Long-running work needs to resume across pauses, approvals, restarts, and non-sticky routing.</p></div>
+<div class="card" style="--x:var(--policy)"><div class="ix">Safety</div><h3>Conversation access is not action access</h3><p>Sensitive tools need checks at the moment they execute, with denial and audit as first-class paths.</p></div>
+<div class="card" style="--x:var(--agent)"><div class="ix">Adoption</div><h3>Domain teams need a repeatable pattern</h3><p>Teams should vary workflow knowledge without rebuilding the gateway mechanics.</p></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow"><span class="ph">02</span> Gateway shape</div>
+<h1 class="title-lg">Keep clients thin. Put common behavior in <span class="g">one runtime</span>.</h1>
+<div class="split">
+<div>
+<p class="sub">Different clients can enter through different adapters, but the runtime should receive a normalized request shape and handle state, streaming, tool calls, safety checks, and audit events consistently.</p>
+<ul class="bullets">
+<li><strong>Normalize entry.</strong> <span>Attach identity, source, context, and response shape before agent execution.</span></li>
+<li><strong>Resume state.</strong> <span>Load the active conversation and checkpoint so work can continue after interruptions.</span></li>
+<li><strong>Run domain behavior.</strong> <span>Select the relevant workflow instructions and tools without forking platform code.</span></li>
+</ul>
+</div>
+<div class="flow">
+<div class="step"><b>Entry</b><span>Web, chat, service, or agent-client request.</span></div>
+<div class="step"><b>Gateway</b><span>Normalize identity, context, state, streaming, and audit.</span></div>
+<div class="step"><b>Agent</b><span>Use domain-specific instructions and tool contracts.</span></div>
+<div class="step"><b>Action</b><span>Evaluate permissions, execute or deny, and record the result.</span></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow policy"><span class="ph">03</span> Tool safety</div>
+<h1 class="title-lg">Gate the <span class="p">action</span>, not just the conversation.</h1>
+<p class="sub">If people can discover what agents can do, some requests will reach tools the caller cannot use. Treating denial as an ordinary product path made the system safer and more usable. The gateway could hand the user to an authz agent that investigated the failed action and explained what approval path was needed.</p>
+<div class="grid3">
+<div class="card" style="--x:var(--policy)"><div class="ix">Policy</div><h3>Check at execution time</h3><p>The model can propose an action, but the gateway decides whether the caller may run it.</p></div>
+<div class="card" style="--x:var(--agent)"><div class="ix">Authz agent</div><h3>Turn denial into a workflow</h3><p>A helper agent could inspect the request, identify likely access gaps, and prepare the user for the right approval path.</p></div>
+<div class="card" style="--x:var(--ops)"><div class="ix">Boundary</div><h3>No self-approval</h3><p>The agent could advise and route. A sensitive grant still needed a separate human or system approval boundary.</p></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow policy"><span class="ph">04</span> Collaboration</div>
+<h1 class="title-lg">Shared context made handoffs <span class="p">part of the workflow</span>.</h1>
+<div class="split">
+<div>
+<p class="sub">Operational work often starts with one person and finishes with another. The gateway treated collaboration as a runtime concern: preserve the shared context, let a second person catch up, and keep new events attached to the same work thread.</p>
+<ul class="bullets" style="--c:var(--policy)">
+<li><strong>Private by default.</strong> <span>A solo thread stayed scoped to the caller unless collaboration was explicitly requested.</span></li>
+<li><strong>Shared when needed.</strong> <span>A collaborative thread let another user join the same context instead of asking for a copy-paste recap.</span></li>
+<li><strong>Catch-up plus live work.</strong> <span>Joiners could read prior events and then follow new progress as the agent continued.</span></li>
+</ul>
+</div>
+<div class="flow">
+<div class="step"><b>Start</b><span>One user begins an investigation or operational change with an agent.</span></div>
+<div class="step"><b>Share</b><span>The user switches from private work to a shared context.</span></div>
+<div class="step"><b>Join</b><span>Another person catches up from prior events and continues from the same state.</span></div>
+<div class="step"><b>Continue</b><span>The gateway keeps state, audit, and live progress attached to the shared thread.</span></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="eyebrow ok"><span class="ph">05</span> Lessons</div>
+<h1 class="title-lg">The durable abstraction is the <span class="k">harness</span>.</h1>
+<ul class="bullets" style="--c:var(--ok)">
+<li><strong>Design for failure paths.</strong> <span>Denied actions, partial results, approvals, retries, and handoffs should be expected flows.</span></li>
+<li><strong>Separate domain knowledge from platform mechanics.</strong> <span>Instructions and tool-use patterns should evolve faster than state, audit, and safety infrastructure.</span></li>
+<li><strong>Do not make every client a new backend.</strong> <span>One execution path keeps behavior consistent and rollout cheaper.</span></li>
+</ul>
+<div class="strip" style="--c:var(--ok)"><span class="lb">Through-line</span> Agents can differ in workflow and domain knowledge, but they should not differ in how they handle state, tool safety, audit, or rollout.</div>
+</section>
+
+</div>
+<div class="hud"><div class="nav"><button id="prev" aria-label="previous slide">&lt;</button></div><div class="dots" id="dots"></div><div class="nav"><button id="next" aria-label="next slide">&gt;</button></div></div>
+<div class="hint">&lt; &gt; advance</div><div class="count"><span id="cur">1</span>/<span id="tot">6</span></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dotsWrap=document.getElementById('dots');
+let i=0;
+function slideFromUrl(){const n=Number(new URLSearchParams(location.search).get('slide'));return Number.isInteger(n)?n-1:0}
+function syncUrl(){const url=new URL(location.href);url.searchParams.set('slide',String(i+1));history.replaceState({slide:i+1},'',url)}
+document.getElementById('tot').textContent=slides.length;
+slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',()=>go(n));dotsWrap.appendChild(b)});
+const dots=[...dotsWrap.children];
+function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('active',k===i));dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;if(updateUrl)syncUrl()}
+function next(){go(i+1)}function prev(){go(i-1)}
+document.getElementById('next').addEventListener('click',next);document.getElementById('prev').addEventListener('click',prev);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();next()}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}else if(e.key==='Home'){go(0)}else if(e.key==='End'){go(slides.length-1)}});
+window.addEventListener('popstate',()=>go(slideFromUrl(),false));go(slideFromUrl());
+</script>
+</body>
+</html>
