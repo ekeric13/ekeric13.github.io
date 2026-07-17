@@ -1,108 +1,296 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-  <link rel="shortcut icon" href="styles/assets/favicon.ico">
-  <link rel="icon" href="styles/assets/favicon.ico">
-  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" type="text/css" href="styles/ionicons.css">
-  <link rel="stylesheet" type="text/css" href="styles/materialize.css">
-  <link rel="stylesheet" type="text/css" href="styles/hover.css">
-  <link rel="stylesheet" type="text/css" href="styles/styles.css">
-</head>
-<body>
-<!-- Hey! :) -->
-<div class="body-container">
-  <div class="sidebar">
-    <div class="sidebar-content">
-      <h3 class="name overline name-grow">Eric Kennedy</h3>
-      <ul class="medium nav">
-        <li><a class="ion-social-wordpress pop" href="http://ekeric13.github.io/blog" target="_blank"></a></li>
-        <li><a class="ion-social-github pop" href="https://github.com/ekeric13" target="_blank"></a></li>
-        <li><a class="ion-social-linkedin pop" href="https://www.linkedin.com/in/ekeric13" target="_blank"></a></li>
-      </ul>
-      <ul class="medium nav">
-        <li><a class="ion-ios-game-controller-a shake" href="http://ekeric13.github.io/spaceshipgame" target="_blank"></a></li>
-        <li><a class="ion-music-note music-note jump"></a><span class="swap"><a id="musicPlayer" class="ion-android-volume-up grow" href="index.html#"></a></span></li>
-      </ul>
-  </div>
-  </div>
-  <div class="main">
-    <div class="parallax-container">
-      <div class="parallax"><img class="parallax-image" src="styles/assets/hk.jpg">
-      </div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eric Kennedy | Portfolio</title>
+    <meta
+      name="description"
+      content="Eric Kennedy's portfolio: applied AI, backend systems, platform infrastructure, and product engineering."
+    />
+    <meta property="og:title" content="Eric Kennedy | Portfolio" />
+    <meta
+      property="og:description"
+      content="Applied AI, backend systems, platform infrastructure, and product engineering."
+    />
+    <meta property="og:image" content="https://ekeric13.github.io/assets/brand/ek-social-preview.png" />
+    <meta property="og:url" content="https://ekeric13.github.io/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Eric Kennedy | Portfolio" />
+    <meta
+      name="twitter:description"
+      content="Applied AI, backend systems, platform infrastructure, and product engineering."
+    />
+    <meta name="twitter:image" content="https://ekeric13.github.io/assets/brand/ek-social-preview.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/assets/brand/ek-icon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles/variants.css" />
+  </head>
+  <body class="v4">
+    <header class="variant-nav">
+      <a class="variant-nav__name" href="index.html">Eric Kennedy</a>
+      <nav class="variant-nav__links" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#writing">Writing</a>
+        <a href="index_v_mario.html">Play Mario</a>
+      </nav>
+    </header>
 
-    </div>
-    <div class="white">
-
-        <h2><span class="about-me">About me</span></h2>
-        <div class="about">
-          <div class="large">I like to laugh a lot.</div>
-          <div class="medium">Have seen way too many movies. Let me know your favorite movie and I will tell you what I think of it. Feel free to ask for recommendations.</div>
-          <div class="small">Love running. Always down to do something athletic like biking, hiking, basketball, etc.</div>
-        </div>
-        <h4><span class="section-header">Some movies I like:</span></h4>
-        <ul class="small">
-          <li><a href="https://www.youtube.com/watch?v=GB2yiIoEtXw" target="_blank">Singin' in the Rain</a></li>
-          <li><a href="https://www.youtube.com/watch?v=6RFH9_M0OaY" target="_blank">Annie Hall</a></li>
-          <li><a href="https://www.youtube.com/watch?v=IAH-0GKvIrM" target="_blank">Chunking Express</a></li>
-          <li><a href="https://www.youtube.com/watch?v=5vO92REraUo" target="_blank">There Will Be Blood</a></li>
-          <li><a href="https://www.youtube.com/watch?v=lMd2gB9L8So" target="_blank">Rushmore</a></li>
-        </ul>
-        <h4><span class="section-header">Some songs I am currently listening to:</span></h4>
-        <ul class="small">
-          <li><a href="https://www.youtube.com/watch?v=GAkw_Wi4yIo" target="_blank">Tchaikovsky : Violin Concerto in D major op.35</a></li>
-          <li><a href="https://www.youtube.com/watch?v=9KpIV57PSeo" target="_blank">Stan Getz & Joao Gilberto - Getz/Gilberto (1963)</a></li>
-          <li><a href="https://www.youtube.com/watch?v=0fOHh5Q7Q1E" target="_blank">Jamie xx - Sleep Sound</a></li>
-          <li><a href="https://www.youtube.com/watch?v=NUJP0BwWB5Q" target="_blank">Radiohead - Fake Plastic Trees</a></li>
-          <li><a href="https://www.youtube.com/watch?v=-5Ae-LhMIG0" target="_blank">Future Islands - Seasons (Waiting On You)</a> - ask me about the time I saw this band live</li>
-        </ul>
-        <br>
-        <div class="small call-to-action">
-          <p>Currently on the job market.</p>
-          <p>If you want to talk to me (I am pretty good at talking), collaborate, hangout, go to a concert, or get some dim sum contact me at <a href="mailto:ekeric13@gmail.com?subject=Reaching%20Out&body=Hey%20Eric,">ekeric13@gmail.com</a></p>
+    <main>
+      <section class="v-section v4-hero" aria-labelledby="hero-title">
+        <div class="v4-copy">
+          <p class="v-eyebrow">Software engineer · product · platform/infra · applied AI systems</p>
+          <h1 id="hero-title">I build products from 0 to 1 and systems from 1 to millions.</h1>
+          <p>
+            I work where product ambiguity turns into backend systems, platform infrastructure, and applied AI. The
+            through-line is ownership: understand the business problem, design the system, ship it, and keep it running.
+          </p>
+          <div class="v4-actions">
+            <a class="v-button" href="#work">Read the work</a>
+          </div>
         </div>
 
-      </div>
+        <aside class="v4-desk" aria-label="Pinned career notes">
+          <div class="v4-desk-card v4-desk-card--yellow">
+            <h2>Build</h2>
+            <strong>0 to 1</strong>
+            <p>Founder work, product taste, GenAI, real users, checkout, operations.</p>
+          </div>
+          <div class="v4-desk-card v4-desk-card--blue">
+            <h2>Scale</h2>
+            <strong>1 to millions</strong>
+            <p>Databases, eventing, Kubernetes, deploy tooling, reliability.</p>
+          </div>
+          <div class="v4-desk-card v4-desk-card--green">
+            <h2>Current lane</h2>
+            <strong>Applied AI with product and systems depth.</strong>
+          </div>
+        </aside>
+      </section>
 
-      <div class="parallax-container">
-        <div class="parallax"><img class="parallax-image"  src="styles/assets/hk.jpg">
+      <section class="v-section v4-resume" aria-labelledby="resume-title">
+        <div class="v4-section-intro">
+          <p class="v-eyebrow">Experience</p>
+          <h2 id="resume-title">Work shaped by scale, innovation, and ownership.</h2>
         </div>
+        <div class="v4-timeline">
+          <article class="v4-timeline-item">
+            <div class="v4-company-mark v4-company-mark--fill">
+              <img src="assets/logos/intuit.png" alt="Intuit" />
+            </div>
+            <div>
+              <div class="v4-timeline-item__meta">2024 - Present · Intuit</div>
+              <h3>Senior Software Engineer</h3>
+              <p>
+                Built AI-powered marketplace, recommendation, and workforce optimization systems for Intuit's Virtual
+                Expert Platform. Worked on production applied-AI systems that improved routing coverage, operational
+                onboarding, and customer-support outcomes at large scale.
+              </p>
+            </div>
+          </article>
+          <article class="v4-timeline-item">
+            <div class="v4-company-mark v4-company-mark--photo">
+              <img src="assets/logos/animepics.png" alt="AnimePics" />
+            </div>
+            <div>
+              <div class="v4-timeline-item__meta">2023 · AnimePics</div>
+              <h3>Founder</h3>
+              <p>
+                Built a GenAI product from scratch that transformed user photos into anime illustrations. Owned the
+                business, product, and engineering, including custom model training, payments, authentication, async GPU
+                jobs, and media delivery.
+              </p>
+            </div>
+          </article>
+          <article class="v4-timeline-item">
+            <div class="v4-company-mark">
+              <img src="assets/logos/ethos.webp" alt="Ethos" />
+            </div>
+            <div>
+              <div class="v4-timeline-item__meta">2018 - 2023 · Ethos</div>
+              <h3>Staff Software Engineer</h3>
+              <p>
+                Joined near the beginning and helped build the platform foundations behind a fast-growing engineering org:
+                Kubernetes, deploy automation, Postgres migrations, eventing, service boundaries, and production
+                operations. Helped scale Ethos from Series A to 100+ engineers, $50M ARR, and a multi-billion-dollar
+                valuation.
+              </p>
+            </div>
+          </article>
+          <article class="v4-timeline-item v4-timeline-item--compact">
+            <div class="v4-company-mark v4-company-mark--fill">
+              <img src="assets/logos/hiq.png" alt="hiQ Labs" />
+            </div>
+            <div>
+              <div class="v4-timeline-item__meta">2015 - 2018 · Curology + hiQ Labs</div>
+              <h3>Product engineering foundation</h3>
+              <p>
+                Started professionally in frontend and product engineering, then moved deeper into backend systems after
+                building a stronger computer science foundation.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
 
+      <section class="v-section v4-work" id="work" aria-labelledby="work-title">
+        <h2 id="work-title">Selected work</h2>
+        <div class="v4-project-grid">
+          <a target="_blank" rel="noopener noreferrer" class="v4-project-card" href="projects/anime-pics/">
+            <span>0 to 1</span>
+            <h3>AnimePics</h3>
+            <p>Founder-led GenAI product with custom model training and async GPU delivery.</p>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" class="v4-project-card" href="projects/event-bus/">
+            <span>Platform</span>
+            <h3>Event Bus</h3>
+            <p>Reliable service communication through outbox, CDC, schema validation, and Kafka.</p>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" class="v4-project-card" href="projects/ai-contact-center-matching-redacted/">
+            <span>Applied AI</span>
+            <h3>AI Contact Center Matching</h3>
+            <p>Production applied-AI system that improved routing coverage, operational onboarding, and support outcomes.</p>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" class="v4-project-card" href="projects/ai-agent-gateway-redacted/">
+            <span>Agents</span>
+            <h3>AI Agent Gateway</h3>
+            <p>Shared agent platform for production workflows across state, tool execution, rollout, and observability.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="v-section v4-writing" id="writing" aria-labelledby="writing-title">
+        <h2 id="writing-title">Short essays on software engineering</h2>
+        <div class="v4-writing-list">
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-makes-rewrites-less-taboo/">
+            <img src="assets/writing/post1_ai-rewrites-thumbnail-2560x1440.png" alt="Rewrite thumbnail" />
+            <div>
+              <h3>AI makes rewrites less taboo</h3>
+              <p>A software engineering truism that no longer makes sense after AI codegen: "Never do a full rewrite."</p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/best-language-no-longer-one-you-know/">
+            <img src="assets/writing/post2_ai_languages.jpg" alt="Programming languages thumbnail" />
+            <div>
+              <h3>The best language is no longer just the one you know</h3>
+              <p>
+                A software engineering truism that feels weaker now after AI codegen: "The best programming language is
+                the one your team currently uses."
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/brooks-law-weaker-not-dead/">
+            <img src="assets/writing/post3_ai_mythical.jpg" alt="Brooks's Law thumbnail" />
+            <div>
+              <h3>Brooks's Law is weaker, but not dead</h3>
+              <p>
+                A software engineering truism that feels weaker now after AI codegen: Brooks's Law from The Mythical
+                Man-Month.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/old-swe-truisms-after-ai/">
+            <img src="assets/writing/post4_simple_beats_clever.png" alt="Software truisms thumbnail" />
+            <div>
+              <h3>Old SWE truisms that matter even more after AI</h3>
+              <p>Simple beats clever. Duplication beats the wrong abstraction.</p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/new-tech-debt-knowledge-debt/">
+            <img src="assets/writing/tech_debt.png" alt="Knowledge debt thumbnail" />
+            <div>
+              <h3>The new tech debt is knowledge debt</h3>
+              <p>
+                AI has let people develop systems that cannot be managed or reasoned about without the assistance of AI,
+                creating a lock-in effect and a dependency on the models.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/tech-debt-not-always-bad/">
+            <img src="assets/writing/post_5_5_tech_debt2.png" alt="Tech debt thumbnail" />
+            <div>
+              <h3>Tech debt is not always bad debt</h3>
+              <p>"Tech debt" is actually a great name because debt is not always bad. Sometimes it is good.</p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-changes-platform-teams/">
+            <img src="assets/writing/post_6_platform_teams.png" alt="Platform teams thumbnail" />
+            <div>
+              <h3>AI changes the value of platform teams</h3>
+              <p>
+                Maybe a hot take here - I think AI codegen is reducing the value of platform teams. Specifically those
+                that have centralized platform ownership.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/debugging-with-llms/">
+            <img src="assets/writing/post_7_context_window.png" alt="Debugging with LLMs thumbnail" />
+            <div>
+              <h3>Debugging with LLMs is amazing until it isn't</h3>
+              <p>
+                So one great side effect about machines that can process a Harry Potter novel amount of information in
+                seconds is they can make debugging a lot quicker.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-rewards-agency/">
+            <img src="assets/writing/post_8_big_red_button.png" alt="AI rewards agency thumbnail" />
+            <div>
+              <h3>AI rewards agency, but punishes shallow understanding</h3>
+              <p>Have you ever talked to an engineer about their PR and you can tell they have no idea what is in it?</p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-and-second-order-effects/">
+            <img src="assets/writing/post9_second_order.png" alt="Second-order effects thumbnail" />
+            <div>
+              <h3>AI and second-order effects</h3>
+              <p>
+                You ship a feature that queries the DB and brings a lot of data into memory. There is a separate thread
+                that dequeues and processes logs from a queue in a loop.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-makes-bad-engineers-more-expensive/">
+            <img src="assets/writing/post_10_slop_cannon_pr_linkedin_2400x1254.png" alt="Bad engineers and AI thumbnail" />
+            <div>
+              <h3>AI makes bad engineers more expensive</h3>
+              <p>Hot take - AI makes working with bad software engineers much more painful. Bad engineers were somewhat rate-limited.</p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/untouched-ai-output-feels-disrespectful/">
+            <img src="assets/writing/post_11_ai-writing-disrespectful-thumbnail-2560x1440.png" alt="AI writing thumbnail" />
+            <div>
+              <h3>Untouched AI output feels disrespectful</h3>
+              <p>
+                The reason why I think bad AI writing bugs people so much - it is genuinely disrespectful to ask someone
+                to put effort into reading something you couldn't be bothered to put an ounce of effort into writing.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/llms-less-collaborative/">
+            <img src="assets/writing/post12_llm_collaboration.png" alt="LLM collaboration thumbnail" />
+            <div>
+              <h3>LLMs are making software development less collaborative</h3>
+              <p>
+                LLMs have definitely made software development less collaborative. Personally I used to get pinged all
+                the time for advice on code structure, technology choices, architecture, and so on.
+              </p>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v-footer">
+      <span>San Diego, CA</span>
+      <div class="v-footer__links">
+        <a target="_blank" rel="noopener noreferrer" href="mailto:ekeric13@gmail.com">ekeric13@gmail.com</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/ekeric13">GitHub</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/ekeric13">LinkedIn</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://x.com/EKeric13">X</a>
       </div>
-
-  </div>
-</div>
-
-  <script src="js/jquery-2.1.3.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="http://connect.soundcloud.com/sdk.js"></script>
-  <script type="text/javascript">
-
-    $(document).ready(function(){
-      var i = 0;
-      $('.parallax').parallax();
-      var muted = '<a class="ion-android-volume-up grow" href="index.html#"></a>';
-      var notMuted = '<a class="ion-android-volume-mute grow" href="index.html#"></a>';
-
-      $(".swap").on("click", function(e){
-        e.preventDefault();
-         $(e.target).parent().html(++i % 2 ? notMuted : muted);
-      });
-
-      SC.initialize({
-        client_id: '72223f0526b93c2fa4213634a53e9f48'
-      });
-      var music;
-      SC.stream("/tracks/70441944", function(sound){
-        sound.play();
-        window.setInterval(function(){
-          i % 2 ? sound.resume() : sound.pause();
-        }, 100)
-      });
-    });
-  </script>
-
-</body>
+    </footer>
+  </body>
 </html>
-

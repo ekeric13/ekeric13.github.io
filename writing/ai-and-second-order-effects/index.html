@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI and Second-Order Effects | Eric Kennedy</title>
+    <link rel="stylesheet" href="../../styles/site.css" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a target="_blank" rel="noopener noreferrer" class="back-link" href="../../#writing">Back to writing</a>
+      <article>
+        <header class="post-hero">
+          <h1>AI and Second-Order Effects</h1>
+        <img class="post-hero__image" src="../../assets/writing/post9_second_order.png" alt="Image for AI and second-order effects" />
+        </header>
+        <div class="post-body">
+<p class="lede">You ship a feature that queries the DB and brings a lot of data into memory.</p>
+<p>There is a separate thread that dequeues and processes logs from a queue in a loop.</p>
+<p>The memory pressure starves or kills the logging path.</p>
+<p>When the log queue is full, instead of dropping logs, it blocks until logs are dequeued.</p>
+<p>So the main execution thread is fine for a few more minutes.</p>
+<p>The server does not crash. And it&#x27;s not like you are seeing any error logs.</p>
+<p>But eventually the main thread tries to write logs, blocks on the full queue, and the program grinds to a halt.</p>
+<blockquote><p>The obvious issue - &quot;the program stopped running&quot;.</p></blockquote>
+<blockquote><p>The second-order issue - &quot;the bad DB query created memory pressure that broke the logging path, which eventually blocked the main execution path&quot;.</p></blockquote>
+<p>The funny thing is, AI would be able to figure this out, but probably wouldn&#x27;t surface this.</p>
+<p>If AI listed every edge case that could happen, it would be untenable.</p>
+<p>It has been trained to be a conversational chatbot and give a helpful answer. That means giving enough information to be useful, but not so much that the answer becomes noise. So it is not going to provide an exhaustive list of every possible way your system might catch on fire.</p>
+<p>And AI still has trouble consistently distinguishing between plausible edge cases that should be considered and overly defensive ones (that just make the system more complex to reason about for no real benefit). So if it gives you a subset of ways your system might catch on fire, the most realistic one might not be in there.</p>
+<p><strong>So I guess what I am saying is that even though LLMs can do very good second-order thinking, they often will not surface second-order failure modes unless specifically prompted and given the right context.</strong></p>
+<p><strong>It is on the human software engineer to know which scenarios are actually plausible and think through the second-order effects.</strong></p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

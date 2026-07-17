@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Best Language Is No Longer Just the One You Know | Eric Kennedy</title>
+    <link rel="stylesheet" href="../../styles/site.css" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a target="_blank" rel="noopener noreferrer" class="back-link" href="../../#writing">Back to writing</a>
+      <article>
+        <header class="post-hero">
+          <h1>The Best Language Is No Longer Just the One You Know</h1>
+        <img class="post-hero__image" src="../../assets/writing/post2_ai_languages.jpg" alt="Image for The Best Language Is No Longer Just the One You Know" />
+        </header>
+        <div class="post-body">
+<p>A software engineering truism that feels weaker now after AI codegen:</p>
+<blockquote><p>&quot;The best programming language is the one your team currently uses.&quot;</p></blockquote>
+<p>I am stealing that from a John Carmack interview shortly before chatGPT was released.</p>
+<p>This used to be great advice. You generally aren&#x27;t building software for rockets. There was a huge advantage in everyone being able to jump from one service to another without losing a beat. Familiarity mattered. Ramp-up speed mattered. Shared team context mattered. Saving a few clock cycles on some IO-bound application.... not so much. Never worth it when a production incident turns into a Kotlin tutorial at 2am.</p>
+<p><strong>But AI codegen has really changed the equation on language choice.</strong></p>
+<p>It is now much faster to become productive in an unfamiliar language. Not just to be productive but to get productive... as it is easier to learn a language. And some languages truly are better than others. How you evaluate a language also changes. Previously you might have a premium on the language&#x27;s ecosystem. You aren&#x27;t just choosing the language but all the frameworks and libraries that come with it and can help you ship immediately. But when the cost of code is dramatically lower, having to write your own cookie parsing middleware isn&#x27;t such a pain and might not warrant choosing a subpar language.</p>
+<p>I guess the caveat in this is it is very easy to just turn your brain off and have the LLM write all the code. And you will never end up learning the new language. Opening yourself up to footguns whenever you stray off the beaten road. Being unable to recognize when a model is confidently wrong while debugging.</p>
+<p>I think these days you should simply choose the right language for the product. But be willing to temporarily slow shipping speed down with the expectations of building a new muscle. Don&#x27;t be afraid to turn off codegen for a feature or two. It will force you to read some docs.</p>
+<h2>The language traits that matter most in the AI codegen era:</h2>
+<ol>
+<li>Static Typing</li>
+<li>A good compiler with actionable errors (fast feedback loops)</li>
+<li>Simplicity over cleverness</li>
+</ol>
+<h2>Languages that I think are set up to benefit in the era of LLMs</h2>
+<ol>
+<li>Typescript over Javascript. There are really no drawbacks to typing at this point. Only upside.</li>
+<li>Rust. Technically excellent but historically hard to ramp into. AI lowers the barrier to entry though.</li>
+<li>Go. Has simplicity and speed. Its verbosity is no longer such a drawback given it is so much faster to write code.</li>
+<li>Python in the short term. The majority of AI is written in python frameworks so python has obviously benefited in the short-term, but because of the aforementioned reasons I can see it losing some ground.</li>
+</ol>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Debugging With LLMs Is Amazing Until It Isn&#x27;t | Eric Kennedy</title>
+    <link rel="stylesheet" href="../../styles/site.css" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a target="_blank" rel="noopener noreferrer" class="back-link" href="../../#writing">Back to writing</a>
+      <article>
+        <header class="post-hero">
+          <h1>Debugging With LLMs Is Amazing Until It Isn&#x27;t</h1>
+        <img class="post-hero__image" src="../../assets/writing/post_7_context_window.png" alt="Image for Debugging With LLMs Is Amazing Until It Isn&#x27;t" />
+        </header>
+        <div class="post-body">
+<p class="lede">So one great side effect about machines that can process a Harry Potter novel amount of information in seconds is they can make debugging a lot quicker.</p>
+<p>A debugging loop that used to take 45 minutes of grepping logs, tracing code, asking three people in Slack, paging that one engineer who just merged in a 2k line PR, can sometimes become a 5-minute conversation with the codebase.</p>
+<h2>The 3 things you have to look out for:</h2>
+<ol>
+<li>Token Burn - Throwing a firehose of logs at an LLM is the best way to burn through your weekly token budget. I suggest starting off with a cheaper model and seeing where that gets you.</li>
+<li>Missing Context - Models are eager to please. Even if the real answer is not in the data, the model will try its best to find something out of nothing. Models still are not great at knowing when to ask for more information before making a determination. So you definitely need a baseline mental model of the system it is trying to debug.</li>
+<li>Wrong Context - Debugging problems that cut across multiple services can still be difficult. At a certain point, there are too many logs and too much code to fit within a context window. The answer is in there somewhere, but you have to context engineer exactly what the LLM needs to see. If you don&#x27;t, the LLM will overconfidently give you the wrong answer.</li>
+</ol>
+<h2>So when using LLMs to debug problems I would recommend:</h2>
+<ol>
+<li>A healthy amount of logs... and logs with intent. The logs need to tell a story of what happened with this request.</li>
+<li>Collocate code, alerts, playbooks, etc</li>
+<li>This means using IaC (infrastructure as code) for observability. Time to look into terraform provider for datadog/splunk/sentry.</li>
+<li>Form good judgment of when an LLM is bullshitting you. If you are not familiar with the system don&#x27;t take what it says at face value.</li>
+<li>Have a healthy token budget.</li>
+</ol>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

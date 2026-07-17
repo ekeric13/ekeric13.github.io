@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Makes Rewrites Less Taboo | Eric Kennedy</title>
+    <link rel="stylesheet" href="../../styles/site.css" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a target="_blank" rel="noopener noreferrer" class="back-link" href="../../#writing">Back to writing</a>
+      <article>
+        <header class="post-hero">
+          <h1>AI Makes Rewrites Less Taboo</h1>
+          <img class="post-hero__image" src="../../assets/writing/post1_ai-rewrites-thumbnail-2560x1440.png" alt="Thumbnail for AI making rewrites less taboo" />
+        </header>
+        <div class="post-body">
+<p>A software engineering truism that no longer makes sense after AI codegen:</p>
+<blockquote><p>&quot;Never do a full rewrite.&quot;</p></blockquote>
+<p>Historically, rewrites were always a terrible idea. What would happen is the team feels like they have learned so much more about the business since the original system was written, the existing code/architecture is terrible, and the engineers have naturally improved as programmers.</p>
+<p>Some engineer will bring up something called &quot;the strangler fig pattern&quot; and find the right domain boundary to break apart into a new microservice.</p>
+<p>A POC is even made that breaks a controller out into the new service.</p>
+<p>🎉 in the slack ship-it channel.</p>
+<p>This is going great and cannot fail, right?</p>
+<p>6 months later instead of having one terrible service you now have one terrible service and one service that makes no sense in isolation and always requires you to read the code of the terrible service to understand what is happening.</p>
+<h2>Reasons the rewrite would fail:</h2>
+<ol>
+<li>There would always be a ton of hidden business logic in the original code that would be underestimated and wasn&#x27;t captured by tests. I mean there is a reason why everyone wants to re-write this, right?</li>
+<li>You would either have to stop shipping new features or always be playing catch up. Software always takes longer to ship than estimated.</li>
+<li>The initiative naturally loses steam because of urgent business needs, or because the engineers who spearheaded the change lost interest and wanted to work on something new. Usually the latter to be honest.</li>
+</ol>
+<h2>So the end state would be:</h2>
+<ol>
+<li>The rewrite never fully finished.</li>
+<li>The old system never fully went away.</li>
+<li>And now every feature required understanding two systems instead of one.</li>
+</ol>
+<p><strong>Rewrites would almost invariably be a net loss.</strong></p>
+<p><strong>AI has meaningfully changed the dynamics of a rewrite to the point where they often can and do make sense.</strong></p>
+<ol>
+<li>AI is particularly good at doing a 1:1 language port in a manner that captures business logic/intent.</li>
+<li>AI makes it much quicker to generate a ton of tests around legacy behavior, making the port safer.</li>
+<li>AI is good at understanding poorly written code. Can much more easily explore a large codebase at a macro and micro level and really understand what the system is actually doing.</li>
+</ol>
+<h2>The equation now is:</h2>
+<p>Do you have an engineer who knows where the dragons are in the old system? + Are they comfortable using the latest LLM agent harnesses to drive a large migration? + How many tokens are you willing to throw at the problem? At a certain point the ROI still may not be there, even if the migration does not require a large number of human engineering hours.</p>
+<p>Rewrites still have to be done thoughtfully and with intent, but they are no longer almost always a terrible idea.</p>
+<p>In my estimation, this has been true for about a year or so. And with high-profile OSS examples like Bun’s rewrite, I think many engineers are starting to come around to this line of thought as well.</p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "ekeric13-github-io",
+  "private": true,
+  "scripts": {
+    "test": "npm run test:level && npm run test:browser",
+    "test:level": "node --test tests/*.test.js",
+    "test:browser": "playwright test",
+    "test:browser:update": "playwright test tests/browser/visual.spec.js --update-snapshots=all"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}

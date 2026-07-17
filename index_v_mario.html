@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eric Kennedy | Play Mario</title>
+    <meta name="description" content="A playable Mario-style career map for Eric Kennedy's engineering portfolio." />
+    <meta property="og:title" content="Eric Kennedy | Play Mario" />
+    <meta property="og:description" content="A playable Mario-style career map for Eric Kennedy's engineering portfolio." />
+    <meta property="og:image" content="https://ekeric13.github.io/assets/brand/ek-social-preview.png" />
+    <meta property="og:url" content="https://ekeric13.github.io/index_v_mario.html" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Eric Kennedy | Play Mario" />
+    <meta
+      name="twitter:description"
+      content="A playable Mario-style career map for Eric Kennedy's engineering portfolio."
+    />
+    <meta name="twitter:image" content="https://ekeric13.github.io/assets/brand/ek-social-preview.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/assets/brand/ek-icon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles/variants.css?v=12-game-4" />
+  </head>
+  <body class="v12">
+    <header class="variant-nav v12-nav">
+      <a class="variant-nav__name" href="index.html">Eric Kennedy</a>
+      <nav class="variant-nav__links" aria-label="Primary navigation">
+        <a href="index.html">Portfolio</a>
+      </nav>
+    </header>
+
+    <main class="v12-shell" aria-labelledby="v12-title">
+      <section class="v12-stage" aria-label="Interactive career side-scroller">
+        <div class="v12-hud" aria-live="polite">
+          <div>
+            <span>Career 1-1</span>
+            <strong id="v12-world">hiQ Labs</strong>
+          </div>
+          <div>
+            <span>Coins</span>
+            <strong id="v12-coins">00</strong>
+          </div>
+          <div>
+            <span>Points</span>
+            <strong id="v12-score">000000</strong>
+          </div>
+        </div>
+
+        <canvas
+          id="career-game"
+          width="960"
+          height="540"
+          tabindex="0"
+          aria-label="Playable side-scroller career level"
+        ></canvas>
+
+        <div class="v12-message" id="v12-message" aria-live="polite">
+          <p class="v12-message__kicker">Block found</p>
+          <h2 id="v12-message-title">I build products from 0 to 1 and systems from 1 to millions.</h2>
+          <p id="v12-message-body">
+            Run right, hit the blocks, clear the enemies, and move through the career level.
+          </p>
+        </div>
+
+        <div class="v12-controls" aria-label="Touch controls">
+          <button type="button" data-control="left" aria-label="Move left">←</button>
+          <button type="button" data-control="right" aria-label="Move right">→</button>
+          <button type="button" data-control="jump" aria-label="Jump">Jump</button>
+        </div>
+      </section>
+
+      <aside class="v12-brief" aria-labelledby="v12-title">
+        <p class="v-eyebrow">Software engineer · product · platform/infra · applied AI systems</p>
+        <h1 id="v12-title">Play through the career map.</h1>
+        <p>
+          Move with <strong>A/D</strong> or <strong>←/→</strong>. Jump with <strong>Space</strong>. Hit question
+          blocks for career notes, stomp mushroom bugs, dodge patrolling turtles, and reach the flag.
+        </p>
+        <div class="v12-brief__links">
+          <a target="_blank" rel="noopener noreferrer" href="mailto:ekeric13@gmail.com">Email</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ekeric13">Twitter</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/ekeric13">GitHub</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/ekeric13">LinkedIn</a>
+        </div>
+      </aside>
+    </main>
+
+    <script src="js/mario-level-spec.js?v=mario-1-1-8"></script>
+    <script src="js/mario-stomp-messages.js?v=career-1"></script>
+    <script src="js/mario-career-game.js?v=mario-13"></script>
+  </body>
+</html>

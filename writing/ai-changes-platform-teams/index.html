@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Changes the Value of Platform Teams | Eric Kennedy</title>
+    <link rel="stylesheet" href="../../styles/site.css" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a target="_blank" rel="noopener noreferrer" class="back-link" href="../../#writing">Back to writing</a>
+      <article>
+        <header class="post-hero">
+          <h1>AI Changes the Value of Platform Teams</h1>
+        <img class="post-hero__image" src="../../assets/writing/post_6_platform_teams.png" alt="Image for AI Changes the Value of Platform Teams" />
+        </header>
+        <div class="post-body">
+<p class="lede">Maybe a hot take here - I think AI codegen is reducing the value of platform teams. Specifically those that have centralized platform ownership. I think there is definitely still a spot for platform teams... it just looks a bit more decentralized.</p>
+<h2>What do I mean by platform teams?</h2>
+<p>Think about the team that handles Postgres (i.e. DBs), the team that handles Kubernetes (i.e. compute), the team that handles Kafka (i.e. message brokers), etc.</p>
+<p>Instead of spending 3 weeks setting up your own kafka cluster, you would work with this one team and be set up in 2 days.</p>
+<p>This centralization would give you speed, safety, and expertise. But the trade-off is flexibility, transparency, and ownership.</p>
+<blockquote>
+<p>Pro: Platform supports features A-X</p>
+<p>Con: Product team needs features A, B, and Z</p>
+<p>Pro: Platform will support Z in 2 months</p>
+<p>Con: 2 months is code for 6 months</p>
+</blockquote>
+<p>Platform teams are constrained by the fact that their customers are ALL of engineering. They have to solve for the 90% use case. They are not wrong for ignoring feature Z.</p>
+<p>But the product team isn’t wrong for wanting to roll their own either. <strong>AI dramatically lowers the cost of re-inventing the wheel.</strong> Remember that Kafka set up that used to take 3 weeks? Now it can get done in 3 days.</p>
+<p>Some orgs might try and prevent engineers from spinning up a homegrown solution but water runs downhill. Product teams want to ship their initiative. They don&#x27;t care where their problem lies in your backlog.</p>
+<h2>So what do platform teams need to become instead?</h2>
+<p>The future platform team probably looks less like &quot;everyone must use our centralized system&quot; and more like &quot;we make it safe for product teams and coding agents to build local solutions.&quot; In that sense, platform teams may start to look a little more like SRE teams: sometimes building shared primitives, sometimes consulting, sometimes embedding with product teams. More emphasis on tooling and documentation where the target audience is coding agents instead of humans. Think skills and MCP servers.</p>
+<h2>What does this mean for product teams?</h2>
+<p>They should probably have an engineer on staff who is familiar with the infra side of things if they are going to own more of that. They don&#x27;t need to be a deep expert but they need enough fundamentals to know if an LLM is generating a future incident.</p>
+<h2>A second order effect of all of this - Conway’s Law seems to be stronger than ever.</h2>
+<p>Conway’s Law says systems tend to mirror the teams that build them. If product teams are owning more of the platform surface area, the architecture will increasingly mirror the team structure.</p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>
