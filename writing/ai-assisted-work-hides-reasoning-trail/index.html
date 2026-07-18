@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI-assisted work hides the reasoning trail | Eric Kennedy</title>
+    <link rel="stylesheet" href="../../styles/site.css" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a target="_blank" rel="noopener noreferrer" class="back-link" href="../../#writing">Back to writing</a>
+      <article>
+        <header class="post-hero">
+          <h1>AI-assisted work hides the reasoning trail</h1>
+          <img class="post-hero__image" src="../../assets/writing/post_14_conversation-history-skill-thumbnail-2560x1440.png" alt="Image for AI-assisted work hides the reasoning trail" />
+        </header>
+        <div class="post-body">
+<p class="lede">A lot of the decision making process now disappears into a black hole on Anthropic's servers.</p>
+
+<p>With LLMs, you often see the final implementation but lose the reasoning that produced it, even though the reasoning trail can be super valuable. It is good for review, for collaboration, and for revisiting why the decision did or did not work.</p>
+
+<p><strong>So I made a skill that pulls key decisions and implementation history out of Claude Code conversation history:</strong><br /><a target="_blank" rel="noopener noreferrer" href="https://github.com/ekeric13/conversation-history-skill">https://github.com/ekeric13/conversation-history-skill</a></p>
+
+<p>It is not only useful for peering into decisions/implementations but also for remembering what was going on in one of your 50 open Claude Code terminal tabs</p>
+
+<p class="post-callout">The main gist is that conversations with Claude Code, Codex, etc. already live on the filesystem. The skill identifies the current conversation, greps through it, and pulls out the first and last 350 characters from both your messages and the agent's messages to reconstruct the key decision trail.</p>
+
+<p>If you want it to be more or less succinct, you can just tell it to use a different character count or only surface the crucial conversations.</p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

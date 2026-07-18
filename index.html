@@ -34,7 +34,7 @@
       <nav class="variant-nav__links" aria-label="Primary navigation">
         <a href="#work">Work</a>
         <a href="#writing">Writing</a>
-        <a href="index_v_mario.html">Play Mario</a>
+        <a class="variant-nav__link--mario" href="index_v_mario.html">Play Mario</a>
       </nav>
     </header>
 
@@ -177,11 +177,103 @@
       <section class="v-section v4-writing" id="writing" aria-labelledby="writing-title">
         <h2 id="writing-title">Short essays on software engineering</h2>
         <div class="v4-writing-list">
+          <a target="_blank" rel="noopener noreferrer" href="writing/untouched-ai-output-feels-disrespectful/">
+            <img src="assets/writing/post_11_ai-writing-disrespectful-thumbnail-2560x1440.png" alt="AI writing thumbnail" />
+            <div>
+              <h3>Untouched AI output feels disrespectful</h3>
+              <p>
+                The reason why I think bad AI writing bugs people so much - it is genuinely disrespectful to ask someone
+                to put effort into reading something you couldn't be bothered to put an ounce of effort into writing.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-makes-bad-engineers-more-expensive/">
+            <img src="assets/writing/post_10_slop_cannon_pr_linkedin_2400x1254.png" alt="Bad engineers and AI thumbnail" />
+            <div>
+              <h3>AI makes bad engineers more expensive</h3>
+              <p>Hot take - AI makes working with bad software engineers much more painful. Bad engineers were somewhat rate-limited.</p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/tech-debt-not-always-bad/">
+            <img src="assets/writing/post_5_5_tech_debt2.png" alt="Tech debt thumbnail" />
+            <div>
+              <h3>Tech debt is not always bad debt</h3>
+              <p>"Tech debt" is actually a great name because debt is not always bad. Sometimes it is good.</p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-changes-platform-teams/">
+            <img src="assets/writing/post_6_platform_teams.png" alt="Platform teams thumbnail" />
+            <div>
+              <h3>AI changes the value of platform teams</h3>
+              <p>
+                Maybe a hot take here - I think AI codegen is reducing the value of platform teams. Specifically those
+                that have centralized platform ownership.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/llms-less-collaborative/">
+            <img src="assets/writing/post12_llm_collaboration.png" alt="LLM collaboration thumbnail" />
+            <div>
+              <h3>LLMs are making software development less collaborative</h3>
+              <p>
+                LLMs have definitely made software development less collaborative. Personally I used to get pinged all
+                the time for advice on code structure, technology choices, architecture, and so on.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-assisted-work-hides-reasoning-trail/">
+            <img src="assets/writing/post_14_conversation-history-skill-thumbnail-2560x1440.png" alt="Conversation history skill thumbnail" />
+            <div>
+              <h3>AI-assisted work hides the reasoning trail</h3>
+              <p>
+                A lot of the decision making process now disappears into a black hole on Anthropic's servers. With LLMs,
+                you often see the final implementation but lose the reasoning that produced it. That reasoning trail can
+                be super valuable.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/new-tech-debt-knowledge-debt/">
+            <img src="assets/writing/tech_debt.png" alt="Knowledge debt thumbnail" />
+            <div>
+              <h3>The new tech debt is knowledge debt</h3>
+              <p>
+                AI has let people develop systems that cannot be managed or reasoned about without the assistance of AI,
+                creating a lock-in effect and a dependency on the models.
+              </p>
+            </div>
+          </a>
           <a target="_blank" rel="noopener noreferrer" href="writing/ai-makes-rewrites-less-taboo/">
             <img src="assets/writing/post1_ai-rewrites-thumbnail-2560x1440.png" alt="Rewrite thumbnail" />
             <div>
               <h3>AI makes rewrites less taboo</h3>
               <p>A software engineering truism that no longer makes sense after AI codegen: "Never do a full rewrite."</p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/sql-query-optimization-skill/">
+            <img src="assets/writing/post_13_sql-query-optimization-skill-og.png" alt="SQL query optimization skill thumbnail" />
+            <div>
+              <h3>SQL query optimization skill</h3>
+              <p>
+                A few years ago I wrote down advice for fixing slow SQL queries. Today, that kind of writing should
+                probably be turned into a skill.
+              </p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-rewards-agency/">
+            <img src="assets/writing/post_8_big_red_button.png" alt="AI rewards agency thumbnail" />
+            <div>
+              <h3>AI rewards agency, but punishes shallow understanding</h3>
+              <p>Have you ever talked to an engineer about their PR and you can tell they have no idea what is in it?</p>
+            </div>
+          </a>
+          <a target="_blank" rel="noopener noreferrer" href="writing/ai-and-second-order-effects/">
+            <img src="assets/writing/post9_second_order.png" alt="Second-order effects thumbnail" />
+            <div>
+              <h3>AI and second-order effects</h3>
+              <p>
+                You ship a feature that queries the DB and brings a lot of data into memory. There is a separate thread
+                that dequeues and processes logs from a queue in a loop.
+              </p>
             </div>
           </a>
           <a target="_blank" rel="noopener noreferrer" href="writing/best-language-no-longer-one-you-know/">
@@ -211,33 +303,6 @@
               <p>Simple beats clever. Duplication beats the wrong abstraction.</p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/new-tech-debt-knowledge-debt/">
-            <img src="assets/writing/tech_debt.png" alt="Knowledge debt thumbnail" />
-            <div>
-              <h3>The new tech debt is knowledge debt</h3>
-              <p>
-                AI has let people develop systems that cannot be managed or reasoned about without the assistance of AI,
-                creating a lock-in effect and a dependency on the models.
-              </p>
-            </div>
-          </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/tech-debt-not-always-bad/">
-            <img src="assets/writing/post_5_5_tech_debt2.png" alt="Tech debt thumbnail" />
-            <div>
-              <h3>Tech debt is not always bad debt</h3>
-              <p>"Tech debt" is actually a great name because debt is not always bad. Sometimes it is good.</p>
-            </div>
-          </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-changes-platform-teams/">
-            <img src="assets/writing/post_6_platform_teams.png" alt="Platform teams thumbnail" />
-            <div>
-              <h3>AI changes the value of platform teams</h3>
-              <p>
-                Maybe a hot take here - I think AI codegen is reducing the value of platform teams. Specifically those
-                that have centralized platform ownership.
-              </p>
-            </div>
-          </a>
           <a target="_blank" rel="noopener noreferrer" href="writing/debugging-with-llms/">
             <img src="assets/writing/post_7_context_window.png" alt="Debugging with LLMs thumbnail" />
             <div>
@@ -245,50 +310,6 @@
               <p>
                 So one great side effect about machines that can process a Harry Potter novel amount of information in
                 seconds is they can make debugging a lot quicker.
-              </p>
-            </div>
-          </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-rewards-agency/">
-            <img src="assets/writing/post_8_big_red_button.png" alt="AI rewards agency thumbnail" />
-            <div>
-              <h3>AI rewards agency, but punishes shallow understanding</h3>
-              <p>Have you ever talked to an engineer about their PR and you can tell they have no idea what is in it?</p>
-            </div>
-          </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-and-second-order-effects/">
-            <img src="assets/writing/post9_second_order.png" alt="Second-order effects thumbnail" />
-            <div>
-              <h3>AI and second-order effects</h3>
-              <p>
-                You ship a feature that queries the DB and brings a lot of data into memory. There is a separate thread
-                that dequeues and processes logs from a queue in a loop.
-              </p>
-            </div>
-          </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-makes-bad-engineers-more-expensive/">
-            <img src="assets/writing/post_10_slop_cannon_pr_linkedin_2400x1254.png" alt="Bad engineers and AI thumbnail" />
-            <div>
-              <h3>AI makes bad engineers more expensive</h3>
-              <p>Hot take - AI makes working with bad software engineers much more painful. Bad engineers were somewhat rate-limited.</p>
-            </div>
-          </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/untouched-ai-output-feels-disrespectful/">
-            <img src="assets/writing/post_11_ai-writing-disrespectful-thumbnail-2560x1440.png" alt="AI writing thumbnail" />
-            <div>
-              <h3>Untouched AI output feels disrespectful</h3>
-              <p>
-                The reason why I think bad AI writing bugs people so much - it is genuinely disrespectful to ask someone
-                to put effort into reading something you couldn't be bothered to put an ounce of effort into writing.
-              </p>
-            </div>
-          </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/llms-less-collaborative/">
-            <img src="assets/writing/post12_llm_collaboration.png" alt="LLM collaboration thumbnail" />
-            <div>
-              <h3>LLMs are making software development less collaborative</h3>
-              <p>
-                LLMs have definitely made software development less collaborative. Personally I used to get pinged all
-                the time for advice on code structure, technology choices, architecture, and so on.
               </p>
             </div>
           </a>
