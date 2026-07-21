@@ -21,20 +21,20 @@ html,body{height:100%;margin:0;overflow:hidden}
 body{background:var(--bg2);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
 a{color:inherit}
 .deck{position:relative;width:100vw;height:100vh;overflow:hidden}
-.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:safe center;overflow-y:auto;
-padding:6.5vh 8vw 12vh;opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);
+.slide{--pad-top:6.5vh;--pad-x:8vw;--pad-bottom:8vh;--hud-space:72px;position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;
+padding:var(--pad-top) var(--pad-x) calc(var(--pad-bottom) + var(--hud-space));opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);
 transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .42s;
 background:radial-gradient(1100px 620px at 82% -6%,rgba(84,184,201,.06),transparent 60%),
 radial-gradient(820px 480px at 6% 8%,rgba(154,123,224,.05),transparent 58%),var(--bg)}
 .slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.011) 0 1px,transparent 1px 3px)}
 .slide>*{position:relative;z-index:1}
 .slide.active{opacity:1;visibility:visible;transform:none}
-.face{display:none;flex-direction:column;justify-content:safe center;flex:1;min-height:0}
+.face{display:none;flex-direction:column;justify-content:center;flex:0 0 auto;min-height:calc(100vh - var(--pad-top) - var(--pad-bottom) - var(--hud-space))}
 .slide.active .face.overview{display:flex}
 .slide.active.flip .face.overview{display:none}
 .slide.active.flip .face.detail{display:flex;animation:faceIn .25s ease}
 @keyframes faceIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.flipchip{position:absolute;top:calc(6.5vh + 2px);right:8vw;z-index:5;display:inline-flex;align-items:center;gap:8px;
+.flipchip{position:absolute;top:calc(var(--pad-top) + 2px);right:var(--pad-x);z-index:5;display:inline-flex;align-items:center;gap:8px;
 font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:7px 13px;border-radius:999px;
 background:var(--panel);border:1px solid var(--line);color:var(--dim);cursor:pointer;user-select:none}
 .flipchip .sw{width:26px;height:14px;border-radius:999px;background:var(--line);position:relative}
@@ -117,7 +117,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 .slide--prebus .title-lg{font-size:clamp(30px,4vw,54px);max-width:16ch}
 .slide--prebus .sub{font-size:clamp(14px,1.32vw,17px);line-height:1.45;max-width:78ch;margin-top:14px}
 .slide--prebus .prebus-diagram{margin-top:20px}
-@media(max-width:900px){.slide{padding:6.5vh 6vw 12vh}.split,.levers,.stats,.arch,.badflow,.sidecar-flow,.fanout .choices,.option-detail,.sidecar-model .containers{grid-template-columns:1fr}.slide--consumer .face.overview::after{content:"";display:block;flex:0 0 84px}.cont{grid-template-columns:1fr;gap:14px}.equals{padding:4px}.outboxviz{grid-template-columns:1fr}.prebus-diagram{aspect-ratio:1.25/1;padding:12px}.prebus-node{font-size:13px;min-height:48px;padding:10px}.prebus-label{font-size:9px;padding:3px 5px}.arr,.flowarrow{transform:rotate(90deg);justify-self:center}.flowarrow{min-height:34px}.flipchip{right:6vw}.hint{display:none}}
+@media(max-width:900px){.slide{--pad-top:6.5vh;--pad-x:6vw;--pad-bottom:8vh;--hud-space:72px}.split,.levers,.stats,.arch,.badflow,.sidecar-flow,.fanout .choices,.option-detail,.sidecar-model .containers{grid-template-columns:1fr}.slide--consumer .face.overview::after{content:"";display:block;flex:0 0 84px}.cont{grid-template-columns:1fr;gap:14px}.equals{padding:4px}.outboxviz{grid-template-columns:1fr}.prebus-diagram{aspect-ratio:1.25/1;padding:12px}.prebus-node{font-size:13px;min-height:48px;padding:10px}.prebus-label{font-size:9px;padding:3px 5px}.arr,.flowarrow{transform:rotate(90deg);justify-self:center}.flowarrow{min-height:34px}.flipchip{right:var(--pad-x)}.hint{display:none}}
 </style>
 </head>
 <body>
