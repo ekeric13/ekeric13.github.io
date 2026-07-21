@@ -3031,6 +3031,13 @@ a {
   }
 }
 
+@media (max-width: 599px) {
+  .v4-project-grid,
+  .v5-project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 650px) {
   .v4-writing-list a {
     grid-template-columns: 1fr;
@@ -3058,10 +3065,6 @@ a {
   .map-line,
   .map-scale {
     display: none;
-  }
-
-  .v4-project-grid {
-    grid-template-columns: 1fr;
   }
 
   .v5-desk,
