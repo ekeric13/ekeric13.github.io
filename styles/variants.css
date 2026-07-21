@@ -2945,7 +2945,7 @@ a {
     height: 74px;
   }
 
-  .v4-company-mark img {
+  .v4-company-mark:not(.v4-company-mark--fill) img {
     max-width: 58px;
     max-height: 42px;
   }
@@ -2987,6 +2987,15 @@ a {
 }
 
 @media (hover: none) and (pointer: coarse) {
+  .v4-company-mark:hover img,
+  .v5-company-mark:hover img {
+    transform: none;
+  }
+
+  .v4-company-mark--photo:hover img {
+    transform: scale(1.45);
+  }
+
   .v12-controls {
     display: grid;
   }
@@ -3049,10 +3058,6 @@ a {
   .map-line,
   .map-scale {
     display: none;
-  }
-
-  .v4-timeline-item {
-    grid-template-columns: 1fr;
   }
 
   .v4-project-grid {
