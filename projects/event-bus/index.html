@@ -88,11 +88,22 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 .equals{display:grid;place-items:center;padding:0 26px}.equals .eq{font-family:var(--disp);font-weight:700;font-size:38px;color:var(--consistency)}.equals .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center;max-width:120px}
 .diagram{background:linear-gradient(180deg,var(--panel),rgba(21,32,37,.54));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
 .cap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.photo-diagram{background:#f7f8f6;border-radius:16px;padding:14px}
+.photo-diagram img{display:block;width:100%;height:auto;border-radius:10px}
+.schema-code{margin:22px 0 0;padding:18px;border:1px solid var(--line);border-radius:14px;background:rgba(11,17,20,.7);color:var(--ink);font-family:var(--mono);font-size:clamp(10px,1vw,13px);line-height:1.55;overflow:auto;white-space:pre}
 .flowrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.node{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);font-family:var(--mono);font-size:12px;color:var(--ink);text-align:center}.node.service{border-color:rgba(84,184,201,.38);background:rgba(84,184,201,.08)}.node.db{border-color:rgba(224,164,88,.42);background:rgba(224,164,88,.09)}.node.bus{border-color:rgba(95,184,122,.42);background:rgba(95,184,122,.08)}.node.bad{border-color:rgba(224,106,92,.42);background:rgba(224,106,92,.09)}.arr{font-family:var(--mono);color:var(--faint);font-weight:700}.xmark{color:var(--stop);font-family:var(--mono);font-weight:700;font-size:18px}
+.fanout{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.fanout .choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;flex:1}.fanout .node{min-height:40px;padding:9px 10px}
 .badflow{display:grid;grid-template-columns:1fr 1fr;gap:18px}.badcase{border:1px solid var(--line);border-radius:14px;padding:16px;background:rgba(11,17,20,.65)}.badcase h4{font-family:var(--disp);font-size:17px;margin:0 0 12px}.badcase p{margin:12px 0 0;color:var(--dim);font-size:13px;line-height:1.45}
 .outboxviz{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center}.dbbox{border:1px solid rgba(224,164,88,.42);border-radius:18px;padding:18px;background:rgba(224,164,88,.08)}.dbbox .table{padding:10px;border:1px dashed rgba(231,240,242,.34);border-radius:10px;margin:8px 0;font-family:var(--mono);font-size:12px}.tx{font-family:var(--mono);font-size:10px;color:var(--bus);letter-spacing:.08em;text-transform:uppercase}
-.topology-diagram{max-width:1120px;margin:28px auto 0;padding:22px 0}.topology-diagram .cap{padding:0 22px}.topology-scroll{overflow-x:auto;overflow-y:hidden;padding:0 22px 18px;scrollbar-color:rgba(95,118,124,.7) transparent}.topology-map{position:relative;display:grid;grid-template-columns:1fr 1fr 1fr 1.1fr;grid-template-rows:98px 98px 98px;gap:14px 60px;align-items:center;width:1000px;min-width:1000px;min-height:322px}.topology-map>.node,.topology-map>.topic,.topology-map>.dispatcher{position:relative;z-index:1}.topology-arrows{position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;overflow:visible}.topology-arrows path{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.topology-arrows marker path{fill:rgba(231,240,242,.76);stroke:none}.topology-arrows .write{stroke:rgba(84,184,201,.62)}.topology-arrows .publish{stroke:rgba(224,164,88,.72)}.topology-arrows .deliver{stroke:rgba(95,184,122,.65)}.topology-arrows text{font-family:var(--mono);font-size:11px;letter-spacing:.03em;fill:var(--faint)}.topic{width:98px;height:98px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(95,184,122,.5);background:rgba(95,184,122,.08);font-family:var(--mono);font-size:12px;margin:auto;text-align:center}.dispatcher{border:1px solid rgba(154,123,224,.42);background:rgba(154,123,224,.08);border-radius:14px;padding:12px;font-family:var(--mono);font-size:12px;text-align:center}.flowarrow{display:flex;align-items:center;justify-content:center;color:var(--faint);font-family:var(--mono);font-size:10px;letter-spacing:.04em;gap:4px}.flowarrow::before{content:"";height:1px;border-top:2px solid currentColor;flex:1}.flowarrow::after{content:"›";font-size:18px;line-height:1}
+.prebus-diagram{position:relative;width:100%;max-width:1280px;margin:28px 0 0;aspect-ratio:16/6.2;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(21,32,37,.95),rgba(11,17,20,.75));overflow:hidden;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.prebus-arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}.prebus-arrows path{fill:none;stroke:rgba(231,240,242,.58);stroke-width:2.35;stroke-linecap:round;stroke-linejoin:round}.prebus-arrows marker path{fill:rgba(231,240,242,.72);stroke:none}.prebus-label{position:absolute;z-index:3;font-family:var(--mono);font-size:clamp(10px,1vw,12.5px);color:var(--ink);background:var(--panel);border:1px solid rgba(231,240,242,.2);border-radius:7px;padding:5px 8px;white-space:nowrap;box-shadow:0 0 0 3px rgba(21,32,37,.82)}
+.prebus-node{position:absolute;z-index:2;display:grid;place-items:center;min-height:58px;padding:12px 16px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-family:var(--disp);font-size:clamp(15px,1.36vw,21px);font-weight:600;letter-spacing:0;text-align:center}.prebus-node small{font-size:.72em;color:var(--ink)}.prebus-node.primary{left:5%;top:39%;width:30%;border-color:rgba(224,106,92,.55);background:rgba(62,28,30,.96)}.prebus-node.quote{right:4%;top:10%;width:31%;border-color:rgba(224,164,88,.58);background:rgba(55,43,25,.96)}.prebus-node.underwriting{right:4%;top:38%;width:31%;border-color:rgba(224,164,88,.58);background:rgba(55,43,25,.96)}.prebus-node.db{right:4%;bottom:1%;width:31%;height:auto;min-height:58px;border-color:rgba(84,184,201,.55);background:rgba(19,52,58,.96)}
+.prebus-label.req1{left:43%;top:10%}.prebus-label.res1{left:41%;top:25%}.prebus-label.req2{left:43%;top:43%}.prebus-label.res2{left:38%;top:60%}
+.topology-diagram{max-width:1280px;margin:28px auto 0;padding:22px 0}.topology-diagram .cap{padding:0 22px}.topology-scroll{overflow-x:auto;overflow-y:hidden;padding:0 22px 18px;scrollbar-color:rgba(95,118,124,.7) transparent}.topology-map{position:relative;display:grid;grid-template-columns:1.1fr 1.15fr .9fr 1.25fr;grid-template-rows:98px 98px 98px;gap:14px 68px;align-items:center;width:1120px;min-width:1120px;min-height:322px}.topology-map>.node,.topology-map>.topic,.topology-map>.dispatcher{position:relative;background:transparent;overflow:hidden}.topology-map>.node::before,.topology-map>.topic::before,.topology-map>.dispatcher::before{content:"";position:absolute;inset:0;z-index:0;background:var(--topo-bg,rgb(15,43,49));border-radius:inherit}.topology-arrows{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none;overflow:visible}.topology-arrows path{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.topology-arrows marker path{fill:rgba(231,240,242,.64);stroke:none}.topology-arrows .write{stroke:rgba(84,184,201,.58)}.topology-arrows .publish{stroke:rgba(224,164,88,.62)}.topology-arrows .deliver{stroke:rgba(95,184,122,.58)}.topology-arrows text{font-family:var(--mono);font-size:11px;letter-spacing:.03em;fill:var(--ink)}.topology-arrows .label-bg{fill:var(--panel);stroke:rgba(231,240,242,.2);stroke-width:1}.topo-label{position:relative;z-index:3}.topic{width:98px;height:98px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(95,184,122,.5);font-family:var(--mono);font-size:12px;margin:auto;text-align:center;--topo-bg:rgb(17,39,30)}.dispatcher{border:1px solid rgba(154,123,224,.42);border-radius:14px;padding:12px;font-family:var(--mono);font-size:12px;text-align:center;--topo-bg:rgb(28,31,45)}.flowarrow{display:flex;align-items:center;justify-content:center;color:var(--faint);font-family:var(--mono);font-size:10px;letter-spacing:.04em;gap:4px}.flowarrow::before{content:"";height:1px;border-top:2px solid currentColor;flex:1}.flowarrow::after{content:"›";font-size:18px;line-height:1}
+.topology-map .node{flex-direction:column;font-size:11.5px;line-height:1.25}.topology-map .node small{display:block;margin-top:3px;color:var(--dim);font-size:10px}.topology-map .dispatcher{font-size:11.5px;line-height:1.3}
+.topology-map .node.service{--topo-bg:rgb(15,43,49)}.topology-map .node.db{--topo-bg:rgb(46,35,20)}.topology-map .node.bus{--topo-bg:rgb(18,43,27)}
 .sidecar-flow{display:grid;grid-template-columns:1fr 44px 1.6fr 44px 1fr;gap:10px;align-items:center}.sidecar{border:2px solid rgba(84,184,201,.55);border-radius:20px;padding:14px;background:rgba(84,184,201,.06)}.sidecar .pod{border:1px solid rgba(231,240,242,.2);border-radius:16px;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}.sidecar .pod div{border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;background:var(--bg2)}
+.option-detail{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:stretch;margin-top:26px}.option-stack{display:grid;gap:12px}.option-stack .tcard{padding:14px}.config-card{border:1px solid rgba(84,184,201,.42);border-radius:18px;background:rgba(84,184,201,.06);padding:18px;min-width:0}.config-card .cap{margin-bottom:10px}.config-code{margin:0;color:var(--ink);font-family:var(--mono);font-size:clamp(10px,.9vw,12px);line-height:1.48;white-space:pre;overflow:auto}
 .lag{height:220px;width:100%;display:block}.hud{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:16px}.nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:22px;cursor:pointer}.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border:0;border-radius:50%;background:var(--line);padding:0;cursor:pointer}.dots button.on{background:var(--consistency);box-shadow:0 0 12px var(--consistency)}.count{position:absolute;right:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:11px;color:var(--faint)}.hint{position:absolute;left:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
 .slide--consumer .title-lg{font-size:clamp(30px,4.2vw,56px)}.slide--consumer .sub{font-size:clamp(14px,1.35vw,18px);line-height:1.48;max-width:62ch}.slide--consumer .bullets{margin-top:14px}.slide--consumer .bullets li{font-size:14px;line-height:1.43;margin:10px 0}.slide--consumer .split{gap:clamp(24px,3vw,40px)}.slide--consumer .diagram{padding:18px}.slide--consumer .sidecar{border-radius:18px;padding:12px}.slide--consumer .sidecar .pod{gap:8px;padding:10px}.slide--consumer .sidecar .pod div{padding:12px}.slide--consumer .strip{max-width:none;margin-top:16px;padding:11px 16px;font-size:14px;line-height:1.45}
 @media(min-width:901px) and (max-width:1100px){.slide--consumer .split{grid-template-columns:1.22fr .78fr;gap:24px}.slide--consumer .sub{font-size:13.5px;line-height:1.42}.slide--consumer .bullets{margin-top:10px}.slide--consumer .bullets li{font-size:12.75px;line-height:1.32;margin:6px 0}.slide--consumer .diagram{padding:14px}.slide--consumer .topic{width:74px;height:74px;font-size:10.5px}.slide--consumer .sidecar-flow{grid-template-columns:74px 28px 1fr 28px 74px;gap:7px}.slide--consumer .sidecar{padding:9px}.slide--consumer .sidecar .pod{padding:8px;gap:6px}.slide--consumer .sidecar .pod div{padding:8px}.slide--consumer .strip{font-size:13px;line-height:1.38;padding:9px 14px;margin-top:12px}}
@@ -102,7 +113,11 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 .slide--intro .phasebox{padding:20px}
 .slide--intro .phasebox .n{font-size:22px;margin-bottom:12px}
 .slide--intro .row{font-size:13px;margin:8px 0}
-@media(max-width:900px){.slide{padding:6.5vh 6vw 12vh}.split,.levers,.stats,.arch,.badflow,.sidecar-flow{grid-template-columns:1fr}.slide--consumer .face.overview::after{content:"";display:block;flex:0 0 84px}.cont{grid-template-columns:1fr;gap:14px}.equals{padding:4px}.outboxviz{grid-template-columns:1fr}.arr,.flowarrow{transform:rotate(90deg);justify-self:center}.flowarrow{min-height:34px}.flipchip{right:6vw}.hint{display:none}}
+.slide--prebus .face{justify-content:flex-start;padding-top:7vh}
+.slide--prebus .title-lg{font-size:clamp(30px,4vw,54px);max-width:16ch}
+.slide--prebus .sub{font-size:clamp(14px,1.32vw,17px);line-height:1.45;max-width:78ch;margin-top:14px}
+.slide--prebus .prebus-diagram{margin-top:20px}
+@media(max-width:900px){.slide{padding:6.5vh 6vw 12vh}.split,.levers,.stats,.arch,.badflow,.sidecar-flow,.fanout .choices,.option-detail,.sidecar-model .containers{grid-template-columns:1fr}.slide--consumer .face.overview::after{content:"";display:block;flex:0 0 84px}.cont{grid-template-columns:1fr;gap:14px}.equals{padding:4px}.outboxviz{grid-template-columns:1fr}.prebus-diagram{aspect-ratio:1.25/1;padding:12px}.prebus-node{font-size:13px;min-height:48px;padding:10px}.prebus-label{font-size:9px;padding:3px 5px}.arr,.flowarrow{transform:rotate(90deg);justify-self:center}.flowarrow{min-height:34px}.flipchip{right:6vw}.hint{display:none}}
 </style>
 </head>
 <body>
@@ -114,9 +129,9 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="face overview">
 <div class="eyebrow"><span class="ph">00</span> The problem</div>
 <h1 class="title-xl">A monolith split into services.<br>The communication model <span class="c">didn't</span>.</h1>
-<p class="sub">I was the third engineer at Ethos, and one of the few people left who had written large parts of the monolith. As the company moved toward service ownership, service calls grew in every direction: sync requests, ad hoc queues, one-off retry logic, and unclear ownership after failure.</p>
+<p class="sub">I was the third engineer at Ethos, so I had seen the system grow from a monolith into team-owned microservices as the engineering org scaled past roughly 50 people. But service-to-service communication was still ad hoc: direct calls, custom payloads, and team-specific retry logic made the system feel less like independent services and more like a distributed monolith.</p>
 <div class="cont">
-<div class="phasebox old"><div class="h">Before</div><div class="n">Distributed monolith</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>producer knows downstream services</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>network failure creates partial state</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>debugging crosses team boundaries</div></div>
+<div class="phasebox old"><div class="h">Why it hurt</div><div class="n">Distributed monolith</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>payload contract drift</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>partial failure created inconsistent state</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>custom retries were unsafe</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>new consumers required producer changes</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>operational upgrades were risky</div></div>
 <div class="equals"><div class="eq">→</div><div class="lbl">needed one contract</div></div>
 <div class="phasebox new"><div class="h">After</div><div class="n">Event bus contract</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>producer owns events</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>consumers own handlers</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>platform owns the bus mechanics</div></div>
 </div>
@@ -137,13 +152,13 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
 <div class="eyebrow bus"><span class="ph">01</span> Requirements</div>
-<h1 class="title-lg">The requirements were really <span class="b">failure modes</span>.</h1>
+<h1 class="title-lg">We designed around the <span class="b">failure modes</span> we had already hit.</h1>
 <div class="levers">
 <div class="lever" style="--x:var(--consistency)"><div class="ix">Producer</div><h3>State and event<br>commit together</h3><p>A DB write and an emitted event cannot disagree after a crash.</p></div>
 <div class="lever" style="--x:var(--bus)"><div class="ix">Broker</div><h3>Fanout without<br>producer coupling</h3><p>One domain event should feed many consumers without the producer knowing each one.</p></div>
 <div class="lever" style="--x:var(--ops)"><div class="ix">Operations</div><h3>Replay, order,<br>and debug</h3><p>Teams need event IDs, offsets, partitions, dashboards, and a way to answer where delivery stopped.</p></div>
 </div>
-<div class="strip" style="--c:var(--bus)"><span class="lb">The product constraint</span> The platform had to scale to more services and more messages, but it also had to be easy enough that teams would adopt it under normal delivery pressure.</div>
+<div class="strip" style="--c:var(--bus)"><span class="lb">The adoption constraint</span> Beyond the failure modes, we emphasized developer experience so teams could adopt the platform under normal delivery pressure.</div>
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · proposal checklist</div>
@@ -159,30 +174,33 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <section class="slide">
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
-<div class="eyebrow"><span class="ph">02</span> Producer failure</div>
-<h1 class="title-lg">The obvious publish path creates <span class="c">split brain</span>.</h1>
-<div class="split">
-<div>
-<p class="sub">The tempting design is write state, then publish an event. It looks simple until the service dies between those two operations.</p>
-<ul class="bullets" style="--c:var(--stop)">
-<li><strong>DB commit succeeds.</strong> <span>The service's local state is now correct.</span></li>
-<li><strong>Publish fails or never runs.</strong> <span>Every downstream system is stale.</span></li>
-<li><strong>Retry is ambiguous.</strong> <span>You do not know whether the event was never sent, sent once, or sent and lost downstream.</span></li>
-</ul>
+<div class="eyebrow"><span class="ph">02</span> Producer interface</div>
+<h1 class="title-lg">The producer API had to be <span class="c">easy to adopt</span>.</h1>
+<p class="sub">We needed event production to be easy to adopt, high-throughput, ordered where needed, and strongly consistent. Since every service already used Postgres, and every engineer understood database transactions, we decided services would produce events through Postgres.</p>
+<div class="levers">
+<div class="lever" style="--x:var(--consistency)"><div class="ix">Consistency</div><h3>Commit state and<br>event together</h3><p>Postgres gave producers a transaction boundary they already understood.</p></div>
+<div class="lever" style="--x:var(--bus)"><div class="ix">Throughput</div><h3>Publish after<br>commit</h3><p>Product code records the event. CDC handles broker publishing asynchronously.</p></div>
+<div class="lever" style="--x:var(--ops)"><div class="ix">Ordering</div><h3>Group related<br>events</h3><p>Ordering keys let the platform preserve sequence where business workflows needed it.</p></div>
 </div>
-<div class="diagram">
-<div class="cap">bad path · two independent writes</div>
-<div class="badflow">
-<div class="badcase"><h4>1 · write database</h4><div class="flowrow"><span class="node service">Service A</span><span class="arr">→</span><span class="node db">DB</span></div><p>Local state commits.</p></div>
-<div class="badcase"><h4>2 · publish event</h4><div class="flowrow"><span class="node service">Service A</span><span class="arr">→</span><span class="node bad">Broker</span><span class="xmark">✕</span></div><p>A crash here leaves the system globally wrong.</p></div>
-</div>
-</div>
-</div>
+<div class="strip"><span class="lb">Why Postgres</span> Every service already used it. Every engineer knew how to use it. The platform got consistency without forcing producers onto a new broker-specific write path.</div>
 </div>
 <div class="face detail">
-<div class="det-head">Grounding · why this mattered</div>
-<div class="det-title">The reliability target was global state, not message delivery in isolation.</div>
-<p class="det-sub">At service boundaries, "the request succeeded" is not enough. The durable business fact and the durable integration fact need the same transaction boundary. Otherwise every downstream incident starts with reconstructing whether the producer lied, the broker lost work, or the consumer failed.</p>
+<div class="det-head">Grounding · rejected producer path</div>
+<div class="det-title">A two-step write could leave the system <span class="c">inconsistent</span>.</div>
+<div class="split">
+<div>
+<p class="det-sub">The naive approach was: write the business row, then publish an event. If the service crashed between those steps, the database was correct locally, but downstream services never learned that anything changed.</p>
+<ul class="bullets" style="--c:var(--stop)">
+<li><strong>DB commit succeeds.</strong> <span>The service's local state is correct.</span></li>
+<li><strong>Publish fails or never runs.</strong> <span>The event may never exist.</span></li>
+<li><strong>Downstream systems stay stale.</strong> <span>Consumers have no durable signal to react to.</span></li>
+<li><strong>Retry cannot prove what happened.</strong> <span>The producer cannot distinguish never sent from sent and failed downstream.</span></li>
+</ul>
+</div>
+<div class="diagram photo-diagram">
+<img src="assets/naive-producer.png" alt="Naive producer writes a customer record to the database and separately sends a customer created event to an event stream.">
+</div>
+</div>
 <div class="strip" style="--c:var(--stop)"><span class="lb">Rejected</span> A producer library that performs DB write plus broker publish still has the same crash window unless it moves the event into the database transaction.</div>
 </div>
 </section>
@@ -191,35 +209,37 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
 <div class="eyebrow"><span class="ph">03</span> Producer design</div>
-<h1 class="title-lg">Put the event inside the <span class="c">same transaction</span>.</h1>
+<h1 class="title-lg">The outbox pattern made the event part of the <span class="c">transaction</span>.</h1>
 <div class="split">
 <div>
-<p class="sub">The producer API became boring on purpose: write your business row and an outbox row in one Postgres transaction. A CDC service publishes committed outbox rows to the broker.</p>
+<p class="sub">The fix was to write the business row and the outbox row in the same Postgres transaction. If the transaction committed, both existed. If it rolled back, neither existed. A CDC monitor could then publish durable outbox rows to the event stream.</p>
 <ul class="bullets">
-<li><strong>If the transaction commits:</strong> <span>state and event both exist.</span></li>
-<li><strong>If the transaction rolls back:</strong> <span>neither state nor event exists.</span></li>
-<li><strong>If publishing stalls:</strong> <span>the outbox remains durable until the monitor catches up.</span></li>
+<li><strong>One transaction</strong> <span>writes business state and event record.</span></li>
+<li><strong>Outbox row</strong> <span>survives crashes and deploys.</span></li>
+<li><strong>CDC monitor</strong> <span>publishes after commit.</span></li>
+<li><strong><code>delivered_at</code></strong> <span>tracks completion.</span></li>
+<li><strong><code>partition_key</code></strong> <span>preserves order for related events.</span></li>
 </ul>
 </div>
-<div class="diagram">
-<div class="cap">outbox pattern · consistency boundary</div>
-<div class="outboxviz">
-<span class="node service">Service A<br><small>business code</small></span><span class="arr">→</span>
-<div class="dbbox"><div class="tx">one db transaction</div><div class="table">domain row</div><div class="table">outbox row</div></div><span class="arr">→</span>
-<span class="node bus">CDC publisher<br><small>event broker</small></span>
+<div class="diagram photo-diagram">
+<img src="assets/outbox-pattern.png" alt="Outbox pattern writes customer and outbox rows in one database transaction, then forwards outbox events to the event stream.">
 </div>
 </div>
-</div>
-<div class="strip"><span class="lb">Why Postgres</span> Every service already used it. Every engineer understood transactions. The platform got consistency without forcing producers onto a new write path.</div>
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · what the platform inherited</div>
-<div class="det-title">The outbox made producers simple by moving complexity into <span class="c">CDC</span>.</div>
-<div class="arch">
-<div class="tcard" style="--x:var(--consistency)"><span class="tag">go service</span><div class="nm">Outbox Monitor</div><div class="role">logical replication consumer</div><p>Parsed outbox configs and tailed committed rows for multiple tables.</p></div>
-<div class="tcard" style="--x:var(--ops)"><span class="tag">shutdown</span><div class="nm">signal-aware workers</div><div class="role">Kubernetes termination</div><p>Used context cancellation and grouped workers so shutdown did not duplicate or strand work.</p></div>
-<div class="tcard" style="--x:var(--bus)"><span class="tag">compat</span><div class="nm">shared publisher interface</div><div class="role">SNS/SQS and Kafka</div><p>The service could publish through either backend while teams migrated.</p></div>
-</div>
+<div class="det-title">The schema encoded delivery, ordering, and validation state.</div>
+<p class="det-sub">The producer-facing API created a normal Postgres row. The platform-owned monitor tailed committed rows, validated payloads, published them, and marked completion without product services taking a direct broker dependency.</p>
+<pre class="schema-code">CREATE TABLE outbox_events (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  name text NOT NULL,
+  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  partition_key text,
+  payload jsonb NOT NULL,
+  source text NOT NULL,
+  failure_strategy text CHECK (failure_strategy IN ('retry', 'drop', 'dlq')),
+  delivered_at timestamp with time zone
+);</pre>
 </div>
 </section>
 
@@ -227,14 +247,15 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
 <div class="eyebrow bus"><span class="ph">04</span> Schema contract</div>
-<h1 class="title-lg">An event bus without schemas is an <span class="b">outage amplifier</span>.</h1>
+<h1 class="title-lg">Outbox made events reliable. Schemas made them <span class="b">safe to consume</span>.</h1>
 <div class="split">
 <div>
-<p class="sub">Schema validation was the adoption pain point teams understood. The design moved from JSON schema in the middle toward Avro and a schema registry so compatibility became an explicit producer and consumer contract.</p>
+<p class="sub">We needed producers and consumers to agree on event shape, versioning, and compatibility before messages reached production. Each producer owned the schema for the events it emitted.</p>
 <ul class="bullets" style="--c:var(--bus)">
-<li><strong>v1:</strong> <span>JSON schema validation in the bus layer. Safer than nothing, but too centralized.</span></li>
-<li><strong>v2:</strong> <span>Avro schemas in a registry. Better contracts, harder adoption.</span></li>
-<li><strong>Lesson:</strong> <span>the right contract still needs examples, defaults, and docs.</span></li>
+<li><strong>Avro schemas</strong> <span>defined the payload contract.</span></li>
+<li><strong>Kafka Schema Registry</strong> <span>stored versions and compatibility rules.</span></li>
+<li><strong>Producer validation</strong> <span>caught breaking changes before publish.</span></li>
+<li><strong>Consumer compatibility</strong> <span>let teams evolve independently.</span></li>
 </ul>
 </div>
 <div class="diagram">
@@ -243,15 +264,15 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div style="height:18px"></div>
 <div class="flowrow"><span class="node bus">Event</span><span class="arr">→</span><span class="node service">Compatible consumer</span><span class="arr">→</span><span class="node bus">Handler runs</span></div>
 <div style="height:12px"></div>
-<div class="flowrow"><span class="node bad">Breaking event</span><span class="arr">→</span><span class="node bad">Rejected before damage</span></div>
+<div class="fanout"><span class="node bad">Breaking event</span><span class="arr">→</span><div class="choices"><span class="node bad">DLQ</span><span class="node bad">infinite retry</span><span class="node bad">drop</span></div></div>
 </div>
 </div>
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · adoption failure mode</div>
-<div class="det-title">The technically cleaner schema model was also <span class="b">harder to get used</span>.</div>
-<p class="det-sub">Moving validation closer to producers improved correctness, but it required teams to own schemas as first-class artifacts. That was the recurring tradeoff: a stronger platform contract only works if the ergonomic path makes compliance cheaper than bypassing it.</p>
-<div class="strip" style="--c:var(--bus)"><span class="lb">What failed</span> Central validation was easier for teams, but left too much responsibility in the platform. Producer-owned schemas were better architecture, but needed better tooling and examples to get adoption.</div>
+<div class="det-title">Schemas moved the contract out of <span class="b">tribal knowledge</span>.</div>
+<p class="det-sub">Before schemas, the contract lived in code, docs, Slack threads, and assumptions between teams. With Avro and Schema Registry, the event shape became a versioned artifact. Producers owned the schema, consumers could validate compatibility, and the platform had a place to enforce the contract.</p>
+<div class="strip" style="--c:var(--bus)"><span class="lb">Tradeoff</span> Producer-owned schemas were better architecture, but only worked if examples, defaults, and tooling made the correct path easy.</div>
 </div>
 </section>
 
@@ -280,47 +301,75 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </div>
 </div>
 </div>
-<div class="strip" style="--c:var(--bus)"><span class="lb">The interface bet</span> Teams could consume events by implementing an HTTP endpoint. Kafka remained the broker, not the default application API.</div>
+<div class="strip" style="--c:var(--bus)"><span class="lb">The interface bet</span> Teams could consume directly from Kafka if they needed the control, but most chose the dispatcher sidecar: implement an HTTP endpoint and let the platform own the broker mechanics.</div>
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · options considered</div>
 <div class="det-title">The shared dispatcher optimized for adoption, not maximum control.</div>
-<div class="arch">
-<div class="tcard" style="--x:var(--ops)"><span class="tag">option</span><div class="nm">Direct Kafka consumer</div><div class="role">maximum control</div><p>Good for specialized teams. Too much offset, retry, and client responsibility as a default.</p></div>
+<div class="option-detail">
+<div class="option-stack">
 <div class="tcard" style="--x:var(--consistency)"><span class="tag">option</span><div class="nm">SNS/SQS only</div><div class="role">simple start</div><p>Familiar, but not the best long-term fit for ordering, replay, and broker-level debugging.</p></div>
-<div class="tcard" style="--x:var(--bus)"><span class="tag">chosen default</span><div class="nm">Dispatcher sidecar</div><div class="role">Kafka power, HTTP surface</div><p>Less flexible than direct Kafka, but far more likely to be operated correctly by normal product teams.</p></div>
+<div class="tcard" style="--x:var(--bus)"><span class="tag">chosen default</span><div class="nm">Dispatcher sidecar</div><div class="role">Kafka power, HTTP surface</div><p>Most teams chose this path: less flexible than direct Kafka, but easier to operate correctly.</p></div>
+<div class="tcard" style="--x:var(--ops)"><span class="tag">option</span><div class="nm">Direct Kafka consumer</div><div class="role">maximum control</div><p>Good for specialized teams. Too much offset, retry, and client responsibility as a default.</p></div>
+</div>
+<div class="config-card">
+<div class="cap">dispatcher sidecar config</div>
+<pre class="config-code">input:
+  kafka:
+    addresses: [ ... ]
+    topics: [ policy_events ]
+    consumer_group: policy_service
+
+pipeline:
+  processors:
+    - for_each:
+      - mapping: |
+          root.event_id = this.id
+          root.name = this.name
+          root.payload = this.payload
+
+output:
+  http_client:
+    url: http://localhost:8080/events
+    verb: POST</pre>
+</div>
 </div>
 </div>
 </section>
 
-<section class="slide">
+<section class="slide slide--prebus">
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
-<div class="eyebrow ops"><span class="ph">06</span> Reliability</div>
-<h1 class="title-lg">The scary part was not Kafka.<br>It was <span class="o">WAL growth</span>.</h1>
-<div class="split">
-<div>
-<p class="sub">A stalled CDC consumer can hold a replication slot open and grow WAL until the database is at risk. That makes replication lag a product reliability issue, not just an infra metric.</p>
-<ul class="bullets" style="--c:var(--ops)">
-<li><strong>Monitor the CDC service.</strong> <span>Alert the platform owner.</span></li>
-<li><strong>Monitor WAL growth.</strong> <span>Alert before database health is at risk.</span></li>
-<li><strong>Monitor dispatchers by team.</strong> <span>The handler owner owns its consumer path.</span></li>
-</ul>
-</div>
-<div class="diagram">
-<div class="cap">replication lag monitor</div>
-<canvas class="lag" id="lagChart" width="680" height="260"></canvas>
-</div>
+<div class="eyebrow"><span class="ph">07</span> Before eventing</div>
+<h1 class="title-lg">Before: The producer owned the <span class="c">workflow</span>.</h1>
+<p class="sub">Creating a policy meant the producer service owned the full orchestration: call downstream services, wait for responses, and save local state. Every new consumer or dependency made that producer more coupled.</p>
+<div class="prebus-diagram" aria-label="Pre-event bus flow where Service A calls quote and underwriting services over HTTP before saving policy state.">
+<svg class="prebus-arrows" viewBox="0 0 1000 440" preserveAspectRatio="none" aria-hidden="true">
+<defs><marker id="prebusArrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z"></path></marker></defs>
+<path d="M335 182 C455 68 560 48 650 64" marker-end="url(#prebusArrow)"></path>
+<path d="M650 104 C540 118 430 146 335 182" marker-end="url(#prebusArrow)"></path>
+<path d="M335 210 C455 210 548 210 650 210" marker-end="url(#prebusArrow)"></path>
+<path d="M650 250 C540 302 430 285 335 226" marker-end="url(#prebusArrow)"></path>
+<path d="M306 242 C450 384 560 386 650 374" marker-end="url(#prebusArrow)"></path>
+</svg>
+<div class="prebus-node primary">Service A<br><small>Create policy</small></div>
+<div class="prebus-node quote">Service B<br><small>Generate quote</small></div>
+<div class="prebus-node underwriting">Service C<br><small>Start underwriting</small></div>
+<div class="prebus-node db">Database<br><small>Save policy</small></div>
+<div class="prebus-label req1">HTTP request</div>
+<div class="prebus-label res1">response: quote details</div>
+<div class="prebus-label req2">HTTP request</div>
+<div class="prebus-label res2">response: underwriting status</div>
 </div>
 </div>
 <div class="face detail">
-<div class="det-head">Grounding · what changed after testing</div>
-<div class="det-title">One heartbeat idea was dropped because it covered the <span class="o">wrong surface</span>.</div>
-<p class="det-sub">The first idea inserted synthetic outbox heartbeat events and had the dispatcher convert observations into service checks. We dropped it because not all teams used the dispatcher. A monitor that only covers one consumer path creates false confidence.</p>
+<div class="det-head">Grounding · ownership shift</div>
+<div class="det-title">Eventing moved orchestration out of the producer.</div>
+<p class="det-sub">Before the bus, Service A had to know which services cared about a policy change, how to call them, and what to do when one dependency failed. The event bus changed that ownership model: Service A emitted a durable business fact, and each consumer owned its reaction.</p>
 <div class="arch">
-<div class="tcard" style="--x:var(--ops)"><span class="tag">local dev</span><div class="nm">Confluent Docker images</div><div class="role">Kafka without local cloud emulation</div><p>MSK was not available through localstack, so integration tests used local Kafka containers.</p></div>
-<div class="tcard" style="--x:var(--consistency)"><span class="tag">cdc</span><div class="nm">Unit and integration tests</div><div class="role">outbox monitor</div><p>The complex Go CDC service needed direct tests around config parsing and worker behavior.</p></div>
-<div class="tcard" style="--x:var(--bus)"><span class="tag">dispatcher</span><div class="nm">Image-level integration test</div><div class="role">consume then POST</div><p>Validated the generalized queue dispatcher as a reusable product-team primitive.</p></div>
+<div class="tcard" style="--x:var(--stop)"><span class="tag">producer before</span><div class="nm">Downstream orchestration</div><div class="role">calls, retries, responses</div><p>Owns downstream calls, retries, and response contracts.</p></div>
+<div class="tcard" style="--x:var(--consistency)"><span class="tag">producer after</span><div class="nm">Durable business fact</div><div class="role">state change and event</div><p>Owns the state change and emitted event.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">consumer after</span><div class="nm">Independent reaction</div><div class="role">handler and failure policy</div><p>Owns its handler, failure policy, and operational behavior.</p></div>
 </div>
 </div>
 </section>
@@ -328,10 +377,10 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <section class="slide">
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
-<div class="eyebrow ok"><span class="ph">07</span> Topology</div>
-<h1 class="title-lg">Flexible enough for direct Kafka.<br>Simple enough for <span class="g">HTTP consumers</span>.</h1>
+<div class="eyebrow ok"><span class="ph">08</span> After eventing</div>
+<h1 class="title-lg">After: Flexible enough for direct Kafka.<br>Simple enough for <span class="g">HTTP consumers</span>.</h1>
 <div class="diagram topology-diagram">
-<div class="cap">overall system shape</div>
+<div class="cap">create policy event flow</div>
 <div class="topology-scroll">
 <div class="topology-map">
 <svg class="topology-arrows" viewBox="0 0 1000 322" preserveAspectRatio="none" aria-hidden="true">
@@ -342,30 +391,30 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </defs>
 <path class="write" marker-end="url(#topology-arrowhead)" d="M214 49 C248 49 270 49 298 49"></path>
 <path class="write" marker-end="url(#topology-arrowhead)" d="M214 161 C248 161 270 161 298 161"></path>
-<path class="write" marker-end="url(#topology-arrowhead)" d="M214 273 C248 273 270 273 298 273"></path>
+<path class="publish" marker-end="url(#topology-arrowhead)" d="M214 273 C352 273 454 273 560 273"></path>
 <path class="publish" marker-end="url(#topology-arrowhead)" d="M463 49 C500 82 526 125 560 161"></path>
 <path class="publish" marker-end="url(#topology-arrowhead)" d="M463 161 C501 125 526 82 560 49"></path>
-<path class="publish" marker-end="url(#topology-arrowhead)" d="M463 273 C500 273 524 273 560 273"></path>
 <path class="deliver" marker-end="url(#topology-arrowhead)" d="M646 161 C715 120 762 82 838 49"></path>
 <path class="deliver" marker-end="url(#topology-arrowhead)" d="M646 49 C715 82 762 120 838 161"></path>
 <path class="deliver" marker-end="url(#topology-arrowhead)" d="M646 273 C714 273 762 273 838 273"></path>
+<rect class="label-bg" x="212" y="20" width="48" height="22" rx="5"></rect>
 <text x="222" y="35">write</text>
-<text x="506" y="102">publish</text>
-<text x="510" y="246">publish</text>
+<rect class="label-bg" x="514" y="87" width="64" height="22" rx="5"></rect>
+<text x="524" y="102">publish</text>
+<rect class="label-bg" x="764" y="91" width="60" height="22" rx="5"></rect>
 <text x="774" y="106">deliver</text>
 </svg>
-<span class="node service" style="grid-column:1;grid-row:1">Service A</span>
-<span class="node service" style="grid-column:1;grid-row:2">Service B</span>
-<span class="node service" style="grid-column:1;grid-row:3">Service C</span>
-<span class="node db" style="grid-column:2;grid-row:1">DB A + outbox</span>
-<span class="node db" style="grid-column:2;grid-row:2">DB B + outbox</span>
-<span class="node bus" style="grid-column:2;grid-row:3">Outbox Monitor</span>
-<div class="topic" style="grid-column:3;grid-row:2">Topic A</div>
-<div class="topic" style="grid-column:3;grid-row:1">Topic B</div>
-<div class="topic" style="grid-column:3;grid-row:3">Topic C</div>
-<div class="dispatcher" style="grid-column:4;grid-row:1">Dispatcher B<br>POST /events</div>
-<div class="dispatcher" style="grid-column:4;grid-row:2">Dispatcher A<br>POST /events</div>
-<span class="node service" style="grid-column:4;grid-row:3">Service C direct</span>
+<span class="node service" style="grid-column:1;grid-row:1"><span class="topo-label">Policy<br><small>Create policy</small></span></span>
+<span class="node service" style="grid-column:1;grid-row:2"><span class="topo-label">Quote<br><small>other events</small></span></span>
+<span class="node service" style="grid-column:1;grid-row:3"><span class="topo-label">Underwriting<br><small>direct publish</small></span></span>
+<span class="node db" style="grid-column:2;grid-row:1"><span class="topo-label">Policy DB<br><small>+ outbox</small></span></span>
+<span class="node db" style="grid-column:2;grid-row:2"><span class="topo-label">Quote DB<br><small>+ outbox</small></span></span>
+<div class="topic" style="grid-column:3;grid-row:2"><span class="topo-label">Policy<br>Events</span></div>
+<div class="topic" style="grid-column:3;grid-row:1"><span class="topo-label">Quote<br>Events</span></div>
+<div class="topic" style="grid-column:3;grid-row:3"><span class="topo-label">Underwriting<br>Events</span></div>
+<div class="dispatcher" style="grid-column:4;grid-row:1"><span class="topo-label">Quote handler<br>POST /events</span></div>
+<div class="dispatcher" style="grid-column:4;grid-row:2"><span class="topo-label">Underwriting handler<br>POST /events</span></div>
+<span class="node service" style="grid-column:4;grid-row:3"><span class="topo-label">Analytics<br><small>direct Kafka</small></span></span>
 </div>
 </div>
 </div>
@@ -383,6 +432,39 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </div>
 </section>
 
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ops"><span class="ph">09</span> Operating reliability</div>
+<h1 class="title-lg">CDC was the toughest <span class="o">reliability problem</span>.</h1>
+<div class="split">
+<div>
+<p class="sub">A stalled CDC consumer can hold a replication slot open and grow WAL until the database is at risk. That makes replication lag a product reliability issue, not just an infra metric.</p>
+<ul class="bullets" style="--c:var(--ops)">
+<li><strong>Monitor the CDC service.</strong> <span>Alert the platform owner.</span></li>
+<li><strong>Monitor WAL growth.</strong> <span>Alert before database health is at risk.</span></li>
+<li><strong>Monitor dispatchers by team.</strong> <span>The handler owner owns its consumer path.</span></li>
+</ul>
+</div>
+<div class="diagram">
+<div class="cap">replication lag monitor</div>
+<canvas class="lag" id="lagChart" width="680" height="260"></canvas>
+</div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Grounding · alert ownership</div>
+<div class="det-title">Error monitoring needed clear <span class="o">ownership</span>.</div>
+<p class="det-sub">The platform owned the outbox monitor and CDC pipeline. Product teams owned their event handlers. Monitoring had to reflect that split, so alerts went to the team that could actually fix the failure.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--ops)"><span class="tag">platform-owned</span><div class="nm">CDC pipeline health</div><div class="role">replication and outbox lag</div><p>Replication slot health, WAL growth, and outbox monitor lag belonged to the platform.</p></div>
+<div class="tcard" style="--x:var(--consistency)"><span class="tag">team-owned</span><div class="nm">Handler health</div><div class="role">consumer failures</div><p>Handler errors, retries, and DLQs belonged to the team consuming the event.</p></div>
+<div class="tcard" style="--x:var(--bus)"><span class="tag">shared context</span><div class="nm">Debug trail</div><div class="role">events and offsets</div><p>Event IDs, offsets, timestamps, and dashboards gave both sides the same incident context.</p></div>
+</div>
+</div>
+</section>
+
 <section class="slide">
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
@@ -390,8 +472,8 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <h1 class="title-lg">Outbox for consistency.<br>Kafka for scale.<br>HTTP for adoption.</h1>
 <div class="levers">
 <div class="lever" style="--x:var(--consistency)"><div class="ix">Decision 1</div><h3>Produce from<br>Postgres</h3><p>State and event commit together. CDC takes the complexity after commit.</p></div>
-<div class="lever" style="--x:var(--bus)"><div class="ix">Decision 2</div><h3>Validate the<br>contract</h3><p>Events become shared APIs. Schema compatibility is part of the platform.</p></div>
-<div class="lever" style="--x:var(--ops)"><div class="ix">Decision 3</div><h3>Keep Kafka<br>off the edge</h3><p>Most teams consume over HTTP through a dispatcher. The platform owns broker complexity.</p></div>
+<div class="lever" style="--x:var(--ops)"><div class="ix">Decision 2</div><h3>Keep Kafka<br>off the edge</h3><p>Most teams consume over HTTP through a dispatcher. The platform owns broker complexity.</p></div>
+<div class="lever" style="--x:var(--bus)"><div class="ix">Decision 3</div><h3>Validate the<br>contract</h3><p>Events become shared APIs. Schema compatibility is part of the platform.</p></div>
 </div>
 <div class="strip"><span class="lb">The through-line</span> The event bus was not about adding a broker. It was about changing service ownership: producers publish durable facts, consumers own their reactions, and the platform owns the delivery substrate.</div>
 </div>
@@ -399,7 +481,6 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="det-head">Sources</div>
 <div class="det-title">Primary references used for this public-safe deck.</div>
 <div class="arch">
-<div class="tcard" style="--x:var(--consistency)"><span class="tag">deck</span><div class="nm">Event Bus Architecture</div><div class="role">Google Slides</div><p><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/15gQAdSNKT2Vu3IGAiIaVKxVbAxWan5Lv2qb64KA0kmc/edit">Original presentation source</a>.</p></div>
 <div class="tcard" style="--x:var(--bus)"><span class="tag">pattern</span><div class="nm">Transactional Outbox</div><div class="role">microservices.io</div><p><a target="_blank" rel="noopener noreferrer" href="https://microservices.io/patterns/data/transactional-outbox.html">Pattern reference</a> for the consistency mechanism.</p></div>
 <div class="tcard" style="--x:var(--ops)"><span class="tag">docs</span><div class="nm">Postgres, Kafka, Avro</div><div class="role">primary docs</div><p><a target="_blank" rel="noopener noreferrer" href="https://www.postgresql.org/docs/current/logical-replication.html">Logical replication</a>, <a target="_blank" rel="noopener noreferrer" href="https://kafka.apache.org/documentation/">Kafka</a>, and <a target="_blank" rel="noopener noreferrer" href="https://avro.apache.org/docs/">Avro</a>.</p></div>
 </div>
