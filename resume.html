@@ -252,6 +252,7 @@
       .body {
         display: grid;
         grid-template-columns: 280px minmax(0, 1fr);
+        align-items: start;
       }
 
       aside {
@@ -474,6 +475,11 @@
           margin: 0.42in;
         }
 
+        :root {
+          --muted: #2f3b36;
+          --line: #8fa79d;
+        }
+
         body {
           color: #111111;
           background: #ffffff;
@@ -511,12 +517,13 @@
         .summary {
           margin-top: 9px;
           font-size: 9.6pt;
+          color: #26312d;
         }
 
         .contact {
           padding: 10px;
           border: 1px solid #222;
-          background: #ffffff;
+          background: var(--yellow);
         }
 
         .proof {
@@ -528,13 +535,14 @@
           min-height: auto;
           padding: 8px;
           border-right: 1px solid #222;
-          background: #ffffff !important;
-          color: #111111 !important;
         }
 
-        .proof span,
+        .proof div:nth-child(3) {
+          color: var(--proof-contrast-text);
+        }
+
         .proof div:nth-child(3) span {
-          color: #333333 !important;
+          color: var(--proof-contrast-muted);
         }
 
         .proof strong {
@@ -548,7 +556,7 @@
         aside {
           padding: 13px 12px 0 0;
           border-right: 1px solid #222;
-          background: #ffffff;
+          background: var(--sidebar);
         }
 
         main {
@@ -585,8 +593,12 @@
         .role,
         .meta,
         .rail-list li,
-        .chip,
         .mini p {
+          font-size: 7.8pt;
+          color: #26312d;
+        }
+
+        .chip {
           font-size: 7.8pt;
         }
 
@@ -602,7 +614,7 @@
         .chip {
           padding: 2px 5px;
           background: #ffffff;
-          color: #333333;
+          color: #202724;
         }
 
         .compact {
@@ -619,12 +631,16 @@
         .detail-grid li {
           padding: 5px 6px;
           background: #ffffff;
-          color: #333333;
+          color: #202724;
           font-size: 7.5pt;
         }
 
         .detail-grid__center {
-          grid-column: auto;
+          grid-column: 1 / -1;
+          justify-self: center;
+          width: calc(50% - 3px);
+          min-width: 260px;
+          box-sizing: border-box;
         }
 
         .mini {
@@ -697,7 +713,7 @@
               <span class="chip">Koa</span><span class="chip">Mux</span><span class="chip">Gin</span><span class="chip">Stripe</span>
               <span class="chip">Cloudinary</span><span class="chip">OAuth</span><span class="chip">Debezium</span>
               <span class="chip">Avro</span><span class="chip">Datadog</span><span class="chip">Splunk</span>
-              <span class="chip">Argo CD</span><span class="chip">GitHub Actions</span><span class="chip">ECR</span>
+              <span class="chip">Argo CD</span><span class="chip">GitHub Actions</span>
               <span class="chip">pganalyze</span>
             </div>
           </section>
