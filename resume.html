@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Eric Kennedy | Resume</title>
+    <title>Eric Kennedy Resume</title>
     <meta
       name="description"
       content="Eric Kennedy resume: applied AI, backend systems, platform infrastructure, and product engineering."
@@ -184,6 +184,7 @@
       .contact {
         display: grid;
         gap: 10px;
+        justify-items: start;
         align-self: start;
         padding: 22px;
         border: 2px solid var(--ink);
@@ -197,7 +198,8 @@
 
       .contact span,
       .contact a {
-        display: block;
+        display: inline-block;
+        width: fit-content;
         font-size: 0.96rem;
       }
 
@@ -253,12 +255,38 @@
         display: grid;
         grid-template-columns: 280px minmax(0, 1fr);
         align-items: start;
+        position: relative;
+      }
+
+      .body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 280px;
+        border-right: 2px solid var(--ink);
+        z-index: 2;
+      }
+
+      .body::after {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 280px;
+        background: var(--sidebar);
+        z-index: 0;
       }
 
       aside {
         padding: 30px 24px;
-        border-right: 2px solid var(--ink);
         background: var(--sidebar);
+        position: relative;
+        z-index: 1;
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
       }
 
       .side-section + .side-section {
@@ -453,8 +481,15 @@
           grid-column: auto;
         }
 
+        .body::before {
+          display: none;
+        }
+
+        .body::after {
+          display: none;
+        }
+
         aside {
-          border-right: 0;
           border-bottom: 2px solid var(--ink);
         }
 
@@ -553,9 +588,20 @@
           grid-template-columns: 1.45in 1fr;
         }
 
+        .body::before {
+          display: block;
+          left: 1.45in;
+          border-right: 1px solid #222;
+        }
+
+        .body::after {
+          display: block;
+          width: 1.45in;
+        }
+
         aside {
           padding: 13px 12px 0 0;
-          border-right: 1px solid #222;
+          border-bottom: 0;
           background: var(--sidebar);
         }
 
@@ -670,9 +716,10 @@
           <p class="eyebrow">Software engineer - product, platform, applied AI</p>
           <h1>Eric Kennedy</h1>
           <p class="summary">
-            Software engineer building applied AI products, real-time marketplace systems, backend platforms, and
-            infrastructure. I work from product ambiguity through production ownership: design the system, ship it,
-            measure it, and keep it reliable at scale.
+            Product-minded software engineer specializing in applied AI, distributed systems, and backend
+            infrastructure. I'm strongest in ambiguous problem spaces: turning early product ideas into production
+            systems, designing the architecture, shipping quickly, measuring outcomes, and owning reliability as usage
+            scales.
           </p>
         </div>
         <address class="contact">
