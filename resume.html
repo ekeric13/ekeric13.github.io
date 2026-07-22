@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eric Kennedy | Resume</title>
+    <meta
+      name="description"
+      content="Eric Kennedy resume: applied AI, backend systems, platform infrastructure, and product engineering."
+    />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #eef4f1;
+        --ink: #10211d;
+        --muted: #52635d;
+        --line: #a8beb5;
+        --paper: #fbfcf9;
+        --yellow: #f1c84b;
+        --green: #0b6b55;
+        --blue: #2359c7;
+        --soft-blue: #dbe8ff;
+        --grid-line: rgba(16, 33, 29, 0.045);
+        --sidebar: #f7faf5;
+        --tile: #ffffff;
+        --shadow: rgba(16, 33, 29, 0.12);
+        --link-line: rgba(11, 107, 85, 0.34);
+        --proof-contrast-text: #ffffff;
+        --proof-contrast-muted: rgba(255, 255, 255, 0.78);
+        --toggle-bg: linear-gradient(135deg, #10211d 0%, #10211d 46%, #0b6b55 47%, #0b6b55 100%);
+        --toggle-ink: #ffffff;
+        --toggle-glow: rgba(16, 33, 29, 0.2);
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #101412;
+        --ink: #f5f0e6;
+        --muted: #b7b0a3;
+        --line: #343a35;
+        --paper: #171d1a;
+        --yellow: #1f3a36;
+        --green: #8ddebf;
+        --blue: #79c8d8;
+        --soft-blue: #1a2a28;
+        --grid-line: rgba(141, 222, 191, 0.055);
+        --sidebar: #121714;
+        --tile: #101412;
+        --shadow: rgba(0, 0, 0, 0.34);
+        --link-line: rgba(141, 222, 191, 0.46);
+        --proof-contrast-text: #101412;
+        --proof-contrast-muted: rgba(16, 20, 18, 0.72);
+        --toggle-bg: linear-gradient(135deg, #8ddebf 0%, #8ddebf 48%, #f5f0e6 49%, #f5f0e6 100%);
+        --toggle-ink: #101412;
+        --toggle-glow: rgba(141, 222, 191, 0.22);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          linear-gradient(var(--grid-line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+          var(--bg);
+        background-size: 28px 28px;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.38;
+        transition: background-color 180ms ease, color 180ms ease;
+      }
+
+      a {
+        color: inherit;
+        font-weight: 760;
+        text-decoration-line: underline;
+        text-decoration-color: var(--link-line);
+        text-decoration-thickness: 1.5px;
+        text-underline-offset: 3px;
+      }
+
+      .nav {
+        display: flex;
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 22px 0;
+      }
+
+      .nav a {
+        text-decoration: none;
+      }
+
+      .nav__name {
+        font-weight: 900;
+      }
+
+      .nav__links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .theme-toggle {
+        display: inline-grid;
+        grid-template-columns: 1fr;
+        min-height: 30px;
+        min-width: 62px;
+        place-items: center;
+        padding: 3px 9px;
+        border: 2px solid var(--ink);
+        border-radius: 999px;
+        color: var(--toggle-ink);
+        background: var(--toggle-bg);
+        font: inherit;
+        font-size: 0.76rem;
+        font-weight: 900;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: 0 4px 0 var(--ink), 0 10px 20px var(--toggle-glow);
+        text-shadow: 0 1px 0 rgba(16, 33, 29, 0.25);
+        transition: box-shadow 160ms ease, filter 160ms ease, transform 160ms ease;
+      }
+
+      .theme-toggle:hover {
+        filter: saturate(1.1) brightness(1.04);
+        box-shadow: 0 5px 0 var(--ink), 0 13px 24px var(--toggle-glow);
+        transform: translateY(-1px);
+      }
+
+      .theme-toggle:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+      }
+
+      .page {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto 72px;
+        border: 2px solid var(--ink);
+        background: var(--paper);
+        box-shadow: 12px 12px 0 var(--shadow);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.78fr);
+        gap: 32px;
+        padding: 42px;
+        border-bottom: 2px solid var(--ink);
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--green);
+        font-size: 0.76rem;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        font-size: clamp(3.4rem, 7vw, 5.9rem);
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+      }
+
+      .summary {
+        max-width: 760px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .contact {
+        display: grid;
+        gap: 10px;
+        align-self: start;
+        padding: 22px;
+        border: 2px solid var(--ink);
+        background: var(--yellow);
+      }
+
+      .contact strong {
+        display: block;
+        font-size: 1.1rem;
+      }
+
+      .contact span,
+      .contact a {
+        display: block;
+        font-size: 0.96rem;
+      }
+
+      .proof {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-bottom: 2px solid var(--ink);
+      }
+
+      .proof div {
+        min-height: 112px;
+        padding: 18px;
+        border-right: 2px solid var(--ink);
+        background: var(--tile);
+      }
+
+      .proof div:nth-child(2) {
+        background: var(--soft-blue);
+      }
+
+      .proof div:nth-child(3) {
+        color: var(--proof-contrast-text);
+        background: var(--green);
+      }
+
+      .proof div:last-child {
+        border-right: 0;
+      }
+
+      .proof strong {
+        display: block;
+        font-size: 1.46rem;
+        line-height: 1;
+      }
+
+      .proof a {
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 2px;
+      }
+
+      .proof span {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .proof div:nth-child(3) span {
+        color: var(--proof-contrast-muted);
+      }
+
+      .body {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+      }
+
+      aside {
+        padding: 30px 24px;
+        border-right: 2px solid var(--ink);
+        background: var(--sidebar);
+      }
+
+      .side-section + .side-section {
+        margin-top: 30px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: 0.84rem;
+        font-weight: 950;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .chip {
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--tile);
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 720;
+      }
+
+      .rail-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .rail-list li {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      main {
+        padding: 30px 34px 38px;
+      }
+
+      .job {
+        display: grid;
+        grid-template-columns: 58px minmax(0, 1fr);
+        gap: 18px;
+        padding: 26px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .job:first-child {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .mark {
+        display: grid;
+        width: 58px;
+        height: 58px;
+        place-items: center;
+        overflow: hidden;
+        border: 2px solid var(--ink);
+        background: white;
+        font-size: 0.76rem;
+        font-weight: 950;
+      }
+
+      .mark img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .mark--ethos {
+        padding: 4px;
+      }
+
+      .mark--ethos img {
+        max-width: 96%;
+      }
+
+      .job-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 8px;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 1.38rem;
+        line-height: 1.1;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-weight: 780;
+        white-space: nowrap;
+      }
+
+      .role {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font-weight: 760;
+      }
+
+      .highlight {
+        color: var(--ink);
+        font-weight: 900;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      li {
+        margin: 7px 0;
+      }
+
+      .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 12px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .detail-grid li {
+        margin: 0;
+        padding: 10px 11px;
+        border: 1px solid var(--line);
+        background: var(--tile);
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .detail-grid strong {
+        color: var(--ink);
+      }
+
+      .detail-grid__center {
+        grid-column: 2;
+      }
+
+      .compact {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .mini {
+        padding: 14px;
+        border: 1px solid var(--line);
+        background: var(--tile);
+      }
+
+      .mini strong {
+        display: block;
+      }
+
+      .mini p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 820px) {
+        .hero,
+        .body,
+        .proof,
+        .compact {
+          grid-template-columns: 1fr;
+        }
+
+        .detail-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .detail-grid__center {
+          grid-column: auto;
+        }
+
+        aside {
+          border-right: 0;
+          border-bottom: 2px solid var(--ink);
+        }
+
+        .job-head {
+          display: block;
+        }
+
+        .meta {
+          display: block;
+          margin-top: 4px;
+          white-space: normal;
+        }
+      }
+
+      @media print {
+        @page {
+          size: Letter;
+          margin: 0.42in;
+        }
+
+        body {
+          color: #111111;
+          background: #ffffff;
+          font-size: 9.3pt;
+          line-height: 1.24;
+        }
+
+        .theme-toggle {
+          display: none;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .page {
+          width: auto;
+          margin: 0;
+          border: 0;
+          background: #ffffff;
+          box-shadow: none;
+        }
+
+        .hero {
+          grid-template-columns: 1.5fr 0.82fr;
+          gap: 18px;
+          padding: 0 0 14px;
+          border-bottom: 1px solid #222;
+        }
+
+        h1 {
+          font-size: 31pt;
+        }
+
+        .summary {
+          margin-top: 9px;
+          font-size: 9.6pt;
+        }
+
+        .contact {
+          padding: 10px;
+          border: 1px solid #222;
+          background: #ffffff;
+        }
+
+        .proof {
+          grid-template-columns: repeat(3, 1fr);
+          border-bottom: 1px solid #222;
+        }
+
+        .proof div {
+          min-height: auto;
+          padding: 8px;
+          border-right: 1px solid #222;
+          background: #ffffff !important;
+          color: #111111 !important;
+        }
+
+        .proof span,
+        .proof div:nth-child(3) span {
+          color: #333333 !important;
+        }
+
+        .proof strong {
+          font-size: 12pt;
+        }
+
+        .body {
+          grid-template-columns: 1.45in 1fr;
+        }
+
+        aside {
+          padding: 13px 12px 0 0;
+          border-right: 1px solid #222;
+          background: #ffffff;
+        }
+
+        main {
+          padding: 13px 0 0 15px;
+        }
+
+        .job {
+          grid-template-columns: 0.34in 1fr;
+          gap: 9px;
+          padding: 10px 0;
+          break-inside: avoid;
+        }
+
+        .mark {
+          width: 0.34in;
+          height: 0.34in;
+          border: 1px solid #222;
+          font-size: 6pt;
+        }
+
+        .mark--ethos {
+          padding: 2px;
+        }
+
+        h2 {
+          margin-bottom: 7px;
+          font-size: 7.4pt;
+        }
+
+        h3 {
+          font-size: 12pt;
+        }
+
+        .role,
+        .meta,
+        .rail-list li,
+        .chip,
+        .mini p {
+          font-size: 7.8pt;
+        }
+
+        li {
+          margin: 3px 0;
+        }
+
+        .side-section + .side-section {
+          margin-top: 14px;
+          padding-top: 12px;
+        }
+
+        .chip {
+          padding: 2px 5px;
+          background: #ffffff;
+          color: #333333;
+        }
+
+        .compact {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 8px;
+        }
+
+        .detail-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 5px;
+          margin-top: 7px;
+        }
+
+        .detail-grid li {
+          padding: 5px 6px;
+          background: #ffffff;
+          color: #333333;
+          font-size: 7.5pt;
+        }
+
+        .detail-grid__center {
+          grid-column: auto;
+        }
+
+        .mini {
+          padding: 7px;
+          background: #ffffff;
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav" aria-label="Resume navigation">
+      <a class="nav__name" href="index.html">Eric Kennedy</a>
+      <nav class="nav__links">
+        <button class="theme-toggle" type="button" aria-label="Switch to dark resume theme" aria-pressed="false">
+          Dark
+        </button>
+      </nav>
+    </header>
+
+    <div class="page">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Software engineer - product, platform, applied AI</p>
+          <h1>Eric Kennedy</h1>
+          <p class="summary">
+            Software engineer building applied AI products, real-time marketplace systems, backend platforms, and
+            infrastructure. I work from product ambiguity through production ownership: design the system, ship it,
+            measure it, and keep it reliable at scale.
+          </p>
+        </div>
+        <address class="contact">
+          <strong>San Diego, CA</strong>
+          <span>714.884.7490</span>
+          <a href="mailto:ekeric13@gmail.com">ekeric13@gmail.com</a>
+          <a href="https://www.linkedin.com/in/ekeric13">linkedin.com/in/ekeric13</a>
+          <a href="https://github.com/ekeric13">github.com/ekeric13</a>
+          <a href="https://ekeric13.github.io">ekeric13.github.io</a>
+        </address>
+      </section>
+
+      <section class="proof" aria-label="Selected impact">
+        <div><strong>1M+</strong><span>yearly AI-matched customer interactions</span></div>
+        <div><strong>$25M+</strong><span>documented AI matching and optimization impact</span></div>
+        <div>
+          <strong
+            >Stealth →
+            <a href="https://www.sec.gov/Archives/edgar/data/1788451/000095012325006749/filename1.htm">$159.8M ARR</a></strong
+          ><span>Ethos revenue scale by tenure end</span>
+        </div>
+      </section>
+
+      <div class="body">
+        <aside>
+          <section class="side-section">
+            <h2>Languages &amp; Tech</h2>
+            <div class="chips">
+              <span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Python</span>
+              <span class="chip">Golang</span><span class="chip">Java</span><span class="chip">Postgres</span>
+              <span class="chip">React</span><span class="chip">CSS</span><span class="chip">Kubernetes</span>
+              <span class="chip">Terraform</span><span class="chip">Docker</span><span class="chip">Kafka</span>
+              <span class="chip">Redis</span><span class="chip">AWS</span><span class="chip">S3</span>
+              <span class="chip">SQS</span><span class="chip">SNS</span><span class="chip">RDS</span>
+              <span class="chip">PyTorch</span><span class="chip">OpenSearch</span><span class="chip">Vector Search</span>
+              <span class="chip">Embeddings</span><span class="chip">Next.js</span><span class="chip">Tailwind</span>
+              <span class="chip">SQLAlchemy</span><span class="chip">FastAPI</span><span class="chip">Express</span>
+              <span class="chip">Koa</span><span class="chip">Mux</span><span class="chip">Gin</span><span class="chip">Stripe</span>
+              <span class="chip">Cloudinary</span><span class="chip">OAuth</span><span class="chip">Debezium</span>
+              <span class="chip">Avro</span><span class="chip">Datadog</span><span class="chip">Splunk</span>
+              <span class="chip">Argo CD</span><span class="chip">GitHub Actions</span><span class="chip">ECR</span>
+              <span class="chip">pganalyze</span>
+            </div>
+          </section>
+          <section class="side-section">
+            <h2>Focus &amp; Strengths</h2>
+            <ul class="rail-list">
+              <li>Applied AI systems and agent platforms</li>
+              <li>Marketplace, routing, and recommendation systems</li>
+              <li>Event-driven platform architecture</li>
+              <li>Postgres, data modeling, and migrations</li>
+              <li>Kubernetes, deploy automation, and observability</li>
+            </ul>
+          </section>
+          <section class="side-section">
+            <h2>Portfolio Links</h2>
+            <ul class="rail-list">
+              <li><a href="projects/ai-contact-center-matching-redacted/">AI contact-center matching</a></li>
+              <li><a href="projects/ai-agent-gateway-redacted/">AI agent gateway</a></li>
+              <li><a href="projects/event-bus/">Event bus architecture</a></li>
+              <li><a href="projects/anime-pics/">AnimePics project</a></li>
+            </ul>
+          </section>
+          <section class="side-section">
+            <h2>Education</h2>
+            <ul class="rail-list">
+              <li><strong><a href="https://www.northwestern.edu/">Northwestern</a></strong><br />Economics, 2014</li>
+              <li>
+                <strong><a href="https://bradfieldcs.com/">Bradfield CS</a></strong><br />Databases, Networks,
+                Computer Architecture, Deep Learning, 2018
+              </li>
+            </ul>
+          </section>
+        </aside>
+
+        <main>
+          <section aria-labelledby="experience-title">
+            <h2 id="experience-title">Professional Experience</h2>
+
+            <article class="job">
+              <a class="mark" href="https://www.intuit.com/" aria-label="Intuit"><img src="assets/logos/intuit.png" alt="Intuit logo" /></a>
+              <div>
+                <div class="job-head">
+                  <h3>Intuit</h3>
+                  <span class="meta">2024 - Present</span>
+                </div>
+                <p class="role">Senior Software Engineer | <a href="https://www.intuit.com/">intuit.com</a></p>
+                <ul>
+                  <li>
+                    <strong>Virtual Expert Platform:</strong> Built AI-powered marketplace, recommendation, and real-time workforce optimization systems for
+                    Intuit's Virtual Expert Platform, powering TurboTax Live, QuickBooks Live, Find a ProAdvisor,
+                    QuickBooks Accountant, and QuickBooks Payroll. During tax peak, 5 days before April 15,
+                    contact-management systems served <span class="highlight">4.2M customers across 26k experts</span>.
+                  </li>
+                  <li>
+                    <strong>AI matching:</strong> Built and led an <a href="projects/ai-contact-center-matching-redacted/">AI co-pilot matching platform</a>
+                    using transcript analysis, embeddings, and agentic workflows. Scaled AI-driven matching from 0.2% to
+                    <span class="highlight">36% of contact-center traffic</span> across
+                    <span class="highlight">1M+ yearly interactions</span>, reduced onboarding from 3-6 months to
+                    <span class="highlight">under 4 hours</span>, and delivered
+                    <span class="highlight">$11.4M in 2025 plus $14M in 2026</span> business impact. Patent filed.
+                  </li>
+                  <li>
+                    <strong>Automated routing:</strong> Re-architected matching to run fully automated and human-out-of-loop, generating personalized expert
+                    assignments at customer contact time. Built a Kafka stream processor handling 3K+ messages/second;
+                    recovered from a peak-season failure affecting
+                    <span class="highlight">45% of contact volume</span> and delivered
+                    <span class="highlight">$3.3M in savings</span>.
+                  </li>
+                  <li>
+                    <strong>Agent gateway:</strong> Led a hosted <a href="projects/ai-agent-gateway-redacted/">AI agent gateway</a> with 20+ domain agents
+                    for onboarding, expert availability, routing rules, enterprise permissions, and contact-center
+                    operations. Built the shared runtime, access control, tool integration, collaborative sessions, and
+                    interfaces across web UI, Slack, Claude Code, and service APIs. Platform
+                    eliminated <span class="highlight">thousands of hours</span> of manual ops work with
+                    <span class="highlight">90+ weekly active users</span>.
+                  </li>
+                  <li>
+                    <strong>Transcript analysis:</strong> Built a Bring Your Own Prompt transcript-analysis platform for arbitrary LLM queries over thousands
+                    of customer conversations, used for tax policy compliance detection with
+                    <span class="highlight">95.5% precision</span>, QA at scale, and expert skill gap analysis.
+                  </li>
+                  <li>
+                    <strong>Observability:</strong> Spearheaded obs-as-code (Terraform/IaC for observability) to colocate Splunk-style alert definitions
+                    next to code, improve LLM codegen leverage, and make observability part of the deploy process.
+                  </li>
+                  <li>
+                    <strong>Reliability:</strong> Diagnosed and fixed a production memory leak that cascaded from heap OOM to consumer-thread exit,
+                    blocking queue deadlock, and pod failure. Root-caused via heap dumps, thread dumps, and Prometheus;
+                    implemented graceful shutdown and rollback handling for Kubernetes SIGTERM to prevent in-flight data
+                    corruption.
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="job">
+              <a class="mark" href="projects/anime-pics/" aria-label="AnimePics"><img src="assets/logos/animepics.png" alt="AnimePics logo" /></a>
+              <div>
+                <div class="job-head">
+                  <h3>AnimePics</h3>
+                  <span class="meta">2023</span>
+                </div>
+                <p class="role">Founder | <a href="https://animepics.xyz">animepics.xyz</a></p>
+                <ul>
+                  <li>
+                    <strong>Product:</strong> Created <a href="projects/anime-pics/">a GenAI product</a> that transformed user photos into anime
+                    illustrations using diffusion deep learning and custom models.
+                  </li>
+                  <li>
+                    <strong>Frontend:</strong> Implemented a mobile-first frontend with TypeScript, Next.js, Tailwind, Zustand, and React Query.
+                  </li>
+                  <li>
+                    <strong>Backend:</strong> Engineered a Python backend with Starlite, SQLAlchemy, Postgres, S3, Redis, Kafka, and PyTorch GPU
+                    workers for durable orders, media storage, caching, and async GPU job orchestration.
+                  </li>
+                  <li>
+                    <strong>Payments and auth:</strong> Integrated Cloudinary media management, Stripe payments, Google OAuth, Apple OAuth, passwordless
+                    email, and guest checkout.
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="job">
+              <a class="mark mark--ethos" href="https://www.ethos.com/" aria-label="Ethos"><img src="assets/logos/ethos.webp" alt="Ethos logo" /></a>
+              <div>
+                <div class="job-head">
+                  <h3>Ethos</h3>
+                  <span class="meta">2018 - 2023</span>
+                </div>
+                <p class="role">Staff Software Engineer | <a href="https://www.ethos.com/">ethoslife.com</a></p>
+                <ul>
+                  <li>
+                    <strong>Early engineer:</strong> Joined pre-launch as Ethos's 3rd engineer and built major frontend and backend systems
+                    that became core company infrastructure. Helped scale Ethos from stealth to
+                    <span class="highlight">$159.8M 2023 revenue</span>, <span class="highlight">$50M ARR</span>, and
+                    <span class="highlight">100+ engineers</span>. Held the highest IC level and mentored ICs into
+                    engineering managers.
+                  </li>
+                  <li>
+                    <strong>Infrastructure migration:</strong> Migrated ECS to Kubernetes with <span class="highlight">100% uptime</span> and introduced Datadog observability; migrated Mongo to
+                    Postgres to improve integrity through schema-on-write and transactional controller logic.
+                  </li>
+                  <li>
+                    <strong>Deploy automation:</strong> Built deploy automation: GitHub Actions created ECR tags, a React admin UI mapped commits to tags,
+                    a Golang service created deployment PRs, and Argo CD shipped the merge. Reduced deploy time from
+                    <span class="highlight">about 5 hours to about 5 minutes</span>.
+                  </li>
+                  <li>
+                    <strong>Event platform:</strong> Created an <a href="projects/event-bus/">event-sourcing system</a> that evolved from SQS to custom
+                    Golang Postgres CDC to SNS/SQS with JSON Schema, then Debezium to Kafka with Avro; handled
+                    <span class="highlight">50,000+ events per day</span>.
+                  </li>
+                  <li>
+                    Owned deep platform and data-system work across service boundaries, persistence, frontend
+                    performance, and production operations:
+                    <ul class="detail-grid">
+                      <li><strong>Service boundaries:</strong> identified monolith domains, wrote ERDs, and created 20+ Kubernetes services.</li>
+                      <li><strong>Postgres/RDS:</strong> owned monitoring, PIT snapshots, reserved instances, Terraform modules, extensions, pganalyze, and Multi-AZ.</li>
+                      <li><strong>Frontend performance:</strong> implemented caching, cross-subdomain CORS/cookies, Nginx asset caching, and redirect reduction.</li>
+                      <li><strong>Backend performance:</strong> added Redis middleware caching and a Kubernetes operator for CDN invalidation on image changes.</li>
+                      <li><strong>Data modeling:</strong> shipped no-downtime migrations and refactored polymorphic relations to exclusive arc.</li>
+                      <li><strong>Query optimization:</strong> fixed an <a href="writing/sql-query-optimization-skill/">O^n payments query</a> from <span class="highlight">4 hours to 5 seconds</span>.</li>
+                      <li class="detail-grid__center"><strong>Incident response:</strong> served as final escalation point for major on-call incidents across the platform.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </section>
+
+          <section class="compact" aria-label="Earlier experience">
+            <article class="mini">
+              <strong>Curology | Fullstack Engineer</strong>
+              <p>2017 - 2018. Built an in-browser photo editor with canvas, D3, RxJS, and mobile drag and drop; hundreds of photos created weekly. Created photo metadata APIs for product and analytics.</p>
+            </article>
+            <article class="mini">
+              <strong>hiQ Labs | Lead Frontend Engineer</strong>
+              <p>2015 - 2017. Built paginated employee directory, AWS upload/download, and KPI dashboard pages; improved builds with Webpack, Babel, PostCSS, minification, and gzip.</p>
+            </article>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script>
+      const root = document.documentElement;
+      const toggle = document.querySelector(".theme-toggle");
+      const savedTheme = localStorage.getItem("resume-theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      function setTheme(theme) {
+        root.dataset.theme = theme;
+        toggle.textContent = theme === "dark" ? "Light" : "Dark";
+        toggle.setAttribute("aria-pressed", String(theme === "dark"));
+        toggle.setAttribute(
+          "aria-label",
+          theme === "dark" ? "Switch to light resume theme" : "Switch to dark resume theme"
+        );
+      }
+
+      setTheme(savedTheme || (prefersDark ? "dark" : "light"));
+
+      toggle.addEventListener("click", () => {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        localStorage.setItem("resume-theme", next);
+        setTheme(next);
+      });
+    </script>
+  </body>
+</html>
