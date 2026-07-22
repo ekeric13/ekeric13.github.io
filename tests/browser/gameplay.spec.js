@@ -327,6 +327,39 @@ test("real keyboard input moves and jumps the player", async ({ page }) => {
   expect(end.player.y).toBeLessThan(192);
 });
 
+test("keyboard input is not delayed after a throttled frame", async ({ page }) => {
+  await openGame(page);
+  const result = await page.evaluate(async () => {
+    const debug = window.__careerGameDebug;
+    debug.restart();
+    debug.clearEnemies();
+    debug.dismissMessage();
+    debug.jumpTo(22, 12);
+    debug.clearMovementTrace();
+    debug.resume();
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    const stalledAt = performance.now();
+    while (performance.now() - stalledAt < 1500) {}
+
+    window.dispatchEvent(new KeyboardEvent("keydown", { code: "ArrowRight", key: "ArrowRight", bubbles: true }));
+    const before = debug.getState().player;
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    const after = debug.getState().player;
+    window.dispatchEvent(new KeyboardEvent("keyup", { code: "ArrowRight", key: "ArrowRight", bubbles: true }));
+
+    return {
+      deltaX: after.x - before.x,
+      vx: after.vx,
+      trace: debug.dumpMovementTrace(20),
+    };
+  });
+
+  expect(result.deltaX).toBeGreaterThan(20);
+  expect(result.vx).toBeGreaterThan(100);
+  expect(result.trace.some((frame) => frame.input.includes("ArrowRight"))).toBe(true);
+});
+
 test("holding a pointer control moves the player", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openGame(page);

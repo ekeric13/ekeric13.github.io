@@ -1149,18 +1149,19 @@
   }
 
   function loop(now) {
-    const elapsedMs = Math.min(100, now - lastTime);
+    const rawElapsedMs = Math.max(0, now - lastTime);
+    const elapsedMs = Math.min(100, rawElapsedMs);
     const elapsed = elapsedMs / 1000;
     lastTime = now;
     let simulationSteps = 0;
-    let droppedMs = 0;
+    let droppedMs = rawElapsedMs - elapsedMs;
     if (simulationPaused) {
       updateAccumulator = 0;
       synchronizeSimulationInput(now);
     } else {
       const availableTime = updateAccumulator + elapsed;
       const maxBacklog = FIXED_DT * maxCatchUpSteps;
-      droppedMs = Math.max(0, availableTime - maxBacklog) * 1000;
+      droppedMs += Math.max(0, availableTime - maxBacklog) * 1000;
       updateAccumulator = Math.min(availableTime, maxBacklog);
       simulationTime += droppedMs;
       const resetCountBeforeFrame = resetCount;
