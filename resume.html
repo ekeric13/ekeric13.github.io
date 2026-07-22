@@ -76,7 +76,7 @@
       a {
         color: inherit;
         font-weight: 760;
-        text-decoration-line: underline;
+        text-decoration-line: none;
         text-decoration-color: var(--link-line);
         text-decoration-thickness: 1.5px;
         text-underline-offset: 3px;
@@ -236,6 +236,7 @@
       }
 
       .proof a {
+        text-decoration-line: underline;
         text-decoration-color: currentColor;
         text-decoration-thickness: 2px;
       }
@@ -330,6 +331,17 @@
       .rail-list li {
         color: var(--muted);
         font-size: 0.9rem;
+      }
+
+      .portfolio-links a {
+        color: var(--ink);
+        text-decoration-line: underline;
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 2px;
+      }
+
+      main li a {
+        text-decoration-line: underline;
       }
 
       main {
@@ -773,11 +785,11 @@
           </section>
           <section class="side-section">
             <h2>Portfolio Links</h2>
-            <ul class="rail-list">
+            <ul class="rail-list portfolio-links">
               <li><a href="projects/ai-contact-center-matching-redacted/">AI contact-center matching</a></li>
               <li><a href="projects/ai-agent-gateway-redacted/">AI agent gateway</a></li>
               <li><a href="projects/event-bus/">Event bus architecture</a></li>
-              <li><a href="projects/anime-pics/">AnimePics project</a></li>
+              <li><a href="projects/anime-pics/">animepics</a></li>
             </ul>
           </section>
           <section class="side-section">
@@ -860,7 +872,7 @@
                   <h3>AnimePics</h3>
                   <span class="meta">2023</span>
                 </div>
-                <p class="role">Founder | <a href="projects/anime-pics/">AnimePics project</a></p>
+                <p class="role">Founder | <a href="projects/anime-pics/">animepics.xyz</a></p>
                 <ul>
                   <li>
                     <strong>Product:</strong> Created <a href="projects/anime-pics/">a GenAI product</a> that transformed user photos into anime
