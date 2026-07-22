@@ -60,6 +60,21 @@ test("a physical jump hits the first hiQ question block", async ({ page }) => {
   expect(state.message.kicker).toBe("hiQ Labs");
 });
 
+test("hitting a block spawns a coin animation", async ({ page }) => {
+  await openGame(page);
+  const state = await page.evaluate(() => {
+    const debug = window.__careerGameDebug;
+    debug.restart();
+    debug.pause();
+    debug.hitBlock(16, 9);
+    debug.step(1);
+    return debug.getState();
+  });
+
+  expect(state.coinBurstCount).toBe(1);
+  expect(state.coins).toBe(1);
+});
+
 test("falling into the first gap resets to the latest checkpoint", async ({ page }) => {
   await openGame(page);
   const result = await page.evaluate(() => {

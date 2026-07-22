@@ -67,6 +67,7 @@
   let perfDroppedMs = 0;
   let perfMaxFrameMs = 0;
   let perfMaxRenderMs = 0;
+  const coinBursts = [];
   let performanceStats = {
     fps: 0,
     updatesPerSecond: 0,
@@ -354,6 +355,7 @@
       this.bump = 1;
       coins += 1;
       score += 1200;
+      spawnCoinBurst(this.x, this.y);
       if (!this.noteKey) {
         message.classList.remove("is-visible");
         messageTimer = 0;
@@ -615,6 +617,7 @@
     animationTime += dt;
     player.update(dt, level);
     level.blocks.forEach((block) => block.update(dt));
+    updateCoinBursts(dt);
     level.enemies.forEach((enemy) => {
       if (enemy.x > cameraX - 96 && enemy.x < cameraX + VIEW_W + 128) enemy.update(dt, level);
     });
@@ -695,6 +698,7 @@
     ctx.fillStyle = "#6ec6e7";
     ctx.fillRect(0, 0, VIEW_W, VIEW_H);
     level.draw(ctx, cameraX);
+    drawCoinBursts(ctx, cameraX);
     level.enemies.forEach((enemy) => {
       if (enemy.x > cameraX - 32 && enemy.x < cameraX + VIEW_W + 32) enemy.draw(ctx, cameraX);
     });
@@ -824,6 +828,7 @@
     animationTime = 0;
     cameraX = Math.round(clamp(player.x - 86, 0, LEVEL_W - VIEW_W));
     showMessage(title, body, kicker || "Restart");
+    coinBursts.length = 0;
   }
 
   function restartLevel() {
@@ -843,6 +848,7 @@
     player.grounded = false;
     player.jumpHeld = false;
     cameraX = 0;
+    coinBursts.length = 0;
     showMessage(
       "I build products from 0 to 1 and systems from 1 to millions.",
       "Run right, hit question blocks, stomp mushroom bugs, dodge patrolling turtles, and play through the career map.",
@@ -874,6 +880,45 @@
     return achievement;
   }
 
+  function spawnCoinBurst(blockX, blockY) {
+    coinBursts.push({
+      x: blockX,
+      y: blockY - TILE,
+      vy: -106,
+      age: 0,
+      duration: 0.72,
+    });
+  }
+
+  function updateCoinBursts(dt) {
+    for (let index = coinBursts.length - 1; index >= 0; index -= 1) {
+      const coin = coinBursts[index];
+      coin.age += dt;
+      coin.vy += 300 * dt;
+      coin.y += coin.vy * dt;
+      if (coin.age >= coin.duration) coinBursts.splice(index, 1);
+    }
+  }
+
+  function drawCoinBursts(ctx, vx) {
+    coinBursts.forEach((coin) => {
+      const frame = Math.floor(coin.age / 0.08) % 4;
+      const sx = [0, 16, 32, 16][frame];
+      const fade = clamp((coin.duration - coin.age) / 0.16, 0, 1);
+      ctx.save();
+      ctx.globalAlpha = fade;
+      drawSheet(ctx, sheets.items, sx, 96, 16, 16, Math.round(coin.x - vx), Math.round(coin.y), 16, 16, () => {
+        ctx.fillStyle = "#ffcf24";
+        ctx.beginPath();
+        ctx.ellipse(Math.round(coin.x - vx) + 8, Math.round(coin.y) + 8, 4, 7, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "#a85b00";
+        ctx.stroke();
+      });
+      ctx.restore();
+    });
+  }
+
   function exposeDebugState() {
     if (!debugEnabled) return;
     window.__careerGameDebug = {
@@ -890,6 +935,7 @@
           lastReset,
           movementTraceSize: movementTrace.length,
           movementAnomalyCount: movementAnomalies.length,
+          coinBurstCount: coinBursts.length,
           performance: { ...performanceStats, maxCatchUpSteps },
           stompDeck: stompDeck.getState(),
           world: worldEl.textContent,
