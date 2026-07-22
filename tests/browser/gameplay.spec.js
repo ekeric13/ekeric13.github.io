@@ -75,6 +75,36 @@ test("hitting a block spawns a coin animation", async ({ page }) => {
   expect(state.coins).toBe(1);
 });
 
+test("jumping into the hidden 1-Up block reveals it and spawns the mushroom", async ({ page }) => {
+  await openGame(page);
+  const state = await page.evaluate(() => {
+    const debug = window.__careerGameDebug;
+    debug.restart();
+    debug.pause();
+    debug.clearEnemies();
+    debug.jumpTo(64, 12);
+    debug.step(1);
+    const before = debug.getState().blocks.find(({ tileX, tileY }) => tileX === 64 && tileY === 8);
+    debug.step(34, ["Space"]);
+    const after = debug.getState();
+    return {
+      before,
+      block: after.blocks.find(({ tileX, tileY }) => tileX === 64 && tileY === 8),
+      coins: after.coins,
+      score: after.score,
+      oneUpBurstCount: after.oneUpBurstCount,
+      message: after.message,
+    };
+  });
+
+  expect(state.before).toMatchObject({ hidden: true, revealed: false, used: false, kind: "oneUp" });
+  expect(state.block).toMatchObject({ hidden: true, revealed: true, used: true, kind: "oneUp" });
+  expect(state.coins).toBe(0);
+  expect(state.score).toBe(1000);
+  expect(state.oneUpBurstCount).toBe(1);
+  expect(state.message.kicker).toBe("Secret found");
+});
+
 test("falling into the first gap resets to the latest checkpoint", async ({ page }) => {
   await openGame(page);
   const result = await page.evaluate(() => {

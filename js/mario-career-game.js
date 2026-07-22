@@ -68,6 +68,7 @@
   let perfMaxFrameMs = 0;
   let perfMaxRenderMs = 0;
   const coinBursts = [];
+  const oneUpBursts = [];
   let performanceStats = {
     fps: 0,
     updatesPerSecond: 0,
@@ -338,13 +339,15 @@
   }
 
   class Block {
-    constructor(tileX, tileY, noteKey, kind) {
+    constructor(tileX, tileY, noteKey, kind, options = {}) {
       this.x = tileX * TILE;
       this.y = tileY * TILE;
       this.w = TILE;
       this.h = TILE;
       this.noteKey = noteKey;
       this.kind = kind || "question";
+      this.hidden = Boolean(options.hidden);
+      this.revealed = !this.hidden;
       this.used = false;
       this.bump = 0;
     }
@@ -352,7 +355,14 @@
     hit() {
       if (this.used) return;
       this.used = true;
+      this.revealed = true;
       this.bump = 1;
+      if (this.kind === "oneUp") {
+        score += 1000;
+        spawnOneUpBurst(this.x, this.y);
+        showMessage("Hidden 1-Up", "You are a true Mario aficionado.", "Secret found");
+        return;
+      }
       coins += 1;
       score += 1200;
       spawnCoinBurst(this.x, this.y);
@@ -370,6 +380,7 @@
     }
 
     draw(ctx, vx) {
+      if (this.hidden && !this.revealed) return;
       const y = Math.round(this.y - Math.sin(this.bump * Math.PI) * 7);
       const x = Math.round(this.x - vx);
       if (this.used) {
@@ -435,6 +446,10 @@
       const block = new Block(tx, ty, noteKey, "question");
       this.blocks.push(block);
       this.putTile(tx, ty, "block");
+    }
+
+    putHiddenBlock(tx, ty, kind) {
+      this.blocks.push(new Block(tx, ty, null, kind, { hidden: true }));
     }
 
     putBrick(tx, ty) {
@@ -508,6 +523,7 @@
       label: pipe.label,
     }));
     levelSpec.careerSections.forEach((section) => lvl.putSign(section.signX, section.label));
+    (levelSpec.hiddenBlocks || []).forEach((block) => lvl.putHiddenBlock(block.x, block.y, block.kind));
     lvl.milestones = levelSpec.milestones.map((milestone) => ({
       x: milestone.x * TILE,
       y: milestone.y * TILE,
@@ -557,7 +573,8 @@
     const maxY = Math.floor((ent.y + ent.h - COLLISION_EPSILON) / TILE);
     for (let ty = minY; ty <= maxY; ty += 1) {
       for (let tx = minX; tx <= maxX; tx += 1) {
-        if (!lvl.isSolidAt(tx, ty)) continue;
+        const hiddenBlock = axis === "y" && ent instanceof Player && ent.vy < 0 ? hiddenBlockAt(lvl, tx, ty) : null;
+        if (!lvl.isSolidAt(tx, ty) && !hiddenBlock) continue;
         const tile = { x: tx * TILE, y: ty * TILE, w: TILE, h: TILE };
         if (!overlaps(collisionRect(ent), tile)) continue;
 
@@ -597,9 +614,20 @@
     }
   }
 
+  function hiddenBlockAt(lvl, tx, ty) {
+    return lvl.blocks.find(
+      (block) => block.hidden && !block.revealed && block.x === tx * TILE && block.y === ty * TILE
+    );
+  }
+
   function hitBlockAt(tx, ty) {
     const block = level.blocks.find((item) => item.x === tx * TILE && item.y === ty * TILE);
-    if (block) block.hit();
+    if (!block) return;
+    if (block.hidden && !block.revealed) {
+      block.revealed = true;
+      level.putTile(tx, ty, "block");
+    }
+    block.hit();
   }
 
   function update(dt) {
@@ -618,6 +646,7 @@
     player.update(dt, level);
     level.blocks.forEach((block) => block.update(dt));
     updateCoinBursts(dt);
+    updateOneUpBursts(dt);
     level.enemies.forEach((enemy) => {
       if (enemy.x > cameraX - 96 && enemy.x < cameraX + VIEW_W + 128) enemy.update(dt, level);
     });
@@ -699,6 +728,7 @@
     ctx.fillRect(0, 0, VIEW_W, VIEW_H);
     level.draw(ctx, cameraX);
     drawCoinBursts(ctx, cameraX);
+    drawOneUpBursts(ctx, cameraX);
     level.enemies.forEach((enemy) => {
       if (enemy.x > cameraX - 32 && enemy.x < cameraX + VIEW_W + 32) enemy.draw(ctx, cameraX);
     });
@@ -829,6 +859,7 @@
     cameraX = Math.round(clamp(player.x - 86, 0, LEVEL_W - VIEW_W));
     showMessage(title, body, kicker || "Restart");
     coinBursts.length = 0;
+    oneUpBursts.length = 0;
   }
 
   function restartLevel() {
@@ -849,6 +880,7 @@
     player.jumpHeld = false;
     cameraX = 0;
     coinBursts.length = 0;
+    oneUpBursts.length = 0;
     showMessage(
       "I build products from 0 to 1 and systems from 1 to millions.",
       "Run right, hit question blocks, stomp mushroom bugs, dodge patrolling turtles, and play through the career map.",
@@ -919,6 +951,42 @@
     });
   }
 
+  function spawnOneUpBurst(blockX, blockY) {
+    oneUpBursts.push({
+      x: blockX,
+      y: blockY - TILE,
+      vy: -84,
+      age: 0,
+      duration: 0.82,
+    });
+  }
+
+  function updateOneUpBursts(dt) {
+    for (let index = oneUpBursts.length - 1; index >= 0; index -= 1) {
+      const oneUp = oneUpBursts[index];
+      oneUp.age += dt;
+      oneUp.vy += 220 * dt;
+      oneUp.y += oneUp.vy * dt;
+      if (oneUp.age >= oneUp.duration) oneUpBursts.splice(index, 1);
+    }
+  }
+
+  function drawOneUpBursts(ctx, vx) {
+    oneUpBursts.forEach((oneUp) => {
+      const bob = Math.sin(oneUp.age * 26) * 1.5;
+      const fade = clamp((oneUp.duration - oneUp.age) / 0.18, 0, 1);
+      ctx.save();
+      ctx.globalAlpha = fade;
+      drawSheet(ctx, sheets.items, 16, 0, 16, 16, Math.round(oneUp.x - vx), Math.round(oneUp.y + bob), 16, 16, () => {
+        ctx.fillStyle = "#48a640";
+        ctx.fillRect(Math.round(oneUp.x - vx) + 2, Math.round(oneUp.y + bob) + 5, 12, 8);
+        ctx.fillStyle = "#f7ecd7";
+        ctx.fillRect(Math.round(oneUp.x - vx) + 4, Math.round(oneUp.y + bob) + 9, 8, 6);
+      });
+      ctx.restore();
+    });
+  }
+
   function exposeDebugState() {
     if (!debugEnabled) return;
     window.__careerGameDebug = {
@@ -936,6 +1004,7 @@
           movementTraceSize: movementTrace.length,
           movementAnomalyCount: movementAnomalies.length,
           coinBurstCount: coinBursts.length,
+          oneUpBurstCount: oneUpBursts.length,
           performance: { ...performanceStats, maxCatchUpSteps },
           stompDeck: stompDeck.getState(),
           world: worldEl.textContent,
@@ -950,6 +1019,8 @@
             tileY: block.y / TILE,
             noteKey: block.noteKey,
             kind: block.kind,
+            hidden: block.hidden,
+            revealed: block.revealed,
             used: block.used,
           })),
           signs: level.signs.map((sign) => ({ tileX: sign.x / TILE, label: sign.label })),

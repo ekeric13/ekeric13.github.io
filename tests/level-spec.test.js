@@ -88,6 +88,16 @@ test("skill labels live in the career section that owns them", () => {
   assert.equal(ml.section, "anime");
 });
 
+test("hidden 1-Up block echoes the classic post-pipe World 1-1 secret", () => {
+  const hiddenOneUp = spec.hiddenBlocks.find(({ kind }) => kind === "oneUp");
+  const lastEarlyPipe = Math.max(...spec.pipes.filter(({ x }) => x < spec.floorGaps[0][0]).map(({ x }) => x));
+  assert.deepEqual(hiddenOneUp, { x: 64, y: 8, kind: "oneUp" });
+  assert.ok(hiddenOneUp.x > lastEarlyPipe, "hidden 1-Up should come after the fourth pipe");
+  assert.ok(hiddenOneUp.x < spec.floorGaps[0][0], "hidden 1-Up should come before the first pit");
+  assert.equal(spec.rows[hiddenOneUp.y][hiddenOneUp.x], "-", "hidden block should not be visible in the base map");
+  assert.equal(spec.rows[hiddenOneUp.y - 1][hiddenOneUp.x], "-", "hidden block should have empty space above it");
+});
+
 test("Ethos sign leads into the Product and Infra pipes without overlap", () => {
   const ethos = spec.careerSections.find(({ key }) => key === "ethos");
   const product = spec.pipes.find(({ label }) => label === "Product");
