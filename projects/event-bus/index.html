@@ -142,7 +142,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <p class="det-sub">I wrote the design proposal, compared options, presented to engineering leads, got CTO approval, and built the shared mechanics teams would depend on. The decision criteria were build cost, maintenance cost, technology cost, scale, reversibility, ownership, and whether product teams would actually use it.</p>
 <div class="arch">
 <div class="tcard" style="--x:var(--consistency)"><span class="tag">architecture</span><div class="nm">Design proposal</div><div class="role">requirements and tradeoffs</div><p>Turned prior incidents and operational pain into explicit requirements.</p></div>
-<div class="tcard" style="--x:var(--bus)"><span class="tag">platform</span><div class="nm">Platform pieces</div><div class="role">outbox monitor, modules, dispatcher</div><p>Shared mechanics lived in one place, instead of being reimplemented by each service.</p></div>
+<div class="tcard" style="--x:var(--bus)"><span class="tag">platform</span><div class="nm">Platform pieces</div><div class="role">outbox monitor, Terraform registry, dispatcher</div><p>Shared mechanics lived in one place, instead of being reimplemented by each service.</p></div>
 <div class="tcard" style="--x:var(--ops)"><span class="tag">operating model</span><div class="nm">Operating model</div><div class="role">domain events and handlers</div><p>Defined the ownership split: product teams kept their business logic, while the platform owned the delivery substrate.</p></div>
 </div>
 </div>
@@ -333,6 +333,42 @@ output:
     url: http://localhost:8080/events
     verb: POST</pre>
 </div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow bus"><span class="ph">06</span> Developer enablement</div>
+<h1 class="title-lg">Terraform module for <span class="b">self-serve topics</span>, with assistance.</h1>
+<div class="split">
+<div>
+<p class="sub">The platform needed more than a broker and a dispatcher. Teams also needed a clear path for creating topics and making the few choices that really mattered.</p>
+<ul class="bullets" style="--c:var(--bus)">
+<li><strong>Terraform registry</strong> <span>gave teams a standard way to create topics.</span></li>
+<li><strong>Partition docs</strong> <span>explained how to choose partition counts, ordering keys, and throughput assumptions.</span></li>
+<li><strong>Review support</strong> <span>let teams sanity-check topic design before production traffic depended on it.</span></li>
+</ul>
+</div>
+<div class="diagram">
+<div class="cap">topic creation path</div>
+<div class="flowrow"><span class="node service">Product team</span><span class="arr">→</span><span class="node db">Terraform module</span><span class="arr">→</span><span class="node bus">Kafka topic</span></div>
+<div style="height:18px"></div>
+<div class="flowrow"><span class="node db">Partition guide</span><span class="arr">→</span><span class="node bus">Ordering key</span><span class="arr">→</span><span class="node service">Review</span></div>
+<div style="height:18px"></div>
+<div class="strip" style="--c:var(--bus);margin-top:0"><span class="lb">Paved path</span> Topic creation was self-service, but not guesswork. The defaults, docs, and review loop kept Kafka decisions from becoming scattered team folklore.</div>
+</div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Modern reflection · platform skills</div>
+<div class="det-title">Today, I would encode topic design guidance in a <span class="b">project skill</span>.</div>
+<p class="det-sub">At the time, I wrote the docs and personally helped teams reason through partition counts, ordering guarantees, and topic shape. These days I would encode that support into a project-specific skill: a small, repo-local guide an AI agent can use when answering questions or reviewing changes in that project. It would capture topic naming conventions, Terraform examples, partition heuristics, review questions, and known failure modes. That is the kind of shift I wrote about in <a target="_blank" rel="noopener noreferrer" href="../../writing/ai-changes-platform-teams/">AI changes platform teams</a>.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--bus)"><span class="tag">then</span><div class="nm">Docs and pairing</div><div class="role">human review loop</div><p>I helped teams make the right call when topic design affected ordering or throughput.</p></div>
+<div class="tcard" style="--x:var(--ops)"><span class="tag">now</span><div class="nm">Project skill</div><div class="role">repeatable guidance</div><p>The skill would answer common setup questions and preserve the review checklist close to the project.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">goal</span><div class="nm">Better platform adoption</div><div class="role">less tribal knowledge</div><p>Teams still get the paved path, but fewer decisions depend on finding the original platform engineer.</p></div>
 </div>
 </div>
 </section>
