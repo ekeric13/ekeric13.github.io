@@ -6,31 +6,137 @@
 <title>AI Agent Gateway · Eric Kennedy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
---bg:#0f1216;--bg2:#0b0d10;--panel:#171b21;--panel2:#1c222a;--line:#2a3138;--line2:#1f252b;
---ink:#eaeef2;--dim:#98a4af;--faint:#647079;--gateway:#5b8def;--agent:#4fb0a0;--policy:#a77be0;--ops:#c79a4a;--ok:#5fb87a;--stop:#e06a5c;
---mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;--disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+--bg:#101318;--bg2:#0b0d11;--panel:#171d25;--panel2:#1d2630;--line:#2a3541;--line2:#202a35;
+--ink:#eef3f8;--dim:#99a9b8;--faint:#637486;
+--signal:#4bd6c8;--plan:#f0b05f;--ai:#ad8cff;--ok:#69c982;--risk:#f06f64;
+--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+--disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+--body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
-*{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden}body{background:var(--bg2);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}a{color:inherit}
-.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
-.slide{--pad-top:max(88px,6.5vh);--pad-x:8vw;--pad-bottom:8vh;--hud-space:56px;position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;overflow-x:hidden;overflow-y:auto;padding:var(--pad-top) var(--pad-x) calc(var(--pad-bottom) + var(--hud-space));opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .42s;background:radial-gradient(1100px 620px at 82% -6%,rgba(91,141,239,.07),transparent 60%),radial-gradient(820px 480px at 6% 8%,rgba(199,154,74,.05),transparent 58%),var(--bg)}
-.slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.011) 0 1px,transparent 1px 3px)}.slide>*{position:relative;z-index:1}.slide.active{opacity:1;visibility:visible;transform:none}
-.back{position:absolute;top:28px;left:32px;z-index:20;color:var(--faint);font-family:var(--mono);font-size:11px;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}.back:hover{color:var(--ink)}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gateway);display:flex;align-items:center;gap:16px;margin-bottom:22px}.eyebrow::after{content:"";flex:1;max-width:220px;height:1px;background:linear-gradient(90deg,var(--line),transparent)}.eyebrow .ph{padding:3px 10px;border:1px solid currentColor;border-radius:999px;font-size:10px}.eyebrow.agent{color:var(--agent)}.eyebrow.policy{color:var(--policy)}.eyebrow.ops{color:var(--ops)}.eyebrow.ok{color:var(--ok)}
-h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1;margin:0;max-width:min(100%,18ch);text-wrap:balance}.title-xl{font-size:clamp(38px,6vw,82px)}.title-lg{font-size:clamp(30px,4.5vw,62px);max-width:min(100%,20ch)}h1 .g{color:var(--gateway)}h1 .a{color:var(--agent)}h1 .p{color:var(--policy)}h1 .o{color:var(--ops)}h1 .k{color:var(--ok)}
-.sub{font-size:clamp(15px,1.58vw,21px);color:var(--dim);max-width:72ch;margin:clamp(14px,2.2vh,22px) 0 0;line-height:1.55}.sub strong{color:#fff;font-weight:600}
-.split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,4vw,52px);align-items:center;margin-top:16px}.split>*,.grid3>*,.grid2>*,.cont>*{min-width:0}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:30px}
-.card,.step,.phasebox{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}.card::before,.step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--x,var(--gateway))}
-.ix,.tag{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--x,var(--gateway))}.card h3{font-family:var(--disp);font-size:23px;line-height:1.12;margin:8px 0 10px}.card p,.step p,.phasebox p{color:var(--dim);font-size:14px;line-height:1.55;margin:0}
-.bullets{list-style:none;margin:clamp(16px,2.5vh,28px) 0 0;padding:0}.bullets li{position:relative;margin:clamp(10px,1.7vh,18px) 0;padding-left:30px;font-size:clamp(14px,1.48vw,16px);line-height:1.5;color:var(--ink)}.bullets li::before{content:"";position:absolute;left:0;top:8px;width:11px;height:11px;border-radius:3px;background:var(--c,var(--gateway));box-shadow:0 0 12px var(--c,var(--gateway))}.bullets span{color:var(--dim)}
-.strip{margin-top:26px;max-width:78ch;border-left:3px solid var(--c,var(--gateway));background:rgba(91,141,239,.06);padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}.strip .lb{display:block;margin-bottom:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c,var(--gateway))}
-.flow{display:grid;gap:12px}.step{display:grid;grid-template-columns:142px 1fr;gap:18px;align-items:start}.step b{font-family:var(--disp);font-size:18px}.step span{color:var(--dim);font-size:14px;line-height:1.5}
-.cont{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin-top:36px;max-width:1000px}.phasebox.old{border-color:rgba(224,106,92,.34)}.phasebox.new{border-color:rgba(95,184,122,.34)}.phasebox .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}.phasebox .n{font-family:var(--disp);font-weight:700;font-size:24px;margin:4px 0 14px}.phasebox.old .n{color:var(--stop)}.phasebox.new .n{color:var(--ok)}.row{display:flex;gap:10px;align-items:flex-start;color:var(--dim);font-size:14px;margin:10px 0;line-height:1.4}.dotc{width:10px;height:10px;border-radius:50%;flex:none;margin-top:5px}.equals{display:grid;place-items:center;padding:0 26px}.equals .eq{font-family:var(--disp);font-weight:700;font-size:38px;color:var(--gateway)}.equals .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center;max-width:120px}
-.hud{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:16px}.nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:22px;cursor:pointer}.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border:0;border-radius:50%;background:var(--line);padding:0;cursor:pointer}.dots button.on{background:var(--gateway);box-shadow:0 0 12px var(--gateway)}.count{position:absolute;right:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:11px;color:var(--faint)}.hint{position:absolute;left:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
-@media(max-width:900px){.slide{--pad-top:max(82px,6.5vh);--pad-x:6vw;--pad-bottom:8vh;--hud-space:56px}.split,.grid3,.grid2{grid-template-columns:1fr}.step{grid-template-columns:1fr}.hint{display:none}}
-@media(max-width:640px){.cont{grid-template-columns:1fr;gap:14px}.equals{padding:4px}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow-x:auto;overflow-y:hidden}
+body{background:var(--bg2);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.deck{position:relative;width:100vw;min-width:1100px;height:100vh;overflow:hidden}
+.slide{--pad-top:6.4vh;--pad-x:8vw;--pad-bottom:8vh;--hud-space:72px;position:absolute;inset:0;display:flex;flex-direction:column;overflow-y:auto;
+padding:var(--pad-top) var(--pad-x) calc(var(--pad-bottom) + var(--hud-space));opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);
+transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .42s;
+background:
+linear-gradient(90deg,rgba(75,214,200,.055) 1px,transparent 1px) 0 0/54px 54px,
+linear-gradient(0deg,rgba(75,214,200,.035) 1px,transparent 1px) 0 0/54px 54px,
+radial-gradient(900px 560px at 78% 8%,rgba(173,140,255,.09),transparent 62%),
+radial-gradient(760px 460px at 4% 86%,rgba(240,176,95,.06),transparent 58%),var(--bg)}
+.slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(16,19,24,.08),rgba(16,19,24,.62))}
+.slide>*{position:relative;z-index:1}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.face{display:none;flex-direction:column;justify-content:center;flex:0 0 auto;min-height:calc(100vh - var(--pad-top) - var(--pad-bottom) - var(--hud-space))}
+.slide.active .face.overview{display:flex}
+.slide.active.flip .face.overview{display:none}
+.slide.active.flip .face.detail{display:flex;animation:faceIn .25s ease}
+.slide.no-detail .flipchip{display:none}
+.slide.no-detail.active.flip .face.overview{display:flex}
+@keyframes faceIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.back{position:absolute;top:28px;left:32px;z-index:20;color:var(--faint);font-family:var(--mono);font-size:11px;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}
+.back:hover{color:var(--ink)}
+.flipchip{position:absolute;top:calc(var(--pad-top) + 2px);right:var(--pad-x);z-index:5;display:inline-flex;align-items:center;gap:8px;
+font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:7px 13px;border-radius:999px;
+background:var(--panel);border:1px solid var(--line);color:var(--dim);cursor:pointer;user-select:none}
+.flipchip .sw{width:26px;height:14px;border-radius:999px;background:var(--line);position:relative}
+.flipchip .sw::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--faint);transition:.18s}
+.slide.flip .flipchip{border-color:var(--ai);color:var(--ai)}
+.slide.flip .flipchip .sw{background:rgba(173,140,255,.36)}
+.slide.flip .flipchip .sw::after{left:14px;background:var(--ai)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--signal);display:flex;align-items:center;gap:15px;margin-bottom:22px}
+.eyebrow::after{content:"";height:1px;max-width:220px;flex:1;background:linear-gradient(90deg,var(--line),transparent)}
+.eyebrow .ph{padding:3px 10px;border:1px solid currentColor;border-radius:999px;font-size:10px}
+.eyebrow.plan{color:var(--plan)}.eyebrow.ai{color:var(--ai)}.eyebrow.ok{color:var(--ok)}.eyebrow.risk{color:var(--risk)}
+h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1;margin:0}
+.title-xl{font-size:clamp(40px,6.2vw,84px)}
+.title-lg{font-size:clamp(31px,4.5vw,62px)}
+h1 .s{color:var(--signal)}h1 .p{color:var(--plan)}h1 .a{color:var(--ai)}h1 .g{color:var(--ok)}h1 .r{color:var(--risk)}
+.sub{font-size:clamp(15px,1.5vw,20px);color:var(--dim);max-width:74ch;margin:clamp(14px,2.2vh,22px) 0 0;line-height:1.55}
+.sub strong{color:#fff;font-weight:600}
+.sub a{color:var(--ink);text-decoration-color:var(--signal);text-underline-offset:4px}
+code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2px 7px;border:1px solid var(--line2);border-radius:5px;color:#d9c7ff}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,52px);align-items:center;margin-top:18px}
+.cards,.stats,.arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card,.stat,.phase,.step,.tcard{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:22px;position:relative;overflow:hidden}
+.card::before,.stat::before,.tcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--x,var(--signal))}
+.ix,.tag,.det-head{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--x,var(--signal))}
+.card h3{font-family:var(--disp);font-size:23px;line-height:1.12;margin:8px 0 10px}
+.card p,.tcard p,.phase p,.step p{color:var(--dim);font-size:14px;line-height:1.55;margin:0}
+.stat .big{font-family:var(--disp);font-size:clamp(30px,3.2vw,43px);font-weight:700;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+.stat .lab{margin-top:10px;color:var(--dim);font-size:13px;line-height:1.45}
+.stat .lab strong{color:var(--ink);font-weight:700}
+.bullets{list-style:none;margin:clamp(16px,2.5vh,28px) 0 0;padding:0}
+.bullets li{position:relative;margin:clamp(10px,1.6vh,17px) 0;padding-left:30px;font-size:clamp(14px,1.42vw,16px);line-height:1.5;color:var(--ink)}
+.bullets li::before{content:"";position:absolute;left:0;top:8px;width:11px;height:11px;border-radius:3px;background:var(--c,var(--signal));box-shadow:0 0 12px var(--c,var(--signal))}
+.bullets span{color:var(--dim)}
+.strip{margin-top:26px;max-width:80ch;border-left:3px solid var(--c,var(--signal));background:rgba(75,214,200,.065);padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
+.strip .lb{display:block;margin-bottom:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c,var(--signal))}
+.det-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;color:var(--ai)}
+.det-head::after{content:"";height:1px;max-width:220px;flex:1;background:linear-gradient(90deg,rgba(173,140,255,.45),transparent)}
+.det-title{font-family:var(--disp);font-size:clamp(24px,3.3vw,40px);font-weight:600;letter-spacing:-.02em;line-height:1.08;margin-bottom:10px}
+.det-sub{color:var(--dim);font-size:clamp(14px,1.45vw,17px);line-height:1.55;max-width:84ch;margin:0}
+.tcard{padding:18px}.tcard .tag{display:inline-block;margin-bottom:10px;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,.06)}
+.tcard .nm{font-family:var(--mono);font-weight:700;font-size:14px;word-break:break-word}.tcard .role{font-family:var(--mono);font-size:10.5px;color:var(--x,var(--signal));margin:3px 0 9px;letter-spacing:.03em}
+.tcard a{color:var(--ink);text-decoration-color:var(--x,var(--signal));text-underline-offset:3px}
+.diagram{background:linear-gradient(180deg,var(--panel),rgba(23,29,37,.55));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.cap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.planning-surface{display:grid;grid-template-columns:1fr;gap:14px}
+.surface-row{display:grid;grid-template-columns:116px 1fr;gap:14px;align-items:center}
+.surface-row .label{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase}
+.surface-box{border:1px solid var(--line);border-radius:12px;background:rgba(11,13,17,.72);padding:14px;min-height:58px}
+.surface-box strong{font-family:var(--disp);font-size:22px;color:var(--ink)}
+.surface-box span{display:block;margin-top:4px;color:var(--dim);font-size:13px;line-height:1.4}
+.surface-box.plan{border-color:rgba(240,176,95,.46);background:rgba(240,176,95,.08)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.chip{font-family:var(--mono);font-size:11px;color:var(--ink);border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 8px}
+.chip.hot{border-color:rgba(240,176,95,.48);background:rgba(240,176,95,.12)}
+.ladder-viz{height:220px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:end;padding:18px 8px 4px;border-bottom:1px solid rgba(238,243,248,.15);position:relative}
+.ladder-viz::before,.ladder-viz::after{content:"";position:absolute;left:8px;right:8px;height:1px;background:rgba(238,243,248,.08)}
+.ladder-viz::before{top:62px}.ladder-viz::after{top:120px}
+.barstep{display:grid;grid-template-rows:1fr auto;gap:10px;height:100%;min-width:0}
+.barstep .bar{align-self:end;border:1px solid var(--bc,var(--plan));border-radius:9px 9px 3px 3px;background:linear-gradient(180deg,var(--bc,var(--plan)),rgba(11,13,17,.22));min-height:32px;display:grid;place-items:start center;padding-top:8px;font-family:var(--mono);font-size:12px;font-weight:700;color:#0b0d11}
+.barstep .bar.danger{--bc:var(--risk)}.barstep .bar.ok{--bc:var(--ok)}
+.barstep .lab{font-family:var(--mono);font-size:10px;line-height:1.25;color:var(--dim);text-align:center}
+.route-plan{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:28px}
+.step{padding:16px;min-height:150px}
+.step .n{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+.step .skill{font-family:var(--disp);font-size:19px;font-weight:700;line-height:1.05;margin:8px 0;color:var(--ink)}
+.step .wait{font-family:var(--mono);font-size:11px;color:var(--plan)}
+.pipeline{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;margin-top:28px}
+.node{min-height:78px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);display:grid;place-items:center;text-align:center;padding:12px;font-family:var(--mono);font-size:13px;line-height:1.35}
+.node.signal{border-color:rgba(75,214,200,.46);background:rgba(75,214,200,.075)}.node.ai{border-color:rgba(173,140,255,.48);background:rgba(173,140,255,.08)}.node.plan{border-color:rgba(240,176,95,.48);background:rgba(240,176,95,.08)}.node.ok{border-color:rgba(105,201,130,.48);background:rgba(105,201,130,.08)}
+.arr{font-family:var(--mono);color:var(--faint);font-weight:700}
+.matrix{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+.phase .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.phase .n{font-family:var(--disp);font-size:24px;font-weight:700;margin:5px 0 12px}.phase.old{border-color:rgba(240,111,100,.36)}.phase.old .n{color:var(--risk)}.phase.new{border-color:rgba(105,201,130,.36)}.phase.new .n{color:var(--ok)}
+.seq-board{margin-top:18px;border:1px solid rgba(153,169,184,.42);border-radius:16px;background:linear-gradient(180deg,rgba(238,243,248,.035),rgba(11,13,17,.58));padding:14px;display:grid;grid-template-columns:minmax(0,1fr) 64px minmax(0,1fr) 64px minmax(0,1fr) 64px minmax(0,1fr) 64px minmax(0,1fr);grid-template-rows:auto auto auto auto;gap:8px;position:relative}
+.seq-board::before{content:"";position:absolute;inset:10px;border:1px dashed rgba(153,169,184,.18);border-radius:12px;pointer-events:none}.seq-lane{position:relative;z-index:1;border-top:1px dashed rgba(153,169,184,.28);padding-top:8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center}.seq-box{position:relative;z-index:1;min-height:58px;border:1px solid var(--line);border-radius:10px;background:rgba(11,13,17,.86);padding:9px 10px;display:grid;align-content:center;gap:2px;box-shadow:2px 2px 0 rgba(238,243,248,.05)}.seq-box b{font-family:var(--disp);font-size:13.5px}.seq-box span{font-family:var(--mono);font-size:9.5px;color:var(--dim);line-height:1.22}.seq-box.e{border-color:rgba(75,214,200,.5);background:rgba(75,214,200,.08)}.seq-box.l{border-color:rgba(240,176,95,.5);background:rgba(240,176,95,.08)}.seq-box.p{border-color:rgba(173,140,255,.48);background:rgba(173,140,255,.08)}.seq-box.g{border-color:rgba(105,201,130,.48);background:rgba(105,201,130,.08)}.seq-box.stop{border-color:rgba(240,111,100,.46);background:rgba(240,111,100,.08)}
+.seq-arrow{position:relative;z-index:1;align-self:center;justify-self:stretch;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--faint);display:flex;align-items:center;justify-content:center;gap:4px}.seq-arrow::before{content:"";height:1px;flex:1;min-width:14px;border-top:2px solid currentColor}.seq-arrow::after{content:"›";font-size:18px;line-height:1;color:currentColor}.seq-divider{position:relative;z-index:1;grid-column:1/-1;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin:1px 0}.seq-divider::before,.seq-divider::after{content:"";height:1px;flex:1;border-top:1px dashed rgba(105,201,130,.52)}.seq-divider span{border:1px solid rgba(105,201,130,.45);border-radius:999px;padding:3px 10px;background:rgba(105,201,130,.08)}
+.seq-note{position:relative;z-index:1;grid-column:1/-1;border:1px dashed rgba(240,176,95,.52);border-radius:10px;background:rgba(240,176,95,.07);padding:8px 10px;font-family:var(--mono);font-size:10px;color:var(--dim);display:flex;justify-content:space-between;gap:14px}.seq-note b{color:var(--ink);font-family:var(--disp);font-size:14px}
+.bars{display:grid;gap:16px;margin-top:26px}.bar{display:grid;grid-template-columns:92px 1fr 74px;align-items:center;gap:12px;font-family:var(--mono);font-size:12px}.track{height:16px;border-radius:999px;background:var(--line);overflow:hidden}.fill{height:100%;width:var(--w);background:linear-gradient(90deg,var(--x,var(--signal)),rgba(255,255,255,.45));border-radius:999px}
+.c4-board{margin-top:12px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--panel),rgba(23,29,37,.55));padding:10px;display:grid;gap:6px}
+.c4-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.c4-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.c4-tools{grid-template-columns:repeat(5,minmax(0,1fr))}
+.c4-node{min-height:42px;border:1px solid var(--line);border-radius:10px;background:rgba(11,13,17,.78);padding:8px 10px;display:grid;align-content:center;gap:2px;box-shadow:2px 2px 0 rgba(238,243,248,.035)}.c4-node b{font-family:var(--disp);font-size:13px}.c4-node span{font-family:var(--mono);font-size:9px;color:var(--dim);line-height:1.2}.c4-node.person{border-color:rgba(75,214,200,.42);background:rgba(75,214,200,.08)}.c4-node.container{border-color:rgba(173,140,255,.42);background:rgba(173,140,255,.08)}.c4-node.system{border-color:rgba(240,176,95,.42);background:rgba(240,176,95,.08)}
+.c4-rel{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:9px;color:var(--faint);letter-spacing:.04em}.c4-rel::before,.c4-rel::after{content:"";height:1px;border-top:2px solid currentColor;flex:1}.c4-rel.down::after{content:"↓";border:0;flex:0;font-size:14px;color:var(--signal)}
+.c4-boundary{border:1px dashed rgba(75,214,200,.42);border-radius:14px;padding:8px;display:grid;gap:6px;background:rgba(75,214,200,.035)}.c4-boundary-head{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
+.c4-runtime{border:1px solid rgba(75,214,200,.5);border-radius:10px;background:rgba(75,214,200,.08);padding:8px 10px;display:grid;grid-template-columns:1.25fr repeat(4,1fr);gap:8px;align-items:center}.c4-runtime>div:first-child{display:grid;gap:3px}.c4-runtime b{font-family:var(--disp);font-size:15px;color:var(--signal)}.c4-runtime span{display:block;font-family:var(--mono);font-size:9px;color:var(--dim)}.c4-runtime div:not(:first-child){border:1px solid rgba(238,243,248,.14);border-radius:8px;background:rgba(11,13,17,.55);padding:6px;text-align:center;font-family:var(--mono);font-size:9px}
+.c4-agent-grid{display:grid;grid-template-columns:1fr 1fr 1.35fr 1fr;gap:8px;align-items:start}.c4-node.supervisor{border-color:rgba(240,176,95,.56);background:rgba(240,176,95,.1)}.c4-supervisor-stack{display:grid;gap:5px}.c4-fork{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:center;font-family:var(--mono);font-size:8px;color:var(--faint);text-align:center}.c4-fork span{border-top:2px solid currentColor;padding-top:3px}.c4-fork span::before{content:"↓ ";color:var(--plan)}
+.c4-note{font-family:var(--mono);font-size:9px;line-height:1.35;color:var(--plan);margin-top:2px}
+.hud{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:16px}.nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:22px;cursor:pointer}.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border:0;border-radius:50%;background:var(--line);padding:0;cursor:pointer}.dots button.on{background:var(--signal);box-shadow:0 0 12px var(--signal)}.count{position:absolute;right:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:11px;color:var(--faint)}.hint{position:absolute;left:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
+@media(max-width:1099px){
+html,body{min-width:1100px}
+.deck{width:1100px}
+.slide{--pad-top:56px;--pad-x:88px;--pad-bottom:64px}
+.title-xl{font-size:68px}.title-lg{font-size:50px}.sub{font-size:18px}.det-title{font-size:36px}.det-sub{font-size:16px}
+}
 </style>
 </head>
 <body>
@@ -38,108 +144,248 @@ h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1;m
 <div class="deck">
 
 <section class="slide active">
-<div class="eyebrow"><span class="ph">00</span> The platform</div>
-<h1 class="title-xl">Production agents need <span class="g">platform mechanics</span>, not just prompts.</h1>
-<p class="sub">A prototype agent can be useful with a prompt, a few tools, and a friendly user. A production agent platform needs resumable state, consistent identity, bounded tool execution, review points, observability, and a way for teams to add domain behavior without forking the runtime.</p>
-<div class="cont">
-<div class="phasebox old"><div class="h">Before</div><div class="n">Prototype gravity</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>each workflow solves state differently</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>safety and audit drift by entry point</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>handoffs lose context</div></div>
-<div class="equals"><div class="eq">→</div><div class="lbl">needed one harness</div></div>
-<div class="phasebox new"><div class="h">After</div><div class="n">Shared gateway</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>one runtime path</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>actions gated at execution time</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>domain behavior composes above it</div></div>
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow"><span class="ph">00</span> Problem · goal · constraints</div>
+<h1 class="title-xl">Teams were expected to build AI agents. Shipping one still took weeks.</h1>
+<p class="sub">Contact-center operations span many internal services and complex configuration. Teams were encouraged to build agents, but each team still had to solve the same platform work before it could ship one.</p>
+<div class="stats">
+<div class="stat" style="--x:var(--signal)"><div class="big">System</div><div class="lab">Customer routing depended on configuration spread across thousands of expert collections and many internal services.</div></div>
+<div class="stat" style="--x:var(--plan)"><div class="big">Problem</div><div class="lab">A starter kit created a beginning, not a production-ready agent.</div></div>
+<div class="stat" style="--x:var(--ai)"><div class="big">Goal</div><div class="lab">Let teams add useful internal agents without rebuilding the runtime around them.</div></div>
+<div class="stat" style="--x:var(--ok)"><div class="big">Result</div><div class="lab">More than <strong>20 domain agents</strong> running through one gateway.</div></div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Framing · goals and non-goals</div>
+<div class="det-title">The goal was to remove the repeated engineering between an agent idea and a production workflow.</div>
+<div class="arch">
+<div class="tcard" style="--x:var(--signal)"><span class="tag">problem</span><div class="nm">Operational complexity</div><div class="role">many services, APIs, and ownership boundaries</div><p>Even experienced teams could struggle to understand how the contact-center configuration fit together.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">goal</span><div class="nm">Make agents fast to add</div><div class="role">domain behavior over shared infrastructure</div><p>Teams should focus on instructions and API tools while the gateway handles the common runtime.</p></div>
+<div class="tcard" style="--x:var(--risk)"><span class="tag">constraint</span><div class="nm">Internal workflows first</div><div class="role">safe actions inside a large enterprise</div><p>Customer-facing agents introduced a different security and review surface. This project focused on internal users.</p></div>
+</div>
 </div>
 </section>
 
 <section class="slide">
-<div class="eyebrow agent"><span class="ph">01</span> Constraints</div>
-<h1 class="title-lg">The hard parts were around the agent.</h1>
-<div class="grid3">
-<div class="card" style="--x:var(--gateway)"><div class="ix">Runtime</div><h3>State must survive normal failure</h3><p>Long-running work needs to resume across pauses, approvals, restarts, and non-sticky routing.</p></div>
-<div class="card" style="--x:var(--policy)"><div class="ix">Safety</div><h3>Conversation access is not action access</h3><p>Sensitive tools need checks at the moment they execute, with denial and audit as first-class paths.</p></div>
-<div class="card" style="--x:var(--agent)"><div class="ix">Adoption</div><h3>Domain teams need a repeatable pattern</h3><p>Teams should vary workflow knowledge without rebuilding the gateway mechanics.</p></div>
-</div>
-</section>
-
-<section class="slide">
-<div class="eyebrow"><span class="ph">02</span> Gateway shape</div>
-<h1 class="title-lg">Keep clients thin. Put common behavior in <span class="g">one runtime</span>.</h1>
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow plan"><span class="ph">01</span> The first agent</div>
+<h1 class="title-lg">The project began with the Routing Configuration Agent.</h1>
 <div class="split">
 <div>
-<p class="sub">Different clients can enter through different adapters, but the runtime should receive a normalized request shape and handle state, streaming, tool calls, safety checks, and audit events consistently.</p>
-<ul class="bullets">
-<li><strong>Normalize entry.</strong> <span>Attach identity, source, context, and response shape before agent execution.</span></li>
-<li><strong>Resume state.</strong> <span>Load the active conversation and checkpoint so work can continue after interruptions.</span></li>
-<li><strong>Run domain behavior.</strong> <span>Select the relevant workflow instructions and tools without forking platform code.</span></li>
-</ul>
+<p class="sub">Operators configured which support experiences a customer could see across chat, phone, and video. The work involved many forms and CRUD operations across internal APIs.</p>
+<div class="strip" style="--c:var(--plan)"><span class="lb">The first product</span> A conversational copilot could read the application state, call the same APIs, and update the interface. One request replaced a long sequence of form changes.</div>
 </div>
-<div class="flow">
-<div class="step"><b>Entry</b><span>Web, chat, service, or agent-client request.</span></div>
-<div class="step"><b>Gateway</b><span>Normalize identity, context, state, streaming, and audit.</span></div>
-<div class="step"><b>Agent</b><span>Use domain-specific instructions and tool contracts.</span></div>
-<div class="step"><b>Action</b><span>Evaluate permissions, execute or deny, and record the result.</span></div>
+<div class="diagram">
+<div class="cap">safe configuration workflow</div>
+<div class="planning-surface">
+<div class="surface-row"><div class="label">read</div><div class="surface-box"><strong>current state</strong><span>retrieve the existing configuration</span></div></div>
+<div class="surface-row"><div class="label">plan</div><div class="surface-box"><strong>proposed changes</strong><span>validate inputs and identify no-ops</span></div></div>
+<div class="surface-row"><div class="label">confirm</div><div class="surface-box plan"><strong>operator approval</strong><span>nothing changes before confirmation</span></div></div>
+<div class="surface-row"><div class="label">execute</div><div class="surface-box"><strong>apply and report</strong><span>call the APIs and return the result</span></div></div>
 </div>
 </div>
-</section>
-
-<section class="slide">
-<div class="eyebrow policy"><span class="ph">03</span> Tool safety</div>
-<h1 class="title-lg">Gate the <span class="p">action</span>, not just the conversation.</h1>
-<p class="sub">If people can discover what agents can do, some requests will reach tools the caller cannot use. Treating denial as an ordinary product path made the system safer and more usable. The gateway could hand the user to an authz agent that investigated the failed action and explained what approval path was needed.</p>
-<div class="grid3">
-<div class="card" style="--x:var(--policy)"><div class="ix">Policy</div><h3>Check at execution time</h3><p>The model can propose an action, but the gateway decides whether the caller may run it.</p></div>
-<div class="card" style="--x:var(--agent)"><div class="ix">Authz agent</div><h3>Turn denial into a workflow</h3><p>A helper agent could inspect the request, identify likely access gaps, and prepare the user for the right approval path.</p></div>
-<div class="card" style="--x:var(--ops)"><div class="ix">Boundary</div><h3>No self-approval</h3><p>The agent could advise and route. A sensitive grant still needed a separate human or system approval boundary.</p></div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Business context</div>
+<div class="det-title">This was an operations agent, not a customer support chatbot.</div>
+<p class="det-sub">The agent helped internal teams set up routing experiences before customers arrived. It combined product knowledge with API access so operators could describe the outcome they wanted instead of finding and completing each configuration form.</p>
+<div class="strip"><span class="lb">Why it was a good first use case</span> The workflow had repeated steps, clear system state, and existing APIs. The agent could reduce interface work without replacing the systems that owned the data.</div>
 </div>
 </section>
 
 <section class="slide">
-<div class="eyebrow policy"><span class="ph">04</span> Collaboration</div>
-<h1 class="title-lg">Shared context made handoffs <span class="p">part of the workflow</span>.</h1>
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ai"><span class="ph">02</span> The turning point</div>
+<h1 class="title-lg">Building a second agent revealed the shared interfaces every team would need.</h1>
+<div class="route-plan">
+<div class="step"><div class="n">first agent</div><div class="skill">Routing Configuration Agent</div><p>Bring conversational configuration to the first UI page.</p><div class="wait">local need</div></div>
+<div class="step"><div class="n">second agent</div><div class="skill">Expert Configuration Agent</div><p>Apply the same agent pattern to a second UI page.</p><div class="wait">pattern appears</div></div>
+<div class="step"><div class="n">generic gateway</div><div class="skill">Extract the contract</div><p>Make the third agent an onboarding task instead of another platform build.</p><div class="wait">a few days</div></div>
+<div class="step"><div class="n">adoption</div><div class="skill">20+ agents</div><p>Teams add narrow or broad agents behind the same runtime.</p><div class="wait">organic growth</div></div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Gateway decision</div>
+<div class="det-title">The gateway reduced a new agent from weeks of platform work to 1–2 days.</div>
 <div class="split">
 <div>
-<p class="sub">Operational work often starts with one person and finishes with another. The gateway treated collaboration as a runtime concern: preserve the shared context, let a second person catch up, and keep new events attached to the same work thread.</p>
-<ul class="bullets" style="--c:var(--policy)">
-<li><strong>Private by default.</strong> <span>A solo thread stayed scoped to the caller unless collaboration was explicitly requested.</span></li>
-<li><strong>Shared when needed.</strong> <span>A collaborative thread let another user join the same context instead of asking for a copy-paste recap.</span></li>
-<li><strong>Catch-up plus live work.</strong> <span>Joiners could read prior events and then follow new progress as the agent continued.</span></li>
-</ul>
+<p class="det-sub">The starter kit gave teams a starting point. They still had to build authorization, state, interfaces, deployment, and production controls around every new agent.</p>
+<div class="strip" style="--c:var(--ok)"><span class="lb">Why separate agents?</span> Teams kept ownership and access boundaries around their domain. The gateway shared the infrastructure underneath them.</div>
 </div>
-<div class="flow">
-<div class="step"><b>Start</b><span>One user begins an investigation or operational change with an agent.</span></div>
-<div class="step"><b>Share</b><span>The user switches from private work to a shared context.</span></div>
-<div class="step"><b>Join</b><span>Another person catches up from prior events and continues from the same state.</span></div>
-<div class="step"><b>Continue</b><span>The gateway keeps state, audit, and live progress attached to the shared thread.</span></div>
+<div class="diagram">
+<div class="cap">time to a new internal agent</div>
+<div class="planning-surface">
+<div class="surface-row"><div class="label">starter kit</div><div class="surface-box"><strong>weeks</strong><span>new repo plus production infrastructure</span></div></div>
+<div class="surface-row"><div class="label">gateway</div><div class="surface-box plan"><strong>1–2 days</strong><span>mostly instructions, documentation, and API tools</span></div></div>
+</div>
+</div>
 </div>
 </div>
 </section>
 
 <section class="slide">
-<div class="eyebrow ok"><span class="ph">05</span> Lessons</div>
-<h1 class="title-lg">The durable abstraction is the <span class="k">harness</span>.</h1>
-<ul class="bullets" style="--c:var(--ok)">
-<li><strong>Design for failure paths.</strong> <span>Denied actions, partial results, approvals, retries, and handoffs should be expected flows.</span></li>
-<li><strong>Separate domain knowledge from platform mechanics.</strong> <span>Instructions and tool-use patterns should evolve faster than state, audit, and safety infrastructure.</span></li>
-<li><strong>Do not make every client a new backend.</strong> <span>One execution path keeps behavior consistent and rollout cheaper.</span></li>
-</ul>
-<div class="strip" style="--c:var(--ok)"><span class="lb">Through-line</span> Agents can differ in workflow and domain knowledge, but they should not differ in how they handle state, tool safety, audit, or rollout.</div>
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow"><span class="ph">03</span> Solution architecture</div>
+<h1 class="title-lg">The gateway standardized the agent harness while teams controlled what their domain-specific agents did.</h1>
+<div class="pipeline"><div class="node signal">Web · Slack · MCP<br>services · CLI</div><div class="arr">→</div><div class="node ai">Gateway<br>identity + state</div><div class="arr">→</div><div class="node plan">Domain agent<br>selected by request</div></div>
+<div class="pipeline"><div class="node signal">Shared adapters<br>and streaming</div><div class="arr">→</div><div class="node ai">Tool policy<br>and audit</div><div class="arr">→</div><div class="node ok">Internal APIs<br>GitHub · Slack</div></div>
+<div class="strip"><span class="lb">Architecture decision</span> Domain behavior varied by team. Identity, state, authorization, streaming, and audit stayed consistent across every agent.</div>
+</div>
+<div class="face detail">
+<div class="det-head">Onboarding contract</div>
+<div class="det-title">Teams supplied the domain behavior. The gateway supplied everything around it.</div>
+<p class="det-sub">A team could add a narrow two-tool agent or a broad agent spanning dozens of operations. Both received the same interfaces, runtime behavior, and safety controls.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--signal)"><span class="tag">shared interfaces</span><div class="nm">Web, Slack, services, CLI, and MCP</div><div class="role">multiple entry points out of the box</div><p>Each agent could be reached through ChatKit, Slack, service calls, a coding-agent workflow, or MCP.</p></div>
+<div class="tcard" style="--x:var(--ai)"><span class="tag">shared runtime</span><div class="nm">Identity, state, and controls</div><div class="role">streaming, authorization, and audit</div><p>Teams did not have to rebuild the production runtime around every new agent.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">team owned</span><div class="nm">Domain behavior</div><div class="role">instructions, tools, and access boundaries</div><p>Teams defined what their agent knew and could do while keeping ownership of their domain.</p></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow risk"><span class="ph">04</span> Hardest challenge</div>
+<h1 class="title-lg">Authorization had to follow every tool call.</h1>
+<p class="sub">Access to an agent did not imply permission to perform every action. The gateway checked the caller, request source, roles, and permissions when a tool executed.</p>
+<div class="route-plan">
+<div class="step"><div class="n">request</div><div class="skill">User asks</div><p>The model can understand and plan the requested work.</p><div class="wait">agent remains discoverable</div></div>
+<div class="step"><div class="n">tool call</div><div class="skill">Policy checks</div><p>Validate the user and request source against the tool being invoked.</p><div class="wait">single enforcement point</div></div>
+<div class="step"><div class="n">allowed</div><div class="skill">Execute + audit</div><p>Call the API and record the action against the caller.</p><div class="wait">bounded action</div></div>
+<div class="step"><div class="n">denied</div><div class="skill">Explain next step</div><p>Return an actionable path to request the right access.</p><div class="wait">useful failure</div></div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Automatic authorization · guided fallback</div>
+<div class="det-title">When automatic authorization failed, the error became a ready-to-send access request.</div>
+<p class="det-sub">The gateway first tried to authorize the tool call from its source, the caller's identity, and existing roles. If those checks failed, it returned the exact message and Slack channel needed to resolve the gap.</p>
+<div class="route-plan">
+<div class="step"><div class="n">step 1</div><div class="skill">Try automatically</div><p>Check request source, caller identity, roles, and current permissions.</p><div class="wait">authorize when possible</div></div>
+<div class="step"><div class="n">step 2</div><div class="skill">Return a useful error</div><p>Tell the user: “Copy and paste this message in this Slack channel.”</p><div class="wait">request context included</div></div>
+<div class="step"><div class="n">step 3</div><div class="skill">Tag the Access Review Agent</div><p>The prepared message invoked the agent in the designated channel.</p><div class="wait">guided handoff</div></div>
+<div class="step"><div class="n">step 4</div><div class="skill">Resolve with the team</div><p>The agent worked with the platform team to identify the right permission for the requested action.</p><div class="wait">human-governed access</div></div>
+</div>
+<div class="strip" style="--c:var(--risk)"><span class="lb">Control boundary</span> The gateway first attempted to grant access automatically from the request source, identity, and existing policy. If that failed, the Access Review Agent investigated the request and recommended the appropriate permissions for human approval.</div>
+</div>
+</section>
+
+<section class="slide no-detail">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ai"><span class="ph">05</span> Shared sessions</div>
+<h1 class="title-lg">Agent work needed handoffs, not just transcripts.</h1>
+<p class="sub">One person could begin an operational task and let someone else continue it without recreating the investigation. Shared context worked across web, Slack, CLI, and service calls.</p>
+<div class="matrix">
+<div class="phase old"><div class="h">private by default</div><div class="n">Caller-specific session</div><p>The thread key included the context, experience, and caller so normal conversations remained private.</p></div>
+<div class="phase new"><div class="h">collaborative when requested</div><div class="n">Shared context ID</div><p>The caller was removed from the thread key so another person could resume the same agent state.</p></div>
+</div>
+<div class="pipeline"><div class="node signal">User starts work<br>in web</div><div class="arr">→</div><div class="node ai">Shares the<br>context ID</div><div class="arr">→</div><div class="node ok">Teammate resumes<br>in Slack or CLI</div></div>
+<div class="strip"><span class="lb">Catch up, then continue live</span> Joiners could replay prior events and subscribe for new ones. The gateway stored conversation events, not downstream business data.</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ok"><span class="ph">06</span> Results</div>
+<h1 class="title-lg">The gateway turned agent building from a project into an onboarding task.</h1>
+<div class="stats">
+<div class="stat" style="--x:var(--signal)"><div class="big">20+</div><div class="lab">domain-specific agents running through the gateway.</div></div>
+<div class="stat" style="--x:var(--plan)"><div class="big">1–2 days</div><div class="lab">to add an agent that once took weeks of setup.</div></div>
+<div class="stat" style="--x:var(--ai)"><div class="big">Thousands</div><div class="lab">of hours of manual work saved each year.</div></div>
+<div class="stat" style="--x:var(--ok)"><div class="big">~90 WAU</div><div class="lab">weekly active users in the measured window.</div></div>
+</div>
+<div class="strip" style="--c:var(--ok)"><span class="lb">The strongest signal</span> Teams kept adding agents and people kept using them. The platform was removing real operational work, not just making agent demos easier.</div>
+</div>
+<div class="face detail">
+<div class="det-head">System map</div>
+<div class="det-title">Many agents and clients shared one harness.</div>
+<div class="c4-board" aria-label="AI agent gateway system map">
+<div class="c4-label">external entry points</div>
+<div class="c4-row">
+<div class="c4-node person"><b>Web UI</b><span>person-facing client</span></div>
+<div class="c4-node person"><b>Slack</b><span>operator channel</span></div>
+<div class="c4-node person"><b>A2A services</b><span>service callers</span></div>
+<div class="c4-node person"><b>CLI agents</b><span>local skill wrapper</span></div>
+<div class="c4-node person"><b>MCP clients</b><span>tool discovery surface</span></div>
+</div>
+<div class="c4-rel down">send requests to gateway</div>
+<div class="c4-boundary">
+<div class="c4-boundary-head"><span>System boundary · AI Agent Gateway</span><span>shared harness</span></div>
+<div class="c4-runtime">
+<div><b>Gateway runtime</b><span>normalizes requests, resumes state, streams events</span></div>
+<div>identity</div><div>thread state</div><div>agent router</div><div>tool policy</div>
+</div>
+<div class="c4-rel down">routes work to domain agents</div>
+<div class="c4-agent-grid">
+<div class="c4-node container"><b>Access Review Agent</b><span>permission investigation</span></div>
+<div class="c4-node container"><b>Routing Configuration Agent</b><span>routing setup workflows</span></div>
+<div class="c4-supervisor-stack">
+<div class="c4-node container supervisor"><b>Workforce Supervisor*</b><span>delegates staffing questions</span></div>
+<div class="c4-fork"><span>asks supply</span><span>asks skill fit</span></div>
+<div class="c4-row" style="grid-template-columns:1fr 1fr;gap:6px">
+<div class="c4-node container"><b>Capacity Agent</b><span>supply and availability</span></div>
+<div class="c4-node container"><b>Expert Agent</b><span>skills and routing fit</span></div>
+</div>
+</div>
+<div class="c4-node container"><b>Expert Collection Agent</b><span>collection operations</span></div>
+</div>
+<div class="c4-note">* Earlier architecture. Later replaced by skill-based loading.</div>
+</div>
+<div class="c4-rel down">executes approved tool calls against shared systems</div>
+<div class="c4-label">domain services and shared tools</div>
+<div class="c4-row c4-tools">
+<div class="c4-node system"><b>Routing Configuration Service</b><span>read and write routing configuration</span></div>
+<div class="c4-node system"><b>Expert Configuration Service</b><span>read and write expert settings</span></div>
+<div class="c4-node system"><b>Expert Collection Service</b><span>read and write collection data</span></div>
+<div class="c4-node system"><b>GitHub</b><span>read and write configuration</span></div>
+<div class="c4-node system"><b>Slack</b><span>post messages and handoffs</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="slide no-detail">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow plan"><span class="ph">07</span> What I would do differently</div>
+<h1 class="title-lg">Prefer skills over supervisors, and load tools with them.</h1>
+<p class="sub">Today, every agent starts with its full tool catalog. Dynamic skills could load the instructions and associated tools needed for each turn.</p>
+<div class="matrix">
+<div class="phase old"><div class="h">current model</div><div class="n">Supervisors and upfront tools</div><p>Each new domain can add another agent handoff. Every tool is also loaded before the request needs it.</p></div>
+<div class="phase new"><div class="h">skill-based loading</div><div class="n">Instructions and tools on demand</div><p>Select the skill needed for the turn, then load only its guidance and associated tools. Leave the rest unloaded.</p></div>
+</div>
+<div class="strip" style="--c:var(--ai)"><span class="lb">Why this is better</span> Domain knowledge stays composable. Smaller context and tool surfaces should make behavior easier to inspect, tune, and authorize.</div>
+</div>
 </section>
 
 </div>
-<div class="hud"><div class="nav"><button id="prev" aria-label="previous slide">&lt;</button></div><div class="dots" id="dots"></div><div class="nav"><button id="next" aria-label="next slide">&gt;</button></div></div>
-<div class="hint">&lt; &gt; advance</div><div class="count"><span id="cur">1</span>/<span id="tot">6</span></div>
+<div class="hud"><div class="nav"><button id="prev" aria-label="previous slide">‹</button></div><div class="dots" id="dots"></div><div class="nav"><button id="next" aria-label="next slide">›</button></div></div>
+<div class="hint">← → advance · detail toggle / space flips detail</div>
+<div class="count"><span id="cur">1</span>/<span id="tot">8</span></div>
 <script>
 const slides=[...document.querySelectorAll('.slide')];
 const dotsWrap=document.getElementById('dots');
 let i=0;
-if('scrollRestoration' in history)history.scrollRestoration='manual';
 function slideFromUrl(){const n=Number(new URLSearchParams(location.search).get('slide'));return Number.isInteger(n)?n-1:0}
 function syncUrl(){const url=new URL(location.href);url.searchParams.set('slide',String(i+1));history.replaceState({slide:i+1},'',url)}
 document.getElementById('tot').textContent=slides.length;
-slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',()=>go(n));dotsWrap.appendChild(b)});
+slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',e=>{e.stopPropagation();go(n)});dotsWrap.appendChild(b)});
 const dots=[...dotsWrap.children];
-function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k===i)s.scrollTop=0});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;if(updateUrl)syncUrl()}
-function next(){go(i+1)}function prev(){go(i-1)}
-document.getElementById('next').addEventListener('click',next);document.getElementById('prev').addEventListener('click',prev);
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();next()}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}else if(e.key==='Home'){go(0)}else if(e.key==='End'){go(slides.length-1)}});
-window.addEventListener('popstate',()=>go(slideFromUrl(),false));go(slideFromUrl());
+function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k!==i)s.classList.remove('flip')});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;if(updateUrl)syncUrl()}
+function next(){go(i+1)}function prev(){go(i-1)}function flip(){if(!slides[i].classList.contains('no-detail'))slides[i].classList.toggle('flip')}
+document.getElementById('next').addEventListener('click',e=>{e.stopPropagation();next()});
+document.getElementById('prev').addEventListener('click',e=>{e.stopPropagation();prev()});
+document.querySelectorAll('.flipchip').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();flip()}));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();next()}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}else if(e.key===' '){e.preventDefault();flip()}});
+window.addEventListener('popstate',()=>go(slideFromUrl(),false));
+go(slideFromUrl());
 </script>
 </body>
 </html>
