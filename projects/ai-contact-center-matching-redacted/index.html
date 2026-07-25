@@ -6,31 +6,123 @@
 <title>AI Contact Center Matching · Eric Kennedy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
---bg:#0e1518;--bg2:#0b1114;--panel:#152025;--panel2:#182a30;--line:#243840;--line2:#1b2b31;
---ink:#e7f0f2;--dim:#8fa4a9;--faint:#5f767c;--evidence:#54b8c9;--plan:#e0a458;--control:#9a7be0;--ok:#5fb87a;--stop:#e06a5c;
---mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;--disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+--bg:#101318;--bg2:#0b0d11;--panel:#171d25;--panel2:#1d2630;--line:#2a3541;--line2:#202a35;
+--ink:#eef3f8;--dim:#99a9b8;--faint:#637486;
+--signal:#4bd6c8;--plan:#f0b05f;--ai:#ad8cff;--ok:#69c982;--risk:#f06f64;
+--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+--disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+--body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
-*{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden}body{background:var(--bg2);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}a{color:inherit}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:var(--bg2);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
 .deck{position:relative;width:100vw;height:100vh;overflow:hidden}
-.slide{--pad-top:max(88px,6.5vh);--pad-x:8vw;--pad-bottom:8vh;--hud-space:56px;position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;overflow-x:hidden;overflow-y:auto;padding:var(--pad-top) var(--pad-x) calc(var(--pad-bottom) + var(--hud-space));opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .42s;background:radial-gradient(1100px 620px at 82% -6%,rgba(84,184,201,.07),transparent 60%),radial-gradient(820px 480px at 6% 8%,rgba(154,123,224,.05),transparent 58%),var(--bg)}
-.slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.011) 0 1px,transparent 1px 3px)}.slide>*{position:relative;z-index:1}.slide.active{opacity:1;visibility:visible;transform:none}
-.back{position:absolute;top:28px;left:32px;z-index:20;color:var(--faint);font-family:var(--mono);font-size:11px;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}.back:hover{color:var(--ink)}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--evidence);display:flex;align-items:center;gap:16px;margin-bottom:22px}.eyebrow::after{content:"";flex:1;max-width:220px;height:1px;background:linear-gradient(90deg,var(--line),transparent)}.eyebrow .ph{padding:3px 10px;border:1px solid currentColor;border-radius:999px;font-size:10px}.eyebrow.plan{color:var(--plan)}.eyebrow.control{color:var(--control)}.eyebrow.ok{color:var(--ok)}
-h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1;margin:0;max-width:min(100%,18ch);text-wrap:balance}.title-xl{font-size:clamp(38px,6vw,82px)}.title-lg{font-size:clamp(30px,4.5vw,62px);max-width:min(100%,20ch)}h1 .e{color:var(--evidence)}h1 .p{color:var(--plan)}h1 .c{color:var(--control)}h1 .g{color:var(--ok)}
-.sub{font-size:clamp(15px,1.58vw,21px);color:var(--dim);max-width:72ch;margin:clamp(14px,2.2vh,22px) 0 0;line-height:1.55}.sub strong{color:#fff;font-weight:600}
-.split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,4vw,52px);align-items:center;margin-top:16px}.split>*,.grid3>*,.grid2>*,.cont>*{min-width:0}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:30px}
-.card,.step,.phasebox{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}.card::before,.step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--x,var(--evidence))}
-.ix,.tag{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--x,var(--evidence))}.card h3{font-family:var(--disp);font-size:23px;line-height:1.12;margin:8px 0 10px}.card p,.step p,.phasebox p{color:var(--dim);font-size:14px;line-height:1.55;margin:0}
-.bullets{list-style:none;margin:clamp(16px,2.5vh,28px) 0 0;padding:0}.bullets li{position:relative;margin:clamp(10px,1.7vh,18px) 0;padding-left:30px;font-size:clamp(14px,1.48vw,16px);line-height:1.5;color:var(--ink)}.bullets li::before{content:"";position:absolute;left:0;top:8px;width:11px;height:11px;border-radius:3px;background:var(--c,var(--evidence));box-shadow:0 0 12px var(--c,var(--evidence))}.bullets span{color:var(--dim)}
-.strip{margin-top:26px;max-width:78ch;border-left:3px solid var(--c,var(--evidence));background:rgba(84,184,201,.06);padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}.strip .lb{display:block;margin-bottom:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c,var(--evidence))}
-.flow{display:grid;gap:12px}.step{display:grid;grid-template-columns:132px 1fr;gap:18px;align-items:start}.step b{font-family:var(--disp);font-size:18px}.step span{color:var(--dim);font-size:14px;line-height:1.5}
-.cont{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin-top:36px;max-width:1000px}.phasebox.old{border-color:rgba(224,106,92,.34)}.phasebox.new{border-color:rgba(95,184,122,.34)}.phasebox .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}.phasebox .n{font-family:var(--disp);font-weight:700;font-size:24px;margin:4px 0 14px}.phasebox.old .n{color:var(--stop)}.phasebox.new .n{color:var(--ok)}.row{display:flex;gap:10px;align-items:flex-start;color:var(--dim);font-size:14px;margin:10px 0;line-height:1.4}.dotc{width:10px;height:10px;border-radius:50%;flex:none;margin-top:5px}.equals{display:grid;place-items:center;padding:0 26px}.equals .eq{font-family:var(--disp);font-weight:700;font-size:38px;color:var(--evidence)}.equals .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center;max-width:120px}
-.hud{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:16px}.nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:22px;cursor:pointer}.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border:0;border-radius:50%;background:var(--line);padding:0;cursor:pointer}.dots button.on{background:var(--evidence);box-shadow:0 0 12px var(--evidence)}.count{position:absolute;right:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:11px;color:var(--faint)}.hint{position:absolute;left:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
-@media(max-width:900px){.slide{--pad-top:max(82px,6.5vh);--pad-x:6vw;--pad-bottom:8vh;--hud-space:56px}.split,.grid3,.grid2{grid-template-columns:1fr}.step{grid-template-columns:1fr}.hint{display:none}}
-@media(max-width:640px){.cont{grid-template-columns:1fr;gap:14px}.equals{padding:4px}}
+.slide{--pad-top:6.4vh;--pad-x:8vw;--pad-bottom:8vh;--hud-space:72px;position:absolute;inset:0;display:flex;flex-direction:column;overflow-y:auto;
+padding:var(--pad-top) var(--pad-x) calc(var(--pad-bottom) + var(--hud-space));opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);
+transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .42s;
+background:
+linear-gradient(90deg,rgba(75,214,200,.055) 1px,transparent 1px) 0 0/54px 54px,
+linear-gradient(0deg,rgba(75,214,200,.035) 1px,transparent 1px) 0 0/54px 54px,
+radial-gradient(900px 560px at 78% 8%,rgba(173,140,255,.09),transparent 62%),
+radial-gradient(760px 460px at 4% 86%,rgba(240,176,95,.06),transparent 58%),var(--bg)}
+.slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(16,19,24,.08),rgba(16,19,24,.62))}
+.slide>*{position:relative;z-index:1}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.face{display:none;flex-direction:column;justify-content:center;flex:0 0 auto;min-height:calc(100vh - var(--pad-top) - var(--pad-bottom) - var(--hud-space))}
+.slide.active .face.overview{display:flex}
+.slide.active.flip .face.overview{display:none}
+.slide.active.flip .face.detail{display:flex;animation:faceIn .25s ease}
+.slide.no-detail .flipchip{display:none}
+.slide.no-detail.active.flip .face.overview{display:flex}
+@keyframes faceIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.back{position:absolute;top:28px;left:32px;z-index:20;color:var(--faint);font-family:var(--mono);font-size:11px;text-decoration:none;text-transform:uppercase;letter-spacing:.08em}
+.back:hover{color:var(--ink)}
+.flipchip{position:absolute;top:calc(var(--pad-top) + 2px);right:var(--pad-x);z-index:5;display:inline-flex;align-items:center;gap:8px;
+font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:7px 13px;border-radius:999px;
+background:var(--panel);border:1px solid var(--line);color:var(--dim);cursor:pointer;user-select:none}
+.flipchip .sw{width:26px;height:14px;border-radius:999px;background:var(--line);position:relative}
+.flipchip .sw::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--faint);transition:.18s}
+.slide.flip .flipchip{border-color:var(--ai);color:var(--ai)}
+.slide.flip .flipchip .sw{background:rgba(173,140,255,.36)}
+.slide.flip .flipchip .sw::after{left:14px;background:var(--ai)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--signal);display:flex;align-items:center;gap:15px;margin-bottom:22px}
+.eyebrow::after{content:"";height:1px;max-width:220px;flex:1;background:linear-gradient(90deg,var(--line),transparent)}
+.eyebrow .ph{padding:3px 10px;border:1px solid currentColor;border-radius:999px;font-size:10px}
+.eyebrow.plan{color:var(--plan)}.eyebrow.ai{color:var(--ai)}.eyebrow.ok{color:var(--ok)}.eyebrow.risk{color:var(--risk)}
+h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1;margin:0}
+.title-xl{font-size:clamp(40px,6.2vw,84px)}
+.title-lg{font-size:clamp(31px,4.5vw,62px)}
+h1 .s{color:var(--signal)}h1 .p{color:var(--plan)}h1 .a{color:var(--ai)}h1 .g{color:var(--ok)}h1 .r{color:var(--risk)}
+.sub{font-size:clamp(15px,1.5vw,20px);color:var(--dim);max-width:74ch;margin:clamp(14px,2.2vh,22px) 0 0;line-height:1.55}
+.sub strong{color:#fff;font-weight:600}
+.sub a{color:var(--ink);text-decoration-color:var(--signal);text-underline-offset:4px}
+code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2px 7px;border:1px solid var(--line2);border-radius:5px;color:#d9c7ff}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,52px);align-items:center;margin-top:18px}
+.cards,.stats,.arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card,.stat,.phase,.step,.tcard{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:22px;position:relative;overflow:hidden}
+.card::before,.stat::before,.tcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--x,var(--signal))}
+.ix,.tag,.det-head{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--x,var(--signal))}
+.card h3{font-family:var(--disp);font-size:23px;line-height:1.12;margin:8px 0 10px}
+.card p,.tcard p,.phase p,.step p{color:var(--dim);font-size:14px;line-height:1.55;margin:0}
+.stat .big{font-family:var(--disp);font-size:clamp(30px,3.2vw,43px);font-weight:700;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+.stat .lab{margin-top:10px;color:var(--dim);font-size:13px;line-height:1.45}
+.stat .lab strong{color:var(--ink);font-weight:700}
+.bullets{list-style:none;margin:clamp(16px,2.5vh,28px) 0 0;padding:0}
+.bullets li{position:relative;margin:clamp(10px,1.6vh,17px) 0;padding-left:30px;font-size:clamp(14px,1.42vw,16px);line-height:1.5;color:var(--ink)}
+.bullets li::before{content:"";position:absolute;left:0;top:8px;width:11px;height:11px;border-radius:3px;background:var(--c,var(--signal));box-shadow:0 0 12px var(--c,var(--signal))}
+.bullets span{color:var(--dim)}
+.strip{margin-top:26px;max-width:80ch;border-left:3px solid var(--c,var(--signal));background:rgba(75,214,200,.065);padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
+.strip .lb{display:block;margin-bottom:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c,var(--signal))}
+.det-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;color:var(--ai)}
+.det-head::after{content:"";height:1px;max-width:220px;flex:1;background:linear-gradient(90deg,rgba(173,140,255,.45),transparent)}
+.det-title{font-family:var(--disp);font-size:clamp(24px,3.3vw,40px);font-weight:600;letter-spacing:-.02em;line-height:1.08;margin-bottom:10px}
+.det-sub{color:var(--dim);font-size:clamp(14px,1.45vw,17px);line-height:1.55;max-width:84ch;margin:0}
+.tcard{padding:18px}.tcard .tag{display:inline-block;margin-bottom:10px;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,.06)}
+.tcard .nm{font-family:var(--mono);font-weight:700;font-size:14px;word-break:break-word}.tcard .role{font-family:var(--mono);font-size:10.5px;color:var(--x,var(--signal));margin:3px 0 9px;letter-spacing:.03em}
+.tcard a{color:var(--ink);text-decoration-color:var(--x,var(--signal));text-underline-offset:3px}
+.diagram{background:linear-gradient(180deg,var(--panel),rgba(23,29,37,.55));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.cap{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.planning-surface{display:grid;grid-template-columns:1fr;gap:14px}
+.surface-row{display:grid;grid-template-columns:116px 1fr;gap:14px;align-items:center}
+.surface-row .label{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase}
+.surface-box{border:1px solid var(--line);border-radius:12px;background:rgba(11,13,17,.72);padding:14px;min-height:58px}
+.surface-box strong{font-family:var(--disp);font-size:22px;color:var(--ink)}
+.surface-box span{display:block;margin-top:4px;color:var(--dim);font-size:13px;line-height:1.4}
+.surface-box.plan{border-color:rgba(240,176,95,.46);background:rgba(240,176,95,.08)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.chip{font-family:var(--mono);font-size:11px;color:var(--ink);border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 8px}
+.chip.hot{border-color:rgba(240,176,95,.48);background:rgba(240,176,95,.12)}
+.ladder-viz{height:220px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:end;padding:18px 8px 4px;border-bottom:1px solid rgba(238,243,248,.15);position:relative}
+.ladder-viz::before,.ladder-viz::after{content:"";position:absolute;left:8px;right:8px;height:1px;background:rgba(238,243,248,.08)}
+.ladder-viz::before{top:62px}.ladder-viz::after{top:120px}
+.barstep{display:grid;grid-template-rows:1fr auto;gap:10px;height:100%;min-width:0}
+.barstep .bar{align-self:end;border:1px solid var(--bc,var(--plan));border-radius:9px 9px 3px 3px;background:linear-gradient(180deg,var(--bc,var(--plan)),rgba(11,13,17,.22));min-height:32px;display:grid;place-items:start center;padding-top:8px;font-family:var(--mono);font-size:12px;font-weight:700;color:#0b0d11}
+.barstep .bar.danger{--bc:var(--risk)}.barstep .bar.ok{--bc:var(--ok)}
+.barstep .lab{font-family:var(--mono);font-size:10px;line-height:1.25;color:var(--dim);text-align:center}
+.route-plan{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:28px}
+.step{padding:16px;min-height:150px}
+.step .n{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+.step .skill{font-family:var(--disp);font-size:19px;font-weight:700;line-height:1.05;margin:8px 0;color:var(--ink)}
+.step .wait{font-family:var(--mono);font-size:11px;color:var(--plan)}
+.pipeline{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;margin-top:28px}
+.node{min-height:78px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);display:grid;place-items:center;text-align:center;padding:12px;font-family:var(--mono);font-size:13px;line-height:1.35}
+.node.signal{border-color:rgba(75,214,200,.46);background:rgba(75,214,200,.075)}.node.ai{border-color:rgba(173,140,255,.48);background:rgba(173,140,255,.08)}.node.plan{border-color:rgba(240,176,95,.48);background:rgba(240,176,95,.08)}.node.ok{border-color:rgba(105,201,130,.48);background:rgba(105,201,130,.08)}
+.arr{font-family:var(--mono);color:var(--faint);font-weight:700}
+.matrix{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+.phase .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.phase .n{font-family:var(--disp);font-size:24px;font-weight:700;margin:5px 0 12px}.phase.old{border-color:rgba(240,111,100,.36)}.phase.old .n{color:var(--risk)}.phase.new{border-color:rgba(105,201,130,.36)}.phase.new .n{color:var(--ok)}
+.seq-board{margin-top:18px;border:1px solid rgba(153,169,184,.42);border-radius:16px;background:linear-gradient(180deg,rgba(238,243,248,.035),rgba(11,13,17,.58));padding:14px;display:grid;grid-template-columns:minmax(0,1fr) 64px minmax(0,1fr) 64px minmax(0,1fr) 64px minmax(0,1fr) 64px minmax(0,1fr);grid-template-rows:auto auto auto auto;gap:8px;position:relative}
+.seq-board::before{content:"";position:absolute;inset:10px;border:1px dashed rgba(153,169,184,.18);border-radius:12px;pointer-events:none}.seq-lane{position:relative;z-index:1;border-top:1px dashed rgba(153,169,184,.28);padding-top:8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center}.seq-box{position:relative;z-index:1;min-height:58px;border:1px solid var(--line);border-radius:10px;background:rgba(11,13,17,.86);padding:9px 10px;display:grid;align-content:center;gap:2px;box-shadow:2px 2px 0 rgba(238,243,248,.05)}.seq-box b{font-family:var(--disp);font-size:13.5px}.seq-box span{font-family:var(--mono);font-size:9.5px;color:var(--dim);line-height:1.22}.seq-box.e{border-color:rgba(75,214,200,.5);background:rgba(75,214,200,.08)}.seq-box.l{border-color:rgba(240,176,95,.5);background:rgba(240,176,95,.08)}.seq-box.p{border-color:rgba(173,140,255,.48);background:rgba(173,140,255,.08)}.seq-box.g{border-color:rgba(105,201,130,.48);background:rgba(105,201,130,.08)}.seq-box.stop{border-color:rgba(240,111,100,.46);background:rgba(240,111,100,.08)}
+.seq-arrow{position:relative;z-index:1;align-self:center;justify-self:stretch;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--faint);display:flex;align-items:center;justify-content:center;gap:4px}.seq-arrow::before{content:"";height:1px;flex:1;min-width:14px;border-top:2px solid currentColor}.seq-arrow::after{content:"›";font-size:18px;line-height:1;color:currentColor}.seq-divider{position:relative;z-index:1;grid-column:1/-1;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin:1px 0}.seq-divider::before,.seq-divider::after{content:"";height:1px;flex:1;border-top:1px dashed rgba(105,201,130,.52)}.seq-divider span{border:1px solid rgba(105,201,130,.45);border-radius:999px;padding:3px 10px;background:rgba(105,201,130,.08)}
+.seq-note{position:relative;z-index:1;grid-column:1/-1;border:1px dashed rgba(240,176,95,.52);border-radius:10px;background:rgba(240,176,95,.07);padding:8px 10px;font-family:var(--mono);font-size:10px;color:var(--dim);display:flex;justify-content:space-between;gap:14px}.seq-note b{color:var(--ink);font-family:var(--disp);font-size:14px}
+.bars{display:grid;gap:16px;margin-top:26px}.bar{display:grid;grid-template-columns:92px 1fr 74px;align-items:center;gap:12px;font-family:var(--mono);font-size:12px}.track{height:16px;border-radius:999px;background:var(--line);overflow:hidden}.fill{height:100%;width:var(--w);background:linear-gradient(90deg,var(--x,var(--signal)),rgba(255,255,255,.45));border-radius:999px}
+.hud{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:16px}.nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:22px;cursor:pointer}.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border:0;border-radius:50%;background:var(--line);padding:0;cursor:pointer}.dots button.on{background:var(--signal);box-shadow:0 0 12px var(--signal)}.count{position:absolute;right:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:11px;color:var(--faint)}.hint{position:absolute;left:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
+@media(max-width:900px){.slide{--pad-top:6.5vh;--pad-x:6vw;--pad-bottom:8vh;--hud-space:72px}.split,.cards,.stats,.arch,.matrix,.pipeline,.seq-board{grid-template-columns:1fr}.seq-board>*{grid-column:1!important}.seq-lane{text-align:left}.seq-arrow{justify-content:center}.seq-arrow::before{display:none}.seq-note{display:grid}.seq-divider::before{display:none}.route-plan{grid-template-columns:1fr}.queue{grid-template-columns:84px 1fr}.arr{transform:rotate(90deg);justify-self:center}.hint{display:none}.title-xl{font-size:clamp(36px,12vw,60px)}}
 </style>
 </head>
 <body>
@@ -38,99 +130,259 @@ h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1;m
 <div class="deck">
 
 <section class="slide active">
-<div class="eyebrow"><span class="ph">00</span> The problem</div>
-<h1 class="title-xl">Routing plans were becoming <span class="e">too expensive</span> to maintain by hand.</h1>
-<p class="sub">Contact-center routing sits at the intersection of customer intent, staffing reality, quality standards, and operational policy. Manual plan authoring can work for a small surface area, but it breaks down as queues, intents, and staffing conditions keep changing.</p>
-<div class="cont">
-<div class="phasebox old"><div class="h">Before</div><div class="n">Human-authored plans</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>slow to create and revise</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>hard to keep aligned with quality signals</div><div class="row"><span class="dotc" style="background:var(--stop)"></span>fallback behavior depended on operator judgment</div></div>
-<div class="equals"><div class="eq">→</div><div class="lbl">needed a data workflow</div></div>
-<div class="phasebox new"><div class="h">After</div><div class="n">AI-assisted planning</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>recommendations built from evidence</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>reviewable before production use</div><div class="row"><span class="dotc" style="background:var(--ok)"></span>live routing stays deterministic</div></div>
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow"><span class="ph">00</span> Problem · goal · constraints</div>
+<h1 class="title-xl">Intuit connects millions of customers with thousands of experts.</h1>
+<p class="sub">Those support paths vary widely. An expert might help someone reset a password, or they might be a CPA with 20 years of real-estate tax experience. This project focused on scaling a proven optimization: use <a target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/connect/latest/adminguide/what-is-a-contact-attribute.html">contact attributes</a> to route customers to more suitable experts across many more expert collections.</p>
+<div class="stats">
+<div class="stat" style="--x:var(--signal)"><div class="big">Scale</div><div class="lab">Millions of customers needed live help across Intuit products.</div></div>
+<div class="stat" style="--x:var(--plan)"><div class="big">Variation</div><div class="lab">Experts ranged from product-support agents to highly specialized tax professionals.</div></div>
+<div class="stat" style="--x:var(--ai)"><div class="big">Bottleneck</div><div class="lab">The pilot worked, but each new expert collection needed routing logic humans had to maintain.</div></div>
+<div class="stat" style="--x:var(--ok)"><div class="big">Result</div><div class="lab">The rollout saved <strong>$10M+</strong> by expanding the optimization to more traffic.</div></div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Framing · goals and non-goals</div>
+<div class="det-title">The goal was to scale a proven routing optimization inside a large, already-running contact center.</div>
+<div class="arch">
+<div class="tcard" style="--x:var(--signal)"><span class="tag">problem</span><div class="nm">Matching is high variance</div><div class="role">support to specialized tax</div><p>The right expert depends on the customer's issue, the product context, and the expertise available at that moment.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">goal</span><div class="nm">Scale contact-attribute routing</div><div class="role">resolution and handle time</div><p>Apply the proven routing approach to more expert collections to improve resolution rate, reduce transfers, and lower average handle time.</p></div>
+<div class="tcard" style="--x:var(--risk)"><span class="tag">constraint</span><div class="nm">Improve the local maximum</div><div class="role">existing routing system in production</div><p>A clean-sheet matching system was not the project. The goal was to scale an existing solution that worked for a small subset of traffic.</p></div>
+</div>
 </div>
 </section>
 
 <section class="slide">
-<div class="eyebrow plan"><span class="ph">01</span> Constraints</div>
-<h1 class="title-lg">The plan is configuration, product behavior, and operational policy.</h1>
-<div class="grid3">
-<div class="card" style="--x:var(--evidence)"><div class="ix">Evidence</div><h3>Ground it in operating signals</h3><p>Structured fields were only part of the picture. Quality-control signals and routing history helped keep plans current.</p></div>
-<div class="card" style="--x:var(--plan)"><div class="ix">Supply</div><h3>Account for availability</h3><p>The best specialist is not always free. A good plan needs an ordered fallback path.</p></div>
-<div class="card" style="--x:var(--control)"><div class="ix">Control</div><h3>Make trust incremental</h3><p>Operators needed to inspect and promote recommendations before trusting more automation.</p></div>
-</div>
-<div class="strip" style="--c:var(--plan)"><span class="lb">Core tension</span> A plan that is too narrow creates wait time. A plan that is too broad loses the benefit of specialization.</div>
-</section>
-
-<section class="slide">
-<div class="eyebrow"><span class="ph">02</span> System shape</div>
-<h1 class="title-lg">Separate <span class="e">learning</span> from serving.</h1>
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow plan"><span class="ph">01</span> Why scaling was hard</div>
+<h1 class="title-lg">Contact-attribute routing worked wonderfully in a pilot launch.</h1>
+<p class="sub">Scaling it meant asking humans to author <span style="color:var(--plan);font-weight:700">thousands</span> of routing plans.</p>
 <div class="split">
 <div>
-<p class="sub">The architecture kept expensive intelligence away from the live customer path. Analysis and planning happened before routing. Runtime only consumed already-approved configuration.</p>
-<ul class="bullets">
-<li><strong>Offline analysis.</strong> <span>Prior interaction patterns become bounded evidence about routing demand and quality-control outcomes.</span></li>
-<li><strong>Candidate planning.</strong> <span>Evidence feeds a recommendation workflow that proposes specialist-first routing plus fallbacks.</span></li>
-<li><strong>Deterministic runtime.</strong> <span>The live path reads promoted configuration instead of waiting on model calls.</span></li>
-</ul>
+<p class="sub">Every expert collection needed a plan. Each plan had to account for the customers coming in, the experts available in that collection, and the attributes that could predict a better match.</p>
+<div class="strip" style="--c:var(--plan)"><span class="lb">The scaling problem</span> This was not a one-time configuration task. Expert supply changed as people joined, left, trained, or moved between collections. But plans were authored as a snapshot in time and rarely revised.</div>
 </div>
-<div class="flow">
-<div class="step"><b>Read history</b><span>Analyze prior routing patterns, demand, and quality-control outcomes.</span></div>
-<div class="step"><b>Build evidence</b><span>Convert operating history into constrained, reviewable signals.</span></div>
-<div class="step"><b>Generate plan</b><span>Recommend routing behavior and fallback steps.</span></div>
-<div class="step"><b>Promote</b><span>Move only reviewed output into production configuration.</span></div>
+<div class="diagram">
+<div class="cap">what one plan had to account for</div>
+<div class="planning-surface">
+<div class="surface-row"><div class="label">collection</div><div class="surface-box"><strong>one expert collection</strong><span>then repeat this across thousands more</span></div></div>
+<div class="surface-row"><div class="label">experts</div><div class="surface-box"><strong>5 to 500</strong><span>each with different availability, skills, and outcomes</span></div></div>
+<div class="surface-row"><div class="label">attributes</div><div class="surface-box"><strong>hundreds</strong><span>choose the few that predict a better match for this collection</span><div class="chips"><span class="chip hot">crypto tax</span><span class="chip">real estate</span><span class="chip">payroll</span><span class="chip">product setup</span><span class="chip">billing</span></div></div></div>
+<div class="surface-row"><div class="label">plan</div><div class="surface-box plan"><strong>specific → broader → round robin</strong><span>balance match quality against wait time and service level</span></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Routing plan shape</div>
+<div class="det-title">What is a routing plan? A routing plan is a sequence of matching rules: start specific, wait briefly, then relax.</div>
+<div class="route-plan">
+<div class="step"><div class="n">step 1</div><div class="skill">crypto tax specialist</div><p>Best match if supply exists.</p><div class="wait">wait 30s</div></div>
+<div class="step"><div class="n">step 2</div><div class="skill">tax specialist</div><p>Broaden to adjacent tax expertise.</p><div class="wait">wait 30s</div></div>
+<div class="step"><div class="n">step 3</div><div class="skill">product specialist</div><p>Prefer product fluency when domain supply is constrained.</p><div class="wait">wait 30s</div></div>
+<div class="step"><div class="n">fallback</div><div class="skill">round robin</div><p>Stop filtering by specialist attributes and use the collection's default routing behavior.</p><div class="wait">no attribute filter</div></div>
+</div>
+<div class="diagram" style="margin-top:22px">
+<div class="cap">supply-aware degradation</div>
+<div class="ladder-viz" aria-label="Fallback ladder by expert supply">
+<div class="barstep"><div class="bar danger" style="height:32%">18%</div><div class="lab">step 1<br>crypto tax specialist</div></div>
+<div class="barstep"><div class="bar" style="height:52%">43%</div><div class="lab">step 2<br>tax specialist</div></div>
+<div class="barstep"><div class="bar" style="height:72%">69%</div><div class="lab">step 3<br>product specialist</div></div>
+<div class="barstep"><div class="bar ok" style="height:96%">100%</div><div class="lab">fallback<br>round robin</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ai"><span class="ph">02</span> 2024 LLM environment (top models: OpenAI 4o + Anthropic Claude Sonnet 3.5, pre Claude Code)</div>
+<h1 class="title-lg">The AI product shape matched the trust level of the time.</h1>
+<p class="sub">The first version was built in a 2024 AI environment: useful LLM classification, limited trust, smaller context windows, and much less appetite for fully dynamic production decisions. The right first product shape was a copilot, not an autonomous router.</p>
+<div class="cards">
+<div class="card" style="--x:var(--ai)"><div class="ix">Models</div><h3>Cheap transcript classification</h3><p>Use lower-cost LLM passes over completed interactions to extract demonstrated skills and problem themes.</p></div>
+<div class="card" style="--x:var(--plan)"><div class="ix">Trust</div><h3>Human approval path</h3><p>Generate routing plans offline, send them to operators for review, then publish approved versions.</p></div>
+<div class="card" style="--x:var(--signal)"><div class="ix">Architecture</div><h3>Built for later dynamism</h3><p>The same evidence pipeline could later feed runtime matching once the business trusted AI-generated decisions.</p></div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Design bet</div>
+<div class="det-title">Kept the high-risk AI decision outside the live call path until the evidence base was strong enough.</div>
+<p class="det-sub">That made the first release easier to ship: the system could process transcripts asynchronously, generate candidate plans, and let humans decide whether the plan looked credible. The tradeoff was speed: the copilot still depended on operators engaging with the workflow.</p>
+<div class="strip" style="--c:var(--ai)"><span class="lb">Future-proofing</span> The pipeline captured reusable evidence: customer question embeddings, expert collection context, resolution quality, transfers, and inferred expert skills. That data later became the foundation for dynamic plans.</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow"><span class="ph">03</span> Evidence pipeline</div>
+<h1 class="title-lg">We used call transcripts to infer what experts had <span class="s">actually demonstrated</span>.</h1>
+<div class="pipeline">
+<div class="node signal">Transcript completed<br>event</div><div class="arr">→</div>
+<div class="node ai">LLM extracts<br>problem + skills</div><div class="arr">→</div>
+<div class="node plan">Outcome signals<br>satisfaction, transfer</div>
+</div>
+<div class="pipeline">
+<div class="node signal">Expert collection<br>history</div><div class="arr">→</div>
+<div class="node ai">Skill evidence<br>by expert</div><div class="arr">→</div>
+<div class="node ok">Candidate routing<br>plan</div>
+</div>
+<div class="strip"><span class="lb">Key move</span> Instead of asking someone to enumerate every expert skill manually, we mined interactions where the expert had already solved the kind of problem we wanted to route.</div>
+</div>
+<div class="face detail">
+<div class="det-head">Why transcripts mattered</div>
+<div class="det-title">Transcripts showed what customers actually needed and what experts actually handled.</div>
+<p class="det-sub">The old inputs were incomplete. Expert attributes could be missing, stale, or too coarse. Transcripts gave us observed evidence: the customer's real intent, the skills demonstrated during the interaction, and whether the conversation resolved cleanly.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--signal)"><span class="tag">observed demand</span><div class="nm">True customer intent</div><div class="role">not just entry-point metadata</div><p>What the customer actually asked for inside the conversation.</p></div>
+<div class="tcard" style="--x:var(--ai)"><span class="tag">observed supply</span><div class="nm">Demonstrated expert skill</div><div class="role">not just self-reported labels</div><p>Which kinds of issues the expert had already handled in real interactions.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">observed quality</span><div class="nm">Clean resolution</div><div class="role">transfer and satisfaction signals</div><p>Whether similar pairings ended well or needed another expert.</p></div>
 </div>
 </div>
 </section>
 
 <section class="slide">
-<div class="eyebrow plan"><span class="ph">03</span> Key decisions</div>
-<h1 class="title-lg">The system design mattered more than the prompt.</h1>
-<div class="grid2">
-<div class="card" style="--x:var(--evidence)"><div class="ix">Decision 1</div><h3>Batch analysis over runtime inference</h3><p>Model calls are easier to retry, inspect, sample, and control when they are not blocking a live decision.</p></div>
-<div class="card" style="--x:var(--evidence)"><div class="ix">Decision 2</div><h3>Constrained labels over free-form output</h3><p>The model mapped evidence into bounded routing concepts instead of inventing arbitrary labels.</p></div>
-<div class="card" style="--x:var(--plan)"><div class="ix">Decision 3</div><h3>Fallback plans over best-match only</h3><p>The useful artifact was the ordered relaxation path when the ideal expert was unavailable.</p></div>
-<div class="card" style="--x:var(--control)"><div class="ix">Decision 4</div><h3>Human in the loop first, then remove it</h3><p>The first version made generated plans staged artifacts. Later, the same boundary became the path to more automated promotion.</p></div>
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow plan"><span class="ph">04</span> Product evolution</div>
+<h1 class="title-lg">The system moved from <span class="p">AI-generated</span> plans to runtime matching.</h1>
+<div class="matrix">
+<div class="phase old"><div class="h">v1 · copilot</div><div class="n">Generate, review, publish</div><p>For each expert collection, generate a routing plan from historical transcript evidence. Operators review the plan, then publish it to production.</p></div>
+<div class="phase new"><div class="h">v2 · dynamic</div><div class="n">Customer-specific plan at runtime</div><p>When a customer arrives, use customer context, semantic retrieval, and expert collection constraints to construct a plan suited to that request.</p></div>
+</div>
+<div class="cards">
+<div class="card" style="--x:var(--signal)"><div class="ix">Input</div><h3>Customer context</h3><p>Product, profile, and the question or issue the customer is asking about.</p></div>
+<div class="card" style="--x:var(--ai)"><div class="ix">Retrieval</div><h3>Similar successes</h3><p>Prior interactions that look like this problem and ended well.</p></div>
+<div class="card" style="--x:var(--ok)"><div class="ix">Plan</div><h3>Calibrate supply</h3><p>Prefer the best expert attributes first, then degrade without starving service levels.</p></div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">Public architecture view</div>
+<div class="det-title">Analyze past interactions offline. Keep live routing fast and predictable.</div>
+<p class="det-sub">The detailed production architecture is private to Intuit. At a public level, the design separated historical analysis from the time-sensitive routing experience and turned learned evidence into controlled routing behavior.</p>
+<div class="diagram" style="margin-top:24px">
+<div class="cap">historical learning · customer not waiting</div>
+<div class="pipeline">
+<div class="node signal">Completed<br>interactions</div><div class="arr">→</div>
+<div class="node ai">Customer + expert<br>evidence</div><div class="arr">→</div>
+<div class="node plan">Routing<br>guidance</div>
+</div>
+<div class="cap" style="margin-top:20px">live routing · customer waiting</div>
+<div class="pipeline">
+<div class="node signal">Customer context +<br>routing guidance</div><div class="arr">→</div>
+<div class="node ai">Prioritized<br>match</div><div class="arr">→</div>
+<div class="node ok">Available<br>expert</div>
+</div>
+</div>
 </div>
 </section>
 
 <section class="slide">
-<div class="eyebrow control"><span class="ph">04</span> Operating model</div>
-<h1 class="title-lg">The human gate was a <span class="c">temporary trust boundary</span>.</h1>
-<p class="sub">The first safe version kept people in the loop. That was the right initial product choice: generated plans were staged, reviewed, and promoted explicitly. Once the evidence, checks, and operational confidence improved, the same boundary could be reversed into an automation path.</p>
-<div class="grid3">
-<div class="card" style="--x:var(--control)"><div class="ix">Phase 1</div><h3>Human in the loop</h3><p>Operators inspected recommendations before they affected routing behavior.</p></div>
-<div class="card" style="--x:var(--evidence)"><div class="ix">Bridge</div><h3>Earn confidence</h3><p>Evidence, diffs, checks, and rollback made generated plans easier to trust.</p></div>
-<div class="card" style="--x:var(--ok)"><div class="ix">Phase 2</div><h3>Automate the gate</h3><p>The review boundary could shift from manual promotion toward automated checks and promotion.</p></div>
-</div>
-</section>
-
-<section class="slide">
-<div class="eyebrow ok"><span class="ph">05</span> Lessons</div>
-<h1 class="title-lg">Applied AI succeeds or fails around the model.</h1>
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ok"><span class="ph">05</span> Rollout and outcome</div>
+<h1 class="title-lg">The rollout expanded contact-attribute routing from a small set of expert collections to broad production use.</h1>
+<div class="split">
+<div>
+<p class="sub">The project succeeded by turning a high-touch operational workflow into a repeatable system. It did not need every expert collection owner to understand every attribute. It needed evidence, plan generation, review controls, and a path to runtime decisions.</p>
 <ul class="bullets" style="--c:var(--ok)">
-<li><strong>Review is a product feature.</strong> <span>AI systems earn trust faster when the first version makes review cheap instead of demanding full autonomy.</span></li>
-<li><strong>Operators care about behavior.</strong> <span>Predictability, clear failure modes, and rollback matter more than model sophistication.</span></li>
-<li><strong>The workflow is the product.</strong> <span>Evidence quality, promotion gates, observability, and ownership boundaries decide whether the system can run.</span></li>
+<li><strong>Traffic coverage grew from 0.5% to 40%.</strong> <span>Contact-attribute routing became a real production path, not a prototype.</span></li>
+<li><strong>Plan generation dropped from 3-6 months to under 4 hours.</strong> <span>Authoring stopped being the bottleneck for expanding coverage.</span></li>
+<li><strong>$10M+ saved.</strong> <span>The business outcome came from better matching and broader routing-plan coverage.</span></li>
+<li><strong>Expert collection observability improved.</strong> <span>Transcript analysis also explained what opaque expert collections were actually handling.</span></li>
 </ul>
-<div class="strip" style="--c:var(--ok)"><span class="lb">Through-line</span> The important move was separating offline intelligence from online execution, then wrapping generated output in the same controls as any other production configuration.</div>
+</div>
+<div class="diagram">
+<div class="cap">contact-attribute routing coverage</div>
+<div class="bars">
+<div class="bar"><span>before</span><div class="track"><div class="fill" style="--w:1.25%;--x:var(--risk)"></div></div><strong>0.5%</strong></div>
+<div class="bar"><span>after</span><div class="track"><div class="fill" style="--w:40%;--x:var(--ok)"></div></div><strong>40%</strong></div>
+<div class="bar"><span>author</span><div class="track"><div class="fill" style="--w:86%;--x:var(--ai)"></div></div><strong>3-6mo → &lt;4h</strong></div>
+<div class="bar"><span>impact</span><div class="track"><div class="fill" style="--w:72%;--x:var(--plan)"></div></div><strong>$10M+</strong></div>
+</div>
+<div class="strip" style="--c:var(--ok)"><span class="lb">Outcome</span> The important metric was not that AI wrote a plan. It was that more customers reached a better-matched expert without requiring operators to hand-author every expert collection.</div>
+</div>
+</div>
+</div>
+<div class="face detail">
+<div class="det-head">My role</div>
+<div class="det-title">I worked across product constraints, AI pipeline design, and production rollout.</div>
+<div class="arch">
+<div class="tcard" style="--x:var(--signal)"><span class="tag">analysis</span><div class="nm">Modeled the routing problem</div><div class="role">expert collections, attributes, plans</div><p>Translated a messy operational model into concrete plan-generation inputs and constraints.</p></div>
+<div class="tcard" style="--x:var(--ai)"><span class="tag">implementation</span><div class="nm">Transcript intelligence</div><div class="role">LLM extraction and retrieval</div><p>Used completed interactions and outcome signals to infer skills and expert collection semantics.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">delivery</span><div class="nm">Path to production</div><div class="role">human-in-loop to dynamic</div><p>Started with reviewable plans, then evolved toward customer-specific runtime routing.</p></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow risk"><span class="ph">06</span> What I would do differently</div>
+<h1 class="title-lg">I would invest earlier in <span class="r">observability</span> and reduce the dependency on human review.</h1>
+<div class="cards">
+<div class="card" style="--x:var(--plan)"><div class="ix">1</div><h3>Measure expert collection meaning first</h3><p>Create a clearer readout of each collection: customer intent, transfer patterns, resolution quality, and how that mix changed over time.</p></div>
+<div class="card" style="--x:var(--ai)"><div class="ix">2</div><h3>Reduce dependency on human review</h3><p>The copilot was the right trust bridge, but the business did not want to keep approving plans forever.</p></div>
+<div class="card" style="--x:var(--risk)"><div class="ix">3</div><h3>Make live evals scalable</h3><p>Ironically, we ran rigorous evals for a specific rollout cohort, but the evaluation system itself should have scaled with every new collection.</p></div>
+</div>
+<div class="strip" style="--c:var(--risk)"><span class="lb">Reflection</span> The strongest technical work was not enough by itself. The system also needed a sharper operating model for who owned expert collection definitions, plan quality, and ongoing calibration.</div>
+</div>
+<div class="face detail">
+<div class="det-head">Current frontier</div>
+<div class="det-title">The next unlock was availability-aware matching.</div>
+<p class="det-sub">Expert collection membership does not mean an expert can take a call now. They may be offline, already helping someone, or temporarily unavailable. Folding real-time availability into plan generation was the step that made routing less theoretical and more operationally correct.</p>
+<div class="strip" style="--c:var(--ok)"><span class="lb">Why it matters</span> The best plan on paper can still perform poorly if the preferred experts are not available. Supply-aware routing makes the matching objective honest.</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow"><span class="ph">Recap</span> matching · evidence · rollout</div>
+<h1 class="title-lg">The project turned routing plans from manual artifacts into a data product.</h1>
+<div class="cards">
+<div class="card" style="--x:var(--signal)"><div class="ix">Problem</div><h3>Static plans could not scale</h3><p>Thousands of expert collections and opaque expertise made hand-authored plans a bottleneck.</p></div>
+<div class="card" style="--x:var(--ai)"><div class="ix">Approach</div><h3>Mine interaction evidence</h3><p>Use transcripts, outcomes, embeddings, and filters to infer what expertise actually solved problems.</p></div>
+<div class="card" style="--x:var(--ok)"><div class="ix">Outcome</div><h3>40% traffic and $10M+ saved</h3><p>Plan generation dropped from 3-6 months to under 4 hours.</p></div>
+</div>
+<div class="strip"><span class="lb">Through-line</span> I worked inside a constrained enterprise system, used AI where it fit the trust boundary, and evolved the design as the evidence and business appetite improved.</div>
+</div>
+<div class="face detail">
+<div class="det-head">Public context</div>
+<div class="det-title">Amazon Connect provided the contact-center flows and customer-agent connections underneath the routing work.</div>
+<p class="det-sub">The implementation details are private to Intuit, but the public AWS materials explain the platform context: Intuit's contact-center scale, Amazon Connect, and contact attributes as routing inputs in contact flows.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--signal)"><span class="tag">public context</span><div class="nm">Intuit contact center on Amazon Connect</div><div class="role">AWS customer story</div><p><a target="_blank" rel="noopener noreferrer" href="https://aws.amazon.com/solutions/case-studies/intuit-contact-center-case-study/">AWS case study</a> on Intuit's contact-center migration and scale.</p></div>
+<div class="tcard" style="--x:var(--plan)"><span class="tag">platform primitive</span><div class="nm">Amazon Connect contact attributes</div><div class="role">AWS documentation</div><p><a target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/connect/latest/adminguide/what-is-a-contact-attribute.html">AWS docs</a> for the contact-attribute concept behind routing inputs in Amazon Connect flows.</p></div>
+</div>
+</div>
 </section>
 
 </div>
-<div class="hud"><div class="nav"><button id="prev" aria-label="previous slide">&lt;</button></div><div class="dots" id="dots"></div><div class="nav"><button id="next" aria-label="next slide">&gt;</button></div></div>
-<div class="hint">&lt; &gt; advance</div><div class="count"><span id="cur">1</span>/<span id="tot">6</span></div>
+<div class="hud"><div class="nav"><button id="prev" aria-label="previous slide">‹</button></div><div class="dots" id="dots"></div><div class="nav"><button id="next" aria-label="next slide">›</button></div></div>
+<div class="hint">← → advance · detail toggle / space flips detail</div>
+<div class="count"><span id="cur">1</span>/<span id="tot">8</span></div>
 <script>
 const slides=[...document.querySelectorAll('.slide')];
 const dotsWrap=document.getElementById('dots');
 let i=0;
-if('scrollRestoration' in history)history.scrollRestoration='manual';
 function slideFromUrl(){const n=Number(new URLSearchParams(location.search).get('slide'));return Number.isInteger(n)?n-1:0}
 function syncUrl(){const url=new URL(location.href);url.searchParams.set('slide',String(i+1));history.replaceState({slide:i+1},'',url)}
 document.getElementById('tot').textContent=slides.length;
-slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',()=>go(n));dotsWrap.appendChild(b)});
+slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',e=>{e.stopPropagation();go(n)});dotsWrap.appendChild(b)});
 const dots=[...dotsWrap.children];
-function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k===i)s.scrollTop=0});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;if(updateUrl)syncUrl()}
-function next(){go(i+1)}function prev(){go(i-1)}
-document.getElementById('next').addEventListener('click',next);document.getElementById('prev').addEventListener('click',prev);
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();next()}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}else if(e.key==='Home'){go(0)}else if(e.key==='End'){go(slides.length-1)}});
-window.addEventListener('popstate',()=>go(slideFromUrl(),false));go(slideFromUrl());
+function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k!==i)s.classList.remove('flip')});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;if(updateUrl)syncUrl()}
+function next(){go(i+1)}function prev(){go(i-1)}function flip(){if(!slides[i].classList.contains('no-detail'))slides[i].classList.toggle('flip')}
+document.getElementById('next').addEventListener('click',e=>{e.stopPropagation();next()});
+document.getElementById('prev').addEventListener('click',e=>{e.stopPropagation();prev()});
+document.querySelectorAll('.flipchip').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();flip()}));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();next()}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}else if(e.key===' '){e.preventDefault();flip()}});
+window.addEventListener('popstate',()=>go(slideFromUrl(),false));
+go(slideFromUrl());
 </script>
 </body>
 </html>
