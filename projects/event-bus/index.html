@@ -138,8 +138,8 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · ownership</div>
-<div class="det-title">I owned the architecture proposal and the platform substrate that made event ownership work.</div>
-<p class="det-sub">I wrote the design proposal, compared options, presented to engineering leads, got CTO approval, and built the shared mechanics teams would depend on. The decision criteria were build cost, maintenance cost, technology cost, scale, reversibility, ownership, and whether product teams would actually use it.</p>
+<div class="det-title">I led the architecture and built the foundation every team adopted.</div>
+<p class="det-sub">I wrote the design proposal, compared options, presented to engineering leads, got CTO approval, and built the shared mechanics teams would depend on. Two services had already caused recurring incidents when producer and consumer payloads drifted. The decision criteria were build cost, maintenance cost, scale, reversibility, ownership, and whether product teams would actually use the result.</p>
 <div class="arch">
 <div class="tcard" style="--x:var(--consistency)"><span class="tag">architecture</span><div class="nm">Design proposal</div><div class="role">requirements and tradeoffs</div><p>Turned prior incidents and operational pain into explicit requirements.</p></div>
 <div class="tcard" style="--x:var(--bus)"><span class="tag">platform</span><div class="nm">Platform pieces</div><div class="role">outbox monitor, Terraform registry, dispatcher</div><p>Shared mechanics lived in one place, instead of being reimplemented by each service.</p></div>
@@ -217,7 +217,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <li><strong>One transaction</strong> <span>writes business state and event record.</span></li>
 <li><strong>Outbox row</strong> <span>survives crashes and deploys.</span></li>
 <li><strong>CDC monitor</strong> <span>publishes after commit.</span></li>
-<li><strong><code>delivered_at</code></strong> <span>tracks completion.</span></li>
+<li><strong><code>delivered_at</code></strong> <span>tracks publisher progress, not exactly-once delivery.</span></li>
 <li><strong><code>partition_key</code></strong> <span>preserves order for related events.</span></li>
 </ul>
 </div>
@@ -228,8 +228,8 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · what the platform inherited</div>
-<div class="det-title">The schema encoded delivery, ordering, and validation state.</div>
-<p class="det-sub">The producer-facing API created a normal Postgres row. The platform-owned monitor tailed committed rows, validated payloads, published them, and marked completion without product services taking a direct broker dependency.</p>
+<div class="det-title">The normal contract was at-least-once delivery, so handlers had to be idempotent.</div>
+<p class="det-sub">The producer-facing API created a normal Postgres row. The platform-owned monitor tailed committed rows, validated payloads, published them, and recorded progress. A crash after publish but before completion bookkeeping could produce a duplicate. Product teams therefore built handlers that could safely process the same event again.</p>
 <pre class="schema-code">CREATE TABLE outbox_events (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   name text NOT NULL,
@@ -271,7 +271,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="face detail">
 <div class="det-head">Grounding · adoption failure mode</div>
 <div class="det-title">Schemas moved the contract out of <span class="b">tribal knowledge</span>.</div>
-<p class="det-sub">Before schemas, the contract lived in code, docs, Slack threads, and assumptions between teams. With Avro and Schema Registry, the event shape became a versioned artifact. Producers owned the schema, consumers could validate compatibility, and the platform had a place to enforce the contract.</p>
+<p class="det-sub">Before schemas, the contract lived in code, docs, Slack threads, and assumptions between teams. Two services repeatedly caused incidents when their payload expectations drifted. With Avro and Schema Registry, the event shape became a versioned artifact. Producers owned the schema, consumers could validate compatibility, and the recurring drift failure dropped sharply.</p>
 <div class="strip" style="--c:var(--bus)"><span class="lb">Tradeoff</span> Producer-owned schemas were better architecture, but only worked if examples, defaults, and tooling made the correct path easy.</div>
 </div>
 </section>
@@ -362,13 +362,13 @@ output:
 </div>
 </div>
 <div class="face detail">
-<div class="det-head">Modern reflection · platform skills</div>
-<div class="det-title">Today, I would encode topic design guidance in a <span class="b">project skill</span>.</div>
-<p class="det-sub">At the time, I wrote the docs and personally helped teams reason through partition counts, ordering guarantees, and topic shape. These days I would encode that support into a project-specific skill: a small, repo-local guide an AI agent can use when answering questions or reviewing changes in that project. It would capture topic naming conventions, Terraform examples, partition heuristics, review questions, and known failure modes. That is the kind of shift I wrote about in <a target="_blank" rel="noopener noreferrer" href="../../writing/ai-changes-platform-teams/">AI changes platform teams</a>.</p>
+<div class="det-head">Grounding · production evolution</div>
+<div class="det-title">I built the first publisher against the WAL, then moved the platform toward <span class="b">Debezium</span>.</div>
+<p class="det-sub">The first version used a custom WAL monitor because I did not yet know about Debezium. It proved the outbox design, but it also made replication behavior platform code we had to own. Moving toward Debezium kept the producer and consumer contracts intact while replacing custom CDC machinery with a purpose-built tool.</p>
 <div class="arch">
-<div class="tcard" style="--x:var(--bus)"><span class="tag">then</span><div class="nm">Docs and pairing</div><div class="role">human review loop</div><p>I helped teams make the right call when topic design affected ordering or throughput.</p></div>
-<div class="tcard" style="--x:var(--ops)"><span class="tag">now</span><div class="nm">Project skill</div><div class="role">repeatable guidance</div><p>The skill would answer common setup questions and preserve the review checklist close to the project.</p></div>
-<div class="tcard" style="--x:var(--ok)"><span class="tag">goal</span><div class="nm">Better platform adoption</div><div class="role">less tribal knowledge</div><p>Teams still get the paved path, but fewer decisions depend on finding the original platform engineer.</p></div>
+<div class="tcard" style="--x:var(--bus)"><span class="tag">first version</span><div class="nm">Custom WAL monitor</div><div class="role">prove the contract</div><p>I built the initial replication and publishing path around committed outbox rows.</p></div>
+<div class="tcard" style="--x:var(--ops)"><span class="tag">operating cost</span><div class="nm">Custom CDC ownership</div><div class="role">replication edge cases</div><p>The platform team inherited WAL behavior, replication health, and recovery logic.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">evolution</span><div class="nm">Move toward Debezium</div><div class="role">purpose-built CDC</div><p>The product-facing outbox API stayed stable while the publishing implementation matured.</p></div>
 </div>
 </div>
 </section>
@@ -457,13 +457,13 @@ output:
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · result and learning</div>
-<div class="det-title">The adoption win was hiding the hard part without hiding the <span class="g">operating model</span>.</div>
-<p class="det-sub">The strongest lesson from the project: platform systems get adopted when they solve a felt pain and do not ask every team to learn the platform's hardest technology. Kafka partitions and offsets improved debugging. The dispatcher kept that power from becoming every team's daily job.</p>
+<div class="det-title">The platform reached multiple teams without making Kafka every team's daily job.</div>
+<p class="det-sub">Approximately 5–10 services adopted the platform across roughly 10–20 topics. Kafka partitions and offsets improved replay and debugging. The dispatcher let most teams keep a normal HTTP handler while specialized consumers retained direct Kafka access.</p>
 <div class="stats">
-<div class="stat" style="--x:var(--consistency)"><div class="big">1</div><div class="lab">producer pattern: transactional outbox through Postgres.</div></div>
-<div class="stat" style="--x:var(--bus)"><div class="big">2</div><div class="lab">consumer paths: direct Kafka for power users, dispatcher for most teams.</div></div>
-<div class="stat" style="--x:var(--ops)"><div class="big">3</div><div class="lab">owner layers: platform monitors, team dispatchers, team handlers.</div></div>
-<div class="stat" style="--x:var(--ok)"><div class="big">N</div><div class="lab">services could join without custom service-to-service contracts.</div></div>
+<div class="stat" style="--x:var(--consistency)"><div class="big">5–10</div><div class="lab">services adopted the shared event path.</div></div>
+<div class="stat" style="--x:var(--bus)"><div class="big">10–20</div><div class="lab">topics formed the approximate production footprint.</div></div>
+<div class="stat" style="--x:var(--ops)"><div class="big">2</div><div class="lab">consumer paths: dispatcher or direct Kafka.</div></div>
+<div class="stat" style="--x:var(--ok)"><div class="big">1</div><div class="lab">producer contract: transactional outbox through Postgres.</div></div>
 </div>
 </div>
 </section>
@@ -490,13 +490,13 @@ output:
 </div>
 </div>
 <div class="face detail">
-<div class="det-head">Grounding · alert ownership</div>
-<div class="det-title">Error monitoring needed clear <span class="o">ownership</span>.</div>
-<p class="det-sub">The platform owned the outbox monitor and CDC pipeline. Product teams owned their event handlers. Monitoring had to reflect that split, so alerts went to the team that could actually fix the failure.</p>
+<div class="det-head">Grounding · delivery contract</div>
+<div class="det-title">The platform owned delivery. Teams owned <span class="o">idempotency</span>.</div>
+<p class="det-sub">The normal delivery contract was at least once. Product teams had to make handlers safe for duplicates and select a failure policy for each path. Infinite retry preserved partition order by blocking later events. Other consumers could explicitly drop a failed event or move it to a DLQ.</p>
 <div class="arch">
-<div class="tcard" style="--x:var(--ops)"><span class="tag">platform-owned</span><div class="nm">CDC pipeline health</div><div class="role">replication and outbox lag</div><p>Replication slot health, WAL growth, and outbox monitor lag belonged to the platform.</p></div>
-<div class="tcard" style="--x:var(--consistency)"><span class="tag">team-owned</span><div class="nm">Handler health</div><div class="role">consumer failures</div><p>Handler errors, retries, and DLQs belonged to the team consuming the event.</p></div>
-<div class="tcard" style="--x:var(--bus)"><span class="tag">shared context</span><div class="nm">Debug trail</div><div class="role">events and offsets</div><p>Event IDs, offsets, timestamps, and dashboards gave both sides the same incident context.</p></div>
+<div class="tcard" style="--x:var(--ops)"><span class="tag">platform-owned</span><div class="nm">CDC pipeline health</div><div class="role">replication and outbox lag</div><p>Replication slot health, WAL growth, and publisher lag belonged to the platform.</p></div>
+<div class="tcard" style="--x:var(--consistency)"><span class="tag">team-owned</span><div class="nm">Idempotent handlers</div><div class="role">duplicate-safe effects</div><p>A repeated event could not create an incorrect second business operation.</p></div>
+<div class="tcard" style="--x:var(--bus)"><span class="tag">configured per path</span><div class="nm">Failure strategy</div><div class="role">retry, DLQ, or drop</div><p>Teams chose whether a poison event blocked its partition, moved aside, or was discarded.</p></div>
 </div>
 </div>
 </section>

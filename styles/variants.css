@@ -146,6 +146,10 @@ a {
   gap: 16px;
 }
 
+.v-footer__links a {
+  text-decoration: none;
+}
+
 /* Variant 1: Product-to-Platform Map */
 .v1 {
   color: var(--v1-ink);
