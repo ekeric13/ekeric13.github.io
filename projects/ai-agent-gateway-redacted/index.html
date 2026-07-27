@@ -17,10 +17,10 @@
 --body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;overflow-x:auto;overflow-y:hidden}
+html,body{height:100%;margin:0;overflow:hidden}
 body{background:var(--bg2);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.deck{position:relative;width:100vw;min-width:1100px;height:100vh;overflow:hidden}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
 .slide{--pad-top:6.4vh;--pad-x:8vw;--pad-bottom:8vh;--hud-space:72px;position:absolute;inset:0;display:flex;flex-direction:column;overflow-y:auto;
 padding:var(--pad-top) var(--pad-x) calc(var(--pad-bottom) + var(--hud-space));opacity:0;visibility:hidden;transform:translateY(24px) scale(.99);
 transition:opacity .42s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .42s;
@@ -121,7 +121,8 @@ code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2p
 .seq-arrow{position:relative;z-index:1;align-self:center;justify-self:stretch;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--faint);display:flex;align-items:center;justify-content:center;gap:4px}.seq-arrow::before{content:"";height:1px;flex:1;min-width:14px;border-top:2px solid currentColor}.seq-arrow::after{content:"›";font-size:18px;line-height:1;color:currentColor}.seq-divider{position:relative;z-index:1;grid-column:1/-1;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin:1px 0}.seq-divider::before,.seq-divider::after{content:"";height:1px;flex:1;border-top:1px dashed rgba(105,201,130,.52)}.seq-divider span{border:1px solid rgba(105,201,130,.45);border-radius:999px;padding:3px 10px;background:rgba(105,201,130,.08)}
 .seq-note{position:relative;z-index:1;grid-column:1/-1;border:1px dashed rgba(240,176,95,.52);border-radius:10px;background:rgba(240,176,95,.07);padding:8px 10px;font-family:var(--mono);font-size:10px;color:var(--dim);display:flex;justify-content:space-between;gap:14px}.seq-note b{color:var(--ink);font-family:var(--disp);font-size:14px}
 .bars{display:grid;gap:16px;margin-top:26px}.bar{display:grid;grid-template-columns:92px 1fr 74px;align-items:center;gap:12px;font-family:var(--mono);font-size:12px}.track{height:16px;border-radius:999px;background:var(--line);overflow:hidden}.fill{height:100%;width:var(--w);background:linear-gradient(90deg,var(--x,var(--signal)),rgba(255,255,255,.45));border-radius:999px}
-.c4-board{margin-top:12px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--panel),rgba(23,29,37,.55));padding:10px;display:grid;gap:6px}
+.c4-scroll{width:100%;max-width:100%;min-width:0;margin-top:12px;padding-bottom:10px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-color:var(--signal) var(--panel)}
+.c4-board{min-width:1000px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--panel),rgba(23,29,37,.55));padding:10px;display:grid;gap:6px}
 .c4-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
 .c4-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.c4-tools{grid-template-columns:repeat(5,minmax(0,1fr))}
 .c4-node{min-height:42px;border:1px solid var(--line);border-radius:10px;background:rgba(11,13,17,.78);padding:8px 10px;display:grid;align-content:center;gap:2px;box-shadow:2px 2px 0 rgba(238,243,248,.035)}.c4-node b{font-family:var(--disp);font-size:13px}.c4-node span{font-family:var(--mono);font-size:9px;color:var(--dim);line-height:1.2}.c4-node.person{border-color:rgba(75,214,200,.42);background:rgba(75,214,200,.08)}.c4-node.container{border-color:rgba(173,140,255,.42);background:rgba(173,140,255,.08)}.c4-node.system{border-color:rgba(240,176,95,.42);background:rgba(240,176,95,.08)}
@@ -132,11 +133,12 @@ code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2p
 .c4-note{font-family:var(--mono);font-size:9px;line-height:1.35;color:var(--plan);margin-top:2px}
 .hud{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:16px}.nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:22px;cursor:pointer}.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border:0;border-radius:50%;background:var(--line);padding:0;cursor:pointer}.dots button.on{background:var(--signal);box-shadow:0 0 12px var(--signal)}.count{position:absolute;right:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:11px;color:var(--faint)}.hint{position:absolute;left:32px;bottom:31px;z-index:31;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
 @media(max-width:1099px){
-html,body{min-width:1100px}
-.deck{width:1100px}
-.slide{--pad-top:56px;--pad-x:88px;--pad-bottom:64px}
-.title-xl{font-size:68px}.title-lg{font-size:50px}.sub{font-size:18px}.det-title{font-size:36px}.det-sub{font-size:16px}
+.slide{--pad-top:6.5vh;--pad-x:6vw;--pad-bottom:8vh;--hud-space:72px}
+.split,.cards,.stats,.arch,.matrix,.pipeline,.seq-board{grid-template-columns:1fr}
+.seq-board>*{grid-column:1!important}.seq-lane{text-align:left}.seq-arrow{justify-content:center}.seq-arrow::before{display:none}.seq-note{display:grid}.seq-divider::before{display:none}
+.route-plan{grid-template-columns:1fr}.arr{transform:rotate(90deg);justify-self:center}.hint{display:none}.title-xl{font-size:clamp(36px,12vw,60px)}
 }
+@media(max-width:600px){.slide:not(.no-detail){--pad-top:92px}.slide:not(.no-detail) .flipchip{top:54px}}
 </style>
 </head>
 <body>
@@ -306,6 +308,7 @@ html,body{min-width:1100px}
 <div class="face detail">
 <div class="det-head">System map</div>
 <div class="det-title">Many agents and clients shared one harness.</div>
+<div class="c4-scroll" role="region" aria-label="Scrollable system map" tabindex="0">
 <div class="c4-board" aria-label="AI agent gateway system map">
 <div class="c4-label">external entry points</div>
 <div class="c4-row">
@@ -349,6 +352,7 @@ html,body{min-width:1100px}
 </div>
 </div>
 </div>
+</div>
 </section>
 
 <section class="slide no-detail">
@@ -378,8 +382,8 @@ function syncUrl(){const url=new URL(location.href);url.searchParams.set('slide'
 document.getElementById('tot').textContent=slides.length;
 slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',e=>{e.stopPropagation();go(n)});dotsWrap.appendChild(b)});
 const dots=[...dotsWrap.children];
-function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k!==i)s.classList.remove('flip')});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;if(updateUrl)syncUrl()}
-function next(){go(i+1)}function prev(){go(i-1)}function flip(){if(!slides[i].classList.contains('no-detail'))slides[i].classList.toggle('flip')}
+function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k!==i)s.classList.remove('flip');if(k===i)s.scrollTop=0});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;if(updateUrl)syncUrl()}
+function next(){go(i+1)}function prev(){go(i-1)}function flip(){if(!slides[i].classList.contains('no-detail')){slides[i].classList.toggle('flip');slides[i].scrollTop=0}}
 document.getElementById('next').addEventListener('click',e=>{e.stopPropagation();next()});
 document.getElementById('prev').addEventListener('click',e=>{e.stopPropagation();prev()});
 document.querySelectorAll('.flipchip').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();flip()}));
