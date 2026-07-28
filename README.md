@@ -10,8 +10,8 @@ Personal portfolio for Eric Kennedy.
 - `js/mario-*.js` - Mario/career game scripts
 - `projects/anime-pics/` - AnimePics architecture deep dive
 - `projects/event-bus/` - event bus deep-dive skeleton
-- `projects/ai-contact-center-matching/` - sanitized AI contact center matching deep dive
-- `projects/ai-agent-gateway/` - sanitized agent gateway skeleton
+- `projects/ai-contact-center-matching-redacted/` - sanitized AI contact center matching deep dive
+- `projects/ai-agent-gateway-redacted/` - sanitized agent gateway skeleton
 
 This is intentionally plain static HTML/CSS so it can be hosted directly from GitHub Pages without a build step.
 
