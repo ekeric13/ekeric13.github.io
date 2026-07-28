@@ -1,11 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">Eric Kennedy EK mark</title>
   <desc id="desc">A geometric EK monogram in deep green and amber on a pale field.</desc>
-  <rect width="512" height="512" fill="#eef4f1" />
-  <rect x="18" y="18" width="476" height="476" rx="58" fill="none" stroke="#10211d" stroke-width="18" />
-  <g fill="#0b6b55">
-    <path d="M78 100h174v56H138v70h104v56H138v74h114v56H78z" />
-    <path d="M282 100h60v117l82-117h50l-90 152 92 160h-64l-70-122v122h-60z" />
+  <rect width="512" height="512" fill="#eef4f1" stroke="none" />
+  <g fill="#0b6b55" stroke="none">
+    <path d="M84 140h168v54H144v42h100v52H144v30h108v54H84z" />
+    <path d="M264 140h58v85l70-85h62l-88 112 92 120h-66l-70-89v89h-58z" />
   </g>
-  <path d="M242 232h40v44h-40z" fill="#f1c84b" />
+  <path d="M244 234h20v40h-20z" fill="#f1c84b" stroke="none" />
 </svg>
