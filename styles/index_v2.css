@@ -751,8 +751,7 @@ a {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border: 2px solid var(--white);
-  filter: saturate(0.82) contrast(1.05);
-  transition: filter 220ms ease, transform 220ms ease;
+  transition: transform 220ms ease;
 }
 
 .essay--feature img {
@@ -786,7 +785,6 @@ a {
 
 .essay:hover img,
 .essay:focus-visible img {
-  filter: saturate(1.1) contrast(1);
   transform: translateY(-6px);
 }
 
