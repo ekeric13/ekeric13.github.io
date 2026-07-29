@@ -37,11 +37,13 @@ body {
 }
 
 .site-header {
+  padding-inline: max(var(--edge), calc((100% - var(--max)) / 2));
   color: var(--ink);
   background: var(--ice);
 }
 
 .hero__content {
+  width: min(calc(var(--max) + var(--edge) + var(--edge)), 100%);
   min-height: min(650px, calc(100svh - 70px));
   grid-template-columns: minmax(0, 0.92fr) minmax(460px, 1.08fr);
   gap: clamp(38px, 5.5vw, 82px);
@@ -54,7 +56,7 @@ body {
 }
 
 .hero h1 {
-  font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+  font-size: clamp(3.2rem, 4.5vw, 3.8rem);
   line-height: 0.96;
 }
 
