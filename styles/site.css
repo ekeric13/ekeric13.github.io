@@ -1,13 +1,24 @@
 :root {
-  --ink: #151716;
-  --muted: #5d6760;
-  --paper: #f7f8f5;
-  --surface: #ffffff;
-  --line: #d9ded7;
-  --accent: #2f6f63;
-  --accent-dark: #204b45;
-  --amber: #c9822d;
-  --code: #26312e;
+  /* Modernist Print */
+  --ref-forest: #0b6b55;
+  --ref-paper: #fbfcf9;
+  --ref-ink: #10211d;
+  --ref-cream: #f5f0d8;
+  --ref-cobalt: #2447a8;
+  --ref-vermilion: #a63d32;
+  --ref-goldenrod: #d7a928;
+  --ref-muted: #52635d;
+  --ref-line: #b2af90;
+
+  --ink: var(--ref-ink);
+  --muted: var(--ref-muted);
+  --paper: var(--ref-cream);
+  --surface: var(--ref-paper);
+  --line: var(--ref-line);
+  --accent: var(--ref-forest);
+  --accent-dark: var(--ref-cobalt);
+  --amber: var(--ref-goldenrod);
+  --code: var(--ref-ink);
   --max: 1180px;
 }
 
@@ -21,14 +32,16 @@ html {
 
 body {
   margin: 0;
+  border-top: 10px solid var(--ref-forest);
   color: var(--ink);
-  background:
-    linear-gradient(90deg, rgba(47, 111, 99, 0.06) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(47, 111, 99, 0.04) 1px, transparent 1px),
-    var(--paper);
-  background-size: 44px 44px;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--paper);
+  font-family: Georgia, "Times New Roman", serif;
   line-height: 1.55;
+}
+
+::selection {
+  color: var(--ink);
+  background: var(--ref-goldenrod);
 }
 
 a {
@@ -108,9 +121,10 @@ p {
 
 h1,
 h2 {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
   line-height: 0.98;
-  letter-spacing: 0;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 h1 {
@@ -353,9 +367,23 @@ h3 {
 }
 
 .back-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 34px;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
   text-decoration: none;
+}
+
+.back-link::before {
+  content: "←";
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  color: var(--ref-cobalt);
 }
 
 .case-hero {
@@ -397,8 +425,8 @@ h3 {
 }
 
 .outline-list li {
-  padding-left: 18px;
-  border-left: 3px solid var(--accent);
+  padding: 14px 16px;
+  border: 2px solid var(--accent);
   color: var(--muted);
 }
 
@@ -412,12 +440,12 @@ h3 {
 
 .post-page {
   width: min(860px, calc(100% - 40px));
-  margin: 42px auto 88px;
+  margin: 34px auto 96px;
 }
 
 .post-hero {
-  padding-bottom: 34px;
-  border-bottom: 1px solid var(--line);
+  padding-bottom: 38px;
+  border-bottom: 3px solid var(--ink);
 }
 
 .post-hero h1 {
@@ -430,15 +458,16 @@ h3 {
   width: 100%;
   max-height: 520px;
   object-fit: cover;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border: 3px solid var(--ink);
+  border-radius: 0;
   background: var(--code);
 }
 
 .post-body {
-  padding-top: 34px;
+  padding-top: 42px;
   color: var(--code);
-  font-size: 1.08rem;
+  font-size: 1.1rem;
+  line-height: 1.68;
 }
 
 .post-body p,
@@ -459,9 +488,10 @@ h3 {
 .post-body h2 {
   max-width: none;
   color: var(--ink);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 1.24rem;
   line-height: 1.35;
+  letter-spacing: -0.01em;
 }
 
 .post-body h3 {
@@ -471,9 +501,14 @@ h3 {
 }
 
 .post-body a {
-  color: var(--accent-dark);
+  color: var(--ref-cobalt);
   font-weight: 700;
   text-underline-offset: 4px;
+}
+
+.post-body a:hover,
+.post-body a:focus-visible {
+  color: var(--ref-vermilion);
 }
 
 .post-body strong {
@@ -482,9 +517,10 @@ h3 {
 
 .post-body blockquote {
   padding: 18px 20px;
-  border-left: 4px solid var(--accent);
+  border: 2px solid var(--ink);
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.58);
+  background: var(--ref-goldenrod);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 
 .post-body blockquote p {
@@ -506,10 +542,10 @@ h3 {
 .post-callout {
   margin: 30px 0 36px;
   padding: 22px;
-  border: 1px solid rgba(201, 130, 45, 0.45);
-  border-left: 5px solid var(--amber);
-  border-radius: 8px;
-  background: rgba(201, 130, 45, 0.1);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+  background: var(--ref-goldenrod);
 }
 
 .post-callout strong {
@@ -524,9 +560,10 @@ h3 {
 .post-body pre {
   overflow-x: auto;
   padding: 18px;
-  border-radius: 8px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
   color: var(--surface);
-  background: var(--code);
+  background: var(--ref-forest);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }

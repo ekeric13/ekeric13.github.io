@@ -16,7 +16,7 @@
     <meta property="og:image" content="https://ekeric13.github.io/assets/brand/ek-v1-social-preview.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Geometric green EK monogram with an amber connector" />
+    <meta property="og:image:alt" content="Paper-white EK monogram on deep green" />
     <meta property="og:url" content="https://ekeric13.github.io/" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -26,73 +26,85 @@
       content="Applied AI, backend systems, platform infrastructure, and product engineering."
     />
     <meta name="twitter:image" content="https://ekeric13.github.io/assets/brand/ek-v1-social-preview.png" />
-    <meta name="twitter:image:alt" content="Geometric green EK monogram with an amber connector" />
-    <link rel="icon" href="/assets/brand/ek-v1-favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/assets/brand/ek-v1-mark.svg" />
-    <link rel="icon" type="image/png" href="/assets/brand/ek-v1-icon-32.png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/assets/brand/ek-v1-apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles/variants.css" />
+    <meta name="twitter:image:alt" content="Paper-white EK monogram on deep green" />
+    <link rel="icon" href="assets/brand/ek-v1-favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="assets/brand/ek-v1-mark.svg" />
+    <link rel="icon" type="image/png" href="assets/brand/ek-v1-icon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="assets/brand/ek-v1-apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles/index.css?v=modernist-print-3" />
   </head>
-  <body class="v4">
-    <header class="variant-nav">
-      <a class="variant-nav__name" href="index.html">Eric Kennedy</a>
-      <nav class="variant-nav__links" aria-label="Primary navigation">
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="site-header__name" href="index.html" aria-label="Eric Kennedy, home">
+        <span aria-hidden="true">EK</span>
+        Eric Kennedy
+      </a>
+      <nav class="site-header__links" aria-label="Primary navigation">
+        <a href="#experience">Experience</a>
         <a href="#work">Work</a>
         <a href="#writing">Writing</a>
         <a href="resume.html">Resume</a>
-        <a class="variant-nav__link--mario" href="index_v_mario.html">Play Mario</a>
+        <a class="site-header__play" href="index_v_mario.html">Play Mario</a>
       </nav>
     </header>
 
-    <main>
-      <section class="v-section v4-hero" aria-labelledby="hero-title">
-        <div class="v4-copy">
-          <p class="v-eyebrow">Software engineer · product · platform/infra · applied AI systems</p>
-          <h1 id="hero-title">I build products from 0 to 1 and systems from 1 to millions.</h1>
-          <p>
-            Product-minded software engineer specializing in applied AI, distributed systems, and backend
-            infrastructure. I turn ambiguous product ideas into production systems, then own the architecture, outcomes,
-            and reliability as usage scales.
-          </p>
-          <div class="v4-actions">
-            <a class="v-button" href="#work">Read the work</a>
-            <a class="v-button" href="resume.html">Resume</a>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__content">
+          <div class="hero__copy">
+            <p class="hero__role">Software engineer · product · platform/infra · applied AI systems</p>
+            <h1 id="hero-title">I build products from 0 to 1 and systems from 1 to millions.</h1>
+            <p class="hero__lede">
+              Product-minded software engineer specializing in applied AI, distributed systems, and backend
+              infrastructure. I turn ambiguous product ideas into production systems, then own the architecture, outcomes,
+              and reliability as usage scales.
+            </p>
+            <div class="hero__actions">
+              <a class="button button--light" href="#work">Read the work <span aria-hidden="true">↓</span></a>
+              <a class="button button--outline" href="resume.html">Resume <span aria-hidden="true">↗</span></a>
+            </div>
           </div>
-        </div>
 
-        <aside class="v4-desk" aria-label="Pinned career notes">
-          <div class="v4-desk-card v4-desk-card--yellow">
-            <h2>Build</h2>
-            <strong>0 to 1</strong>
-            <p>Founder work, product taste, GenAI, evidence-driven systems, constraint-driven solutions.</p>
-          </div>
-          <div class="v4-desk-card v4-desk-card--blue">
-            <h2>Scale</h2>
-            <strong>1 to millions</strong>
-            <p>Databases, eventing, cloud infrastructure, platform automation, reliability.</p>
-          </div>
-          <div class="v4-desk-card v4-desk-card--green">
-            <h2>Current lane</h2>
-            <strong>Applied AI with product and systems depth.</strong>
-          </div>
-        </aside>
+          <aside class="hero-capabilities" aria-label="Core strengths">
+            <div class="hero-capability hero-capability--build">
+              <span>Built</span>
+              <strong class="hero-capability__proof">Founded and shipped AnimePics.</strong>
+            </div>
+            <div class="hero-capability hero-capability--scale">
+              <span>Scaled</span>
+              <strong class="hero-capability__proof">Ethos: stealth → $159.8M annual revenue.</strong>
+            </div>
+            <div class="hero-capability hero-capability--now">
+              <span>Applied AI</span>
+              <strong class="hero-capability__proof"
+                >Built AI-powered expert routing at Intuit for 1M+ customer contacts per year, delivering $25M+ in
+                measured business impact.</strong
+              >
+            </div>
+          </aside>
+        </div>
       </section>
 
-      <section class="v-section v4-resume" aria-labelledby="resume-title">
-        <div class="v4-section-intro">
-          <p class="v-eyebrow">Experience</p>
-          <h2 id="resume-title">Work shaped by scale, innovation, and ownership.</h2>
+      <section class="experience chapter" id="experience" aria-labelledby="experience-title">
+        <div class="chapter__intro experience__intro">
+          <div>
+            <h2 id="experience-title">Experience</h2>
+            <p>From the first product decision to the systems that keep it reliable.</p>
+          </div>
         </div>
-        <div class="v4-timeline">
-          <article class="v4-timeline-item">
-            <div class="v4-company-mark v4-company-mark--fill">
+
+        <div class="experience__timeline">
+          <article class="role role--intuit">
+            <div class="role__logo role__logo--fill">
               <img src="assets/logos/intuit.png" alt="Intuit" />
             </div>
-            <div>
-              <div class="v4-timeline-item__meta">
-                2024 - Present ·
+            <div class="role__body">
+              <p class="role__company">
+                2024 — Present ·
                 <a target="_blank" rel="noopener noreferrer" href="https://finance.yahoo.com/quote/INTU/">Intuit</a>
-              </div>
+              </p>
               <h3>Senior Software Engineer</h3>
               <p>
                 Built AI-powered marketplace, recommendation, and workforce optimization systems for Intuit's Virtual
@@ -101,12 +113,13 @@
               </p>
             </div>
           </article>
-          <article class="v4-timeline-item">
-            <div class="v4-company-mark v4-company-mark--photo">
+
+          <article class="role role--anime">
+            <div class="role__logo role__logo--photo">
               <img src="assets/logos/animepics.webp" alt="AnimePics" decoding="async" />
             </div>
-            <div>
-              <div class="v4-timeline-item__meta">2023 · AnimePics</div>
+            <div class="role__body">
+              <p class="role__company">2023 · AnimePics</p>
               <h3>Founder</h3>
               <p>
                 Built a GenAI product from scratch that transformed user photos into anime illustrations. Owned the
@@ -115,23 +128,24 @@
               </p>
             </div>
           </article>
-          <article class="v4-timeline-item">
-            <div class="v4-company-mark">
+
+          <article class="role role--ethos">
+            <div class="role__logo">
               <img src="assets/logos/ethos.webp" alt="Ethos" />
             </div>
-            <div>
-              <div class="v4-timeline-item__meta">
-                2018 - 2023 ·
+            <div class="role__body">
+              <p class="role__company">
+                2018 — 2023 ·
                 <a target="_blank" rel="noopener noreferrer" href="https://finance.yahoo.com/quote/LIFE/">Ethos</a>
-              </div>
+              </p>
               <h3>Staff Software Engineer</h3>
               <p>
-                Joined near the beginning and helped build the platform foundations behind a fast-growing engineering org:
-                Kubernetes, deploy automation, Postgres migrations, eventing, service boundaries, and production
+                Joined near the beginning and helped build the platform foundations behind a fast-growing engineering
+                org: Kubernetes, deploy automation, Postgres migrations, eventing, service boundaries, and production
                 operations. Helped scale Ethos from Series A to 100+ engineers, $50M ARR, and a multi-billion-dollar
                 valuation.
               </p>
-              <figure class="v4-testimonial">
+              <figure class="role__testimonial">
                 <blockquote>
                   “Eric was one of our first engineers… He played a fundamental role in building major parts of both our
                   frontend and backend which have grown to become our core systems.”
@@ -140,12 +154,13 @@
               </figure>
             </div>
           </article>
-          <article class="v4-timeline-item v4-timeline-item--compact">
-            <div class="v4-company-mark v4-company-mark--fill">
+
+          <article class="role role--foundation">
+            <div class="role__logo role__logo--fill">
               <img src="assets/logos/hiq.png" alt="hiQ Labs" />
             </div>
-            <div>
-              <div class="v4-timeline-item__meta">2015 - 2018 · Curology + hiQ Labs</div>
+            <div class="role__body">
+              <p class="role__company">2015 — 2018 · Curology + hiQ Labs</p>
               <h3>Product engineering foundation</h3>
               <p>
                 Started professionally in frontend and product engineering, then moved deeper into backend systems after
@@ -156,37 +171,60 @@
         </div>
       </section>
 
-      <section class="v-section v4-work" id="work" aria-labelledby="work-title">
-        <h2 id="work-title">Selected work</h2>
-        <div class="v4-project-grid">
-          <a target="_blank" rel="noopener noreferrer" class="v4-project-card" href="projects/anime-pics/">
-            <span>0 to 1</span>
-            <h3>AnimePics</h3>
-            <p>Consumer GenAI product with custom model training, GPU orchestration, payments, uploads, and email fulfillment.</p>
+      <section class="work chapter" id="work" aria-labelledby="work-title">
+        <div class="chapter__intro work__intro">
+          <div>
+            <h2 id="work-title">Selected work</h2>
+          </div>
+          <p class="work__stamp">Built<br />to ship<br />and scale.</p>
+        </div>
+
+        <div class="project-grid">
+          <a class="project project--anime" href="projects/anime-pics/">
+            <span class="project__kind">0 to 1</span>
+            <div>
+              <h3>AnimePics</h3>
+              <p>Consumer GenAI product with custom model training, GPU orchestration, payments, uploads, and email fulfillment.</p>
+            </div>
+            <span class="project__arrow" aria-hidden="true">↗</span>
           </a>
-          <a target="_blank" rel="noopener noreferrer" class="v4-project-card" href="projects/event-bus/">
-            <span>Platform</span>
-            <h3>Event Bus</h3>
-            <p>Reliable service communication through outbox, CDC, schema validation, and Kafka.</p>
+          <a class="project project--event" href="projects/event-bus/">
+            <span class="project__kind">Platform</span>
+            <div>
+              <h3>Event Bus</h3>
+              <p>Reliable service communication through outbox, CDC, schema validation, and Kafka.</p>
+            </div>
+            <span class="project__arrow" aria-hidden="true">↗</span>
           </a>
-          <a target="_blank" rel="noopener noreferrer" class="v4-project-card" href="projects/ai-contact-center-matching-redacted/">
-            <span>Applied AI</span>
-            <h3>AI Contact Center Matching</h3>
-            <p>AI expert matching system that scaled to 1M+ yearly interactions and delivered $25M+ in business impact.</p>
+          <a class="project project--matching" href="projects/ai-contact-center-matching-redacted/">
+            <span class="project__kind">Applied AI</span>
+            <div>
+              <h3>AI Contact Center Matching</h3>
+              <p>AI expert matching system that scaled to 1M+ yearly interactions and delivered $25M+ in business impact.</p>
+            </div>
+            <span class="project__arrow" aria-hidden="true">↗</span>
           </a>
-          <a target="_blank" rel="noopener noreferrer" class="v4-project-card" href="projects/ai-agent-gateway-redacted/">
-            <span>Agents</span>
-            <h3>AI Agent Gateway</h3>
-            <p>Hosted 20+ contact-center ops agents behind one runtime for tools, auth, sessions, and enterprise workflows.</p>
+          <a class="project project--gateway" href="projects/ai-agent-gateway-redacted/">
+            <span class="project__kind">Agents</span>
+            <div>
+              <h3>AI Agent Gateway</h3>
+              <p>Hosted 20+ contact-center ops agents behind one runtime for tools, auth, sessions, and enterprise workflows.</p>
+            </div>
+            <span class="project__arrow" aria-hidden="true">↗</span>
           </a>
         </div>
       </section>
 
-      <section class="v-section v4-writing" id="writing" aria-labelledby="writing-title">
-        <h2 id="writing-title">Short essays on software engineering</h2>
-        <div class="v4-writing-list">
-          <a target="_blank" rel="noopener noreferrer" href="writing/untouched-ai-output-feels-disrespectful/">
-            <img src="assets/writing/thumbs/post_11_ai-writing-disrespectful-thumbnail-2560x1440.webp" alt="AI writing thumbnail" loading="lazy" decoding="async" />
+      <section class="writing chapter" id="writing" aria-labelledby="writing-title">
+        <div class="chapter__intro writing__intro">
+          <div>
+            <h2 id="writing-title">Short essays on software engineering</h2>
+          </div>
+        </div>
+
+        <div class="essay-list">
+          <a class="essay essay--feature" href="writing/untouched-ai-output-feels-disrespectful/">
+            <img src="assets/writing/thumbs/post_11_ai-writing-disrespectful-thumbnail-2560x1440.webp" alt="AI writing disrespectful essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>Untouched AI output feels disrespectful</h3>
               <p>
@@ -195,22 +233,22 @@
               </p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-makes-bad-engineers-more-expensive/">
-            <img src="assets/writing/thumbs/post_10_slop_cannon_pr_linkedin_2400x1254.webp" alt="Bad engineers and AI thumbnail" loading="lazy" decoding="async" />
+          <a class="essay essay--tall" href="writing/ai-makes-bad-engineers-more-expensive/">
+            <img src="assets/writing/thumbs/post_10_slop_cannon_pr_linkedin_2400x1254.webp" alt="AI slop cannon essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>AI makes bad engineers more expensive</h3>
               <p>Hot take - AI makes working with bad software engineers much more painful. Bad engineers were somewhat rate-limited.</p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/tech-debt-not-always-bad/">
-            <img src="assets/writing/thumbs/post_5_5_tech_debt2.webp" alt="Tech debt thumbnail" loading="lazy" decoding="async" />
+          <a class="essay" href="writing/tech-debt-not-always-bad/">
+            <img src="assets/writing/thumbs/post_5_5_tech_debt2.webp" alt="Tech debt essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>Tech debt is not always bad debt</h3>
               <p>"Tech debt" is actually a great name because debt is not always bad. Sometimes it is good.</p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-changes-platform-teams/">
-            <img src="assets/writing/thumbs/post_6_platform_teams.webp" alt="Platform teams thumbnail" loading="lazy" decoding="async" />
+          <a class="essay essay--wide" href="writing/ai-changes-platform-teams/">
+            <img src="assets/writing/thumbs/post_6_platform_teams.webp" alt="AI and platform teams essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>AI changes the value of platform teams</h3>
               <p>
@@ -219,8 +257,8 @@
               </p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/llms-less-collaborative/">
-            <img src="assets/writing/thumbs/post12_llm_collaboration.webp" alt="LLM collaboration thumbnail" loading="lazy" decoding="async" />
+          <a class="essay" href="writing/llms-less-collaborative/">
+            <img src="assets/writing/thumbs/post12_llm_collaboration.webp" alt="LLMs and collaboration essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>LLMs are making software development less collaborative</h3>
               <p>
@@ -229,8 +267,8 @@
               </p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-assisted-work-hides-reasoning-trail/">
-            <img src="assets/writing/thumbs/post_14_conversation-history-skill-thumbnail-2560x1440.webp" alt="Conversation history skill thumbnail" loading="lazy" decoding="async" />
+          <a class="essay essay--wide" href="writing/ai-assisted-work-hides-reasoning-trail/">
+            <img src="assets/writing/thumbs/post_14_conversation-history-skill-thumbnail-2560x1440.webp" alt="AI reasoning trail essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>AI-assisted work hides the reasoning trail</h3>
               <p>
@@ -240,8 +278,8 @@
               </p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/new-tech-debt-knowledge-debt/">
-            <img src="assets/writing/thumbs/tech_debt.webp" alt="Knowledge debt thumbnail" loading="lazy" decoding="async" />
+          <a class="essay" href="writing/new-tech-debt-knowledge-debt/">
+            <img src="assets/writing/thumbs/tech_debt.webp" alt="Knowledge debt essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>The new tech debt is knowledge debt</h3>
               <p>
@@ -250,15 +288,15 @@
               </p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-makes-rewrites-less-taboo/">
-            <img src="assets/writing/thumbs/post1_ai-rewrites-thumbnail-2560x1440.webp" alt="Rewrite thumbnail" loading="lazy" decoding="async" />
+          <a class="essay" href="writing/ai-makes-rewrites-less-taboo/">
+            <img src="assets/writing/thumbs/post1_ai-rewrites-thumbnail-2560x1440.webp" alt="AI rewrites essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>AI makes rewrites less taboo</h3>
               <p>A software engineering truism that no longer makes sense after AI codegen: "Never do a full rewrite."</p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/sql-query-optimization-skill/">
-            <img src="assets/writing/thumbs/post_13_sql-query-optimization-skill-og.webp" alt="SQL query optimization skill thumbnail" loading="lazy" decoding="async" />
+          <a class="essay essay--wide" href="writing/sql-query-optimization-skill/">
+            <img src="assets/writing/thumbs/post_13_sql-query-optimization-skill-og.webp" alt="SQL query optimization skill artwork" loading="lazy" decoding="async" />
             <div>
               <h3>SQL query optimization skill</h3>
               <p>
@@ -267,15 +305,15 @@
               </p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-rewards-agency/">
-            <img src="assets/writing/thumbs/post_8_big_red_button.webp" alt="AI rewards agency thumbnail" loading="lazy" decoding="async" />
+          <a class="essay" href="writing/ai-rewards-agency/">
+            <img src="assets/writing/thumbs/post_8_big_red_button.webp" alt="AI and agency essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>AI rewards agency, but punishes shallow understanding</h3>
               <p>Have you ever talked to an engineer about their PR and you can tell they have no idea what is in it?</p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/ai-and-second-order-effects/">
-            <img src="assets/writing/thumbs/post9_second_order.webp" alt="Second-order effects thumbnail" loading="lazy" decoding="async" />
+          <a class="essay essay--tall" href="writing/ai-and-second-order-effects/">
+            <img src="assets/writing/thumbs/post9_second_order.webp" alt="AI second-order effects essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>AI and second-order effects</h3>
               <p>
@@ -284,8 +322,8 @@
               </p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/best-language-no-longer-one-you-know/">
-            <img src="assets/writing/thumbs/post2_ai_languages.webp" alt="Programming languages thumbnail" loading="lazy" decoding="async" />
+          <a class="essay" href="writing/best-language-no-longer-one-you-know/">
+            <img src="assets/writing/thumbs/post2_ai_languages.webp" alt="Programming languages essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>The best language is no longer just the one you know</h3>
               <p>
@@ -294,8 +332,8 @@
               </p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/brooks-law-weaker-not-dead/">
-            <img src="assets/writing/thumbs/post3_ai_mythical.webp" alt="Brooks's Law thumbnail" loading="lazy" decoding="async" />
+          <a class="essay essay--wide" href="writing/brooks-law-weaker-not-dead/">
+            <img src="assets/writing/thumbs/post3_ai_mythical.webp" alt="Brooks's Law essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>Brooks's Law is weaker, but not dead</h3>
               <p>
@@ -304,15 +342,15 @@
               </p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/old-swe-truisms-after-ai/">
-            <img src="assets/writing/thumbs/post4_simple_beats_clever.webp" alt="Software truisms thumbnail" loading="lazy" decoding="async" />
+          <a class="essay" href="writing/old-swe-truisms-after-ai/">
+            <img src="assets/writing/thumbs/post4_simple_beats_clever.webp" alt="Software truisms essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>Old SWE truisms that matter even more after AI</h3>
               <p>Simple beats clever. Duplication beats the wrong abstraction.</p>
             </div>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="writing/debugging-with-llms/">
-            <img src="assets/writing/thumbs/post_7_context_window.webp" alt="Debugging with LLMs thumbnail" loading="lazy" decoding="async" />
+          <a class="essay essay--wide" href="writing/debugging-with-llms/">
+            <img src="assets/writing/thumbs/post_7_context_window.webp" alt="Debugging with LLMs essay artwork" loading="lazy" decoding="async" />
             <div>
               <h3>Debugging with LLMs is amazing until it isn't</h3>
               <p>
@@ -325,9 +363,11 @@
       </section>
     </main>
 
-    <footer class="v-footer">
-      <div class="v-footer__links">
-        <a target="_blank" rel="noopener noreferrer" href="mailto:ekeric13@gmail.com">ekeric13@gmail.com</a>
+    <footer class="site-footer">
+      <p>Have an ambitious product or a scaling problem?</p>
+      <a class="site-footer__email" href="mailto:ekeric13@gmail.com">Let's talk.<span aria-hidden="true">↗</span></a>
+      <div class="site-footer__links">
+        <a href="mailto:ekeric13@gmail.com">ekeric13@gmail.com</a>
         <a target="_blank" rel="noopener noreferrer" href="https://github.com/ekeric13">GitHub</a>
         <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/ekeric13">LinkedIn</a>
         <a target="_blank" rel="noopener noreferrer" href="https://x.com/EKeric13">X</a>
