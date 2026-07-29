@@ -87,9 +87,9 @@ body {
   grid-template-columns: 1.05fr 0.95fr;
   gap: 18px;
   padding: 20px;
-  border: 2px solid var(--white);
+  border: 2px solid var(--ink);
   color: var(--ink);
-  background: rgba(251, 252, 249, 0.82);
+  background: var(--ref-cream);
   transform: rotate(-0.8deg);
 }
 
