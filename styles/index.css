@@ -41,10 +41,6 @@ body {
   background: var(--ice);
 }
 
-.site-header__name span {
-  color: var(--ink);
-}
-
 .hero__content {
   min-height: min(650px, calc(100svh - 70px));
   grid-template-columns: minmax(0, 0.92fr) minmax(460px, 1.08fr);

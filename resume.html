@@ -13,7 +13,7 @@
       property="og:description"
       content="Applied AI, backend systems, platform infrastructure, and product engineering."
     />
-    <meta property="og:image" content="https://ekeric13.github.io/assets/brand/ek-v1-social-preview.png" />
+    <meta property="og:image" content="https://ekeric13.github.io/assets/brand/ek-v1-social-preview.png?v=2" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Paper-white EK monogram on deep green" />
@@ -25,7 +25,7 @@
       name="twitter:description"
       content="Applied AI, backend systems, platform infrastructure, and product engineering."
     />
-    <meta name="twitter:image" content="https://ekeric13.github.io/assets/brand/ek-v1-social-preview.png" />
+    <meta name="twitter:image" content="https://ekeric13.github.io/assets/brand/ek-v1-social-preview.png?v=2" />
     <meta name="twitter:image:alt" content="Paper-white EK monogram on deep green" />
     <link rel="icon" href="/assets/brand/ek-v1-favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/assets/brand/ek-v1-mark.svg" />
@@ -76,6 +76,8 @@
         --proof-three-muted: #d5e8e2;
         --toggle-bg: var(--ref-forest);
         --toggle-ink: var(--ref-paper);
+        --download-bg: var(--ref-forest);
+        --download-ink: var(--ref-paper);
       }
 
       :root[data-theme="dark"] {
@@ -127,6 +129,8 @@
           var(--ref-dark-ink) 100%
         );
         --toggle-ink: var(--ref-dark-bg);
+        --download-bg: var(--ref-neon-mint);
+        --download-ink: var(--ref-dark-bg);
       }
 
       * {
@@ -209,6 +213,34 @@
       }
 
       .theme-toggle:focus-visible {
+        outline: 3px solid var(--ref-cobalt);
+        outline-offset: 3px;
+      }
+
+      .pdf-download {
+        display: inline-flex;
+        min-height: 30px;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 9px;
+        border: 2px solid var(--ink);
+        border-radius: 3px;
+        color: var(--download-ink);
+        background: var(--download-bg);
+        font-size: 0.76rem;
+        font-weight: 900;
+        line-height: 1;
+        white-space: nowrap;
+        box-shadow: 4px 4px 0 var(--ink);
+        transition: box-shadow 160ms ease, transform 160ms ease;
+      }
+
+      .pdf-download:hover {
+        box-shadow: 2px 2px 0 var(--ink);
+        transform: translate(2px, 2px);
+      }
+
+      .pdf-download:focus-visible {
         outline: 3px solid var(--ref-cobalt);
         outline-offset: 3px;
       }
@@ -513,7 +545,7 @@
 
       .detail-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
         gap: 8px;
         margin-top: 12px;
         padding: 0;
@@ -521,6 +553,7 @@
       }
 
       .detail-grid li {
+        grid-column: span 2;
         margin: 0;
         padding: 10px 11px;
         border: 1px solid var(--line);
@@ -533,8 +566,8 @@
         color: var(--ink);
       }
 
-      .detail-grid__center {
-        grid-column: 2;
+      .detail-grid > li:nth-last-child(2):nth-child(3n + 1) {
+        grid-column: 2 / span 2;
       }
 
       .compact {
@@ -577,20 +610,23 @@
         font-size: 0.9rem;
       }
 
+      @media screen and (max-width: 1050px) {
+        .detail-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .detail-grid > li,
+        .detail-grid > li:nth-last-child(2):nth-child(3n + 1) {
+          grid-column: auto;
+        }
+      }
+
       @media (max-width: 820px) {
         .hero,
         .body,
         .proof,
         .compact {
           grid-template-columns: 1fr;
-        }
-
-        .detail-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .detail-grid__center {
-          grid-column: auto;
         }
 
         .body::before {
@@ -606,13 +642,29 @@
         }
 
         .job-head {
-          display: block;
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 12px;
         }
 
-        .meta {
-          display: block;
-          margin-top: 4px;
-          white-space: normal;
+        .job-head .meta {
+          display: inline;
+          flex: none;
+          margin-top: 0;
+          text-align: right;
+          white-space: nowrap;
+        }
+      }
+
+      @media screen and (max-width: 820px) {
+        :root:not([data-theme="dark"]) .proof div:nth-child(3) {
+          color: var(--ref-ink);
+          background: var(--ref-goldenrod);
+        }
+
+        :root:not([data-theme="dark"]) .proof div:nth-child(3) span {
+          color: var(--ref-ink);
         }
       }
 
@@ -623,7 +675,13 @@
         }
 
         .nav {
+          align-items: flex-start;
+          gap: 12px;
           padding: 16px 0;
+        }
+
+        .nav__links {
+          gap: 8px;
         }
 
         .page {
@@ -672,6 +730,54 @@
         }
       }
 
+      @media screen and (max-width: 560px) {
+        .job {
+          grid-template-columns: 52px minmax(0, 1fr);
+          column-gap: 14px;
+          row-gap: 4px;
+        }
+
+        .job > div {
+          display: contents;
+        }
+
+        .job .mark {
+          grid-row: 1 / span 2;
+        }
+
+        .job-head,
+        .role {
+          grid-column: 2;
+        }
+
+        .job-head {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 10px;
+          align-self: end;
+          margin-bottom: 0;
+        }
+
+        .job-head .meta {
+          display: inline;
+          flex: none;
+          margin-top: 0;
+          text-align: right;
+          white-space: nowrap;
+        }
+
+        .role {
+          align-self: start;
+          margin: 0;
+        }
+
+        .job > div > ul {
+          grid-column: 1 / -1;
+          margin-top: 8px;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -683,41 +789,41 @@
       @media print {
         @page {
           size: Letter;
-          margin: 0.38in;
+          margin: 0.3in;
         }
 
         :root,
         :root[data-theme="dark"] {
-          --ink: #111111;
-          --muted: #2f3b36;
-          --line: #8fa79d;
-          --paper: #ffffff;
-          --sidebar: var(--ref-cream);
-          --sidebar-ink: #111111;
-          --sidebar-muted: #26312d;
-          --sidebar-line: #8fa79d;
-          --chip-bg: #ffffff;
-          --chip-ink: #202724;
-          --chip-line: #8fa79d;
-          --tile: #ffffff;
-          --contact-bg: var(--ref-goldenrod);
-          --contact-ink: var(--ref-ink);
+          --ink: var(--ref-ink);
+          --muted: var(--ref-muted);
+          --line: var(--ref-line);
+          --paper: var(--ref-paper);
+          --sidebar: var(--ref-forest);
+          --sidebar-ink: var(--ref-paper);
+          --sidebar-muted: #e0ede8;
+          --sidebar-line: #4f8b7c;
+          --chip-bg: #095846;
+          --chip-ink: var(--ref-paper);
+          --chip-line: #6ba091;
+          --tile: #d8c789;
+          --contact-bg: var(--ref-forest);
+          --contact-ink: var(--ref-paper);
           --proof-one-bg: var(--ref-vermilion);
-          --proof-one-ink: #ffffff;
-          --proof-one-muted: #ffffff;
-          --proof-two-bg: var(--ref-cream);
-          --proof-two-ink: #111111;
-          --proof-two-muted: #26312d;
+          --proof-one-ink: var(--ref-paper);
+          --proof-one-muted: var(--ref-paper);
+          --proof-two-bg: var(--ref-cobalt);
+          --proof-two-ink: var(--ref-paper);
+          --proof-two-muted: #dfe6ff;
           --proof-three-bg: var(--ref-forest);
-          --proof-three-ink: #ffffff;
+          --proof-three-ink: var(--ref-paper);
           --proof-three-muted: #d5e8e2;
         }
 
         body {
-          color: #111111;
-          background: #ffffff;
-          font-size: 9.2pt;
-          line-height: 1.2;
+          color: var(--ink);
+          background: var(--paper);
+          font-size: 9pt;
+          line-height: 1.18;
           print-color-adjust: exact;
         }
 
@@ -733,7 +839,7 @@
           width: auto;
           margin: 0;
           border: 0;
-          background: #ffffff;
+          background: var(--paper);
           box-shadow: none;
         }
 
@@ -775,34 +881,56 @@
         }
 
         .body {
-          grid-template-columns: 1.45in 1fr;
+          grid-template-columns: 1.62in 1fr;
         }
 
         .body::before {
           display: block;
-          left: 1.45in;
+          left: 1.62in;
           border-right: 1px solid #222;
         }
 
         .body::after {
           display: block;
-          width: 1.45in;
+          width: 1.62in;
         }
 
         aside {
-          padding: 13px 12px 0 0;
+          padding: 14px 14px 0;
           border-bottom: 0;
           background: var(--sidebar);
         }
 
         main {
-          padding: 13px 0 0 15px;
+          padding: 14px 0 0 18px;
         }
 
         .job {
           grid-template-columns: 0.34in 1fr;
           gap: 9px;
-          padding: 10px 0;
+          padding: 8px 0;
+          break-inside: auto;
+        }
+
+        .job-head,
+        .role {
+          break-after: avoid;
+        }
+
+        .job-head {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 12px;
+        }
+
+        .job-head .meta {
+          display: inline;
+          margin-top: 0;
+          white-space: nowrap;
+        }
+
+        .job li {
           break-inside: avoid;
         }
 
@@ -828,11 +956,15 @@
 
         .role,
         .meta,
-        .rail-list li,
         .mini-date,
         .mini p {
           font-size: 7.8pt;
           color: #26312d;
+        }
+
+        .rail-list li {
+          color: var(--sidebar-muted);
+          font-size: 7.8pt;
         }
 
         .chip {
@@ -840,7 +972,7 @@
         }
 
         li {
-          margin: 2px 0;
+          margin: 1px 0;
         }
 
         .side-section + .side-section {
@@ -854,8 +986,8 @@
 
         .chip {
           padding: 2px 5px;
-          background: #ffffff;
-          color: #202724;
+          background: var(--chip-bg);
+          color: var(--chip-ink);
         }
 
         .compact {
@@ -872,24 +1004,36 @@
           margin-top: 7px;
         }
 
+        .detail-grid > li,
+        .detail-grid > li:nth-last-child(2):nth-child(3n + 1) {
+          grid-column: auto;
+        }
+
         .detail-grid li {
           padding: 5px 6px;
-          background: #ffffff;
-          color: #202724;
+          border-color: #ffffff;
+          background: var(--tile);
+          color: var(--ink);
           font-size: 7.5pt;
         }
 
-        .detail-grid__center {
+        .detail-grid > li:last-child:nth-child(odd) {
           grid-column: 1 / -1;
           justify-self: center;
           width: calc(50% - 3px);
-          min-width: 260px;
+          min-width: 0;
           box-sizing: border-box;
         }
 
         .mini {
-          padding: 5px;
-          background: #ffffff;
+          padding: 4px;
+          border-color: #ffffff;
+          background: var(--tile);
+        }
+
+        .mini-date,
+        .mini p {
+          font-size: 7.5pt;
         }
 
         a {
@@ -902,6 +1046,7 @@
     <header class="nav" aria-label="Resume navigation">
       <a class="nav__name" href="index.html">Eric Kennedy</a>
       <nav class="nav__links">
+        <a class="pdf-download" href="resume.pdf" download="Eric-Kennedy-Resume.pdf">Download PDF</a>
         <button class="theme-toggle" type="button" aria-label="Switch to dark resume theme" aria-pressed="false">
           Dark
         </button>

@@ -2796,6 +2796,36 @@ a {
   font-size: 0.88rem;
 }
 
+.v12-nav .v12-portfolio-link {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 9px;
+  border: 2px solid var(--v12-ink);
+  border-radius: 3px;
+  color: var(--v12-ink);
+  background: var(--v12-gold);
+  box-shadow: 4px 4px 0 var(--v12-ink);
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1;
+  transition: color 160ms ease, background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.v12-nav .variant-nav__links .v12-portfolio-link::after {
+  display: none;
+  content: none;
+}
+
+.v12-nav .v12-portfolio-link:hover,
+.v12-nav .v12-portfolio-link:focus-visible {
+  color: var(--v12-paper);
+  background: var(--v12-sky);
+  box-shadow: 2px 2px 0 var(--v12-ink);
+  transform: translate(2px, 2px);
+}
+
 .v12-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
@@ -3016,6 +3046,15 @@ a {
   .variant-nav__links,
   .v-footer__links {
     margin-top: 12px;
+  }
+
+  .v12-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .v12-nav .variant-nav__links {
+    margin-top: 0;
   }
 
   .v1-hero,

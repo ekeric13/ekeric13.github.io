@@ -3,10 +3,10 @@
   <desc id="desc">A geometric paper-white EK monogram on deep green.</desc>
   <rect width="1200" height="630" fill="#f5f0d8" stroke="none" />
   <rect x="285" width="630" height="630" fill="#0b6b55" stroke="none" />
-  <g transform="translate(216 0) scale(1.5)">
+  <g transform="translate(206 -43) scale(1.4)">
     <g fill="#fbfcf9" stroke="none">
       <path d="M84 140h168v54H144v42h100v52H144v30h108v54H84z" />
-      <path d="M264 140h58v85l70-85h62l-88 112 92 120h-66l-70-89v89h-58z" />
+      <path d="M284 140h58v85l70-85h62l-88 112 92 120h-66l-70-89v89h-58z" />
     </g>
   </g>
 </svg>
