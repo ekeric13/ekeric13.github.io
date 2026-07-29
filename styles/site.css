@@ -18,6 +18,7 @@
   --accent: var(--ref-forest);
   --accent-dark: var(--ref-cobalt);
   --amber: var(--ref-goldenrod);
+  --callout-surface: color-mix(in oklab, var(--ref-goldenrod) 42%, var(--ref-paper));
   --code: var(--ref-ink);
   --max: 1180px;
 }
@@ -519,7 +520,7 @@ h3 {
   padding: 18px 20px;
   border: 2px solid var(--ink);
   color: var(--ink);
-  background: var(--ref-goldenrod);
+  background: var(--callout-surface);
   box-shadow: 6px 6px 0 var(--ink);
 }
 
@@ -545,7 +546,7 @@ h3 {
   border: 2px solid var(--ink);
   border-radius: 0;
   color: var(--ink);
-  background: var(--ref-goldenrod);
+  background: var(--callout-surface);
 }
 
 .post-callout strong {

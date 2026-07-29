@@ -2804,8 +2804,8 @@ a {
   padding: 3px 9px;
   border: 2px solid var(--v12-ink);
   border-radius: 3px;
-  color: var(--v12-ink);
-  background: var(--v12-gold);
+  color: var(--v12-paper);
+  background: var(--v12-forest);
   box-shadow: 4px 4px 0 var(--v12-ink);
   font-size: 0.76rem;
   font-weight: 900;
@@ -2821,7 +2821,7 @@ a {
 .v12-nav .v12-portfolio-link:hover,
 .v12-nav .v12-portfolio-link:focus-visible {
   color: var(--v12-paper);
-  background: var(--v12-sky);
+  background: var(--v12-forest);
   box-shadow: 2px 2px 0 var(--v12-ink);
   transform: translate(2px, 2px);
 }
@@ -2997,14 +2997,14 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--v12-ink);
-  background: var(--v12-gold);
+  color: var(--v12-forest);
+  background: var(--v12-paper);
 }
 
 .v12-brief__links a:hover,
 .v12-brief__links a:focus-visible {
   color: var(--v12-paper);
-  background: var(--v12-sky);
+  background: var(--v12-forest);
   box-shadow: 0 3px 0 var(--v12-ink);
   transform: translateY(3px);
 }

@@ -217,6 +217,7 @@
         outline-offset: 3px;
       }
 
+      .portfolio-button,
       .pdf-download {
         display: inline-flex;
         min-height: 30px;
@@ -235,11 +236,13 @@
         transition: box-shadow 160ms ease, transform 160ms ease;
       }
 
+      .portfolio-button:hover,
       .pdf-download:hover {
         box-shadow: 2px 2px 0 var(--ink);
         transform: translate(2px, 2px);
       }
 
+      .portfolio-button:focus-visible,
       .pdf-download:focus-visible {
         outline: 3px solid var(--ref-cobalt);
         outline-offset: 3px;
@@ -658,6 +661,10 @@
       }
 
       @media screen and (max-width: 820px) {
+        .proof div:nth-child(-n + 2) {
+          border-right: 0;
+        }
+
         :root:not([data-theme="dark"]) .proof div:nth-child(3) {
           color: var(--ref-ink);
           background: var(--ref-goldenrod);
@@ -676,12 +683,14 @@
 
         .nav {
           align-items: flex-start;
+          flex-direction: column;
           gap: 12px;
           padding: 16px 0;
         }
 
         .nav__links {
           gap: 8px;
+          justify-content: flex-start;
         }
 
         .page {
@@ -1078,6 +1087,7 @@
     <header class="nav" aria-label="Resume navigation">
       <a class="nav__name" href="index.html">Eric Kennedy</a>
       <nav class="nav__links">
+        <a class="portfolio-button" href="index.html">Portfolio</a>
         <a class="pdf-download" href="resume.pdf" download="Eric-Kennedy-Resume.pdf">Download PDF</a>
         <button class="theme-toggle" type="button" aria-label="Switch to dark resume theme" aria-pressed="false">
           Dark

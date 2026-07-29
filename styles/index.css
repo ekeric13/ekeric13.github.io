@@ -72,6 +72,12 @@ body {
   transform: translateY(-2px);
 }
 
+.hero .button--light,
+.hero .button--outline:hover,
+.hero .button--outline:focus-visible {
+  color: var(--ref-forest);
+}
+
 .hero-capabilities {
   display: grid;
   width: min(100%, 540px);
@@ -388,7 +394,7 @@ body {
   padding: 22px 0;
   border-bottom: 2px solid var(--ink);
   color: var(--ink);
-  transition: background-color 180ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-color 180ms ease;
 }
 
 .essay img,
@@ -418,13 +424,12 @@ body {
   .essay:hover,
   .essay:focus-visible {
     background: var(--white);
-    transform: translateX(6px);
   }
+}
 
-  .essay:hover img,
-  .essay:focus-visible img {
-    transform: translateY(-4px);
-  }
+.essay:hover img,
+.essay:focus-visible img {
+  transform: none;
 }
 
 .site-footer {
@@ -474,6 +479,13 @@ body {
 
   .experience__timeline {
     grid-template-columns: 1fr;
+  }
+
+  .role--intuit,
+  .role--anime,
+  .role--ethos,
+  .role--foundation {
+    min-height: 180px;
   }
 }
 
