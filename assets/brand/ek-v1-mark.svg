@@ -2,7 +2,7 @@
   <title id="title">Eric Kennedy EK mark</title>
   <desc id="desc">A geometric paper-white EK monogram on deep green.</desc>
   <rect width="512" height="512" fill="#0b6b55" stroke="none" />
-  <g fill="#fbfcf9" stroke="none">
+  <g fill="#fbfcf9" stroke="none" transform="translate(-25 0)">
     <path d="M84 140h168v54H144v42h100v52H144v30h108v54H84z" />
     <path d="M284 140h58v85l70-85h62l-88 112 92 120h-66l-70-89v89h-58z" />
   </g>
