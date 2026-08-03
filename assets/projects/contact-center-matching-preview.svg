@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">AI Contact Center Matching</title>
+  <desc id="desc">Interaction evidence becomes routing guidance that connects a customer with a suitable expert.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#11161d"/><stop offset="1" stop-color="#0b0d12"/></linearGradient>
+    <pattern id="grid" width="54" height="54" patternUnits="userSpaceOnUse"><path d="M54 0H0V54" fill="none" stroke="#4bd6c8" stroke-opacity=".06"/></pattern>
+    <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000" flood-opacity=".34"/></filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4 0 8z" fill="#778b9d"/></marker>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#grid)"/><circle cx="1060" cy="20" r="360" fill="#ad8cff" opacity=".06"/>
+  <text x="76" y="72" fill="#4bd6c8" font-family="monospace" font-size="17" letter-spacing="4">CASE STUDY · APPLIED AI</text>
+  <text x="76" y="150" fill="#eef3f8" font-family="Arial, sans-serif" font-size="58" font-weight="700" letter-spacing="-2">AI Contact Center</text>
+  <text x="76" y="210" fill="#eef3f8" font-family="Arial, sans-serif" font-size="58" font-weight="700" letter-spacing="-2">Matching</text>
+  <text x="78" y="257" fill="#99a9b8" font-family="Arial, sans-serif" font-size="22">Use demonstrated expertise—not labels alone—to route customers.</text>
+  <g transform="translate(76 320)" filter="url(#shadow)">
+    <rect width="1048" height="198" rx="22" fill="#151b23" stroke="#2a3541"/>
+    <g transform="translate(28 34)"><circle cx="62" cy="58" r="48" fill="#10272a" stroke="#4bd6c8" stroke-opacity=".65"/><circle cx="62" cy="45" r="14" fill="#4bd6c8" opacity=".75"/><path d="M35 83c10-25 44-25 54 0" fill="#4bd6c8" opacity=".75"/><text x="62" y="126" fill="#eef3f8" text-anchor="middle" font-family="Arial" font-size="15" font-weight="700">customer intent</text></g>
+    <path d="M154 92H232" stroke="#778b9d" stroke-width="3" marker-end="url(#arrow)"/>
+    <g transform="translate(250 24)"><rect width="276" height="146" rx="16" fill="#1d1b30" stroke="#ad8cff" stroke-opacity=".58"/><text x="24" y="30" fill="#ad8cff" font-family="monospace" font-size="12" letter-spacing="1">INTERACTION EVIDENCE</text><rect x="24" y="49" width="228" height="22" rx="11" fill="#27233d"/><rect x="24" y="80" width="190" height="22" rx="11" fill="#27233d"/><rect x="24" y="111" width="244" height="22" rx="11" fill="#27233d"/><circle cx="40" cy="60" r="4" fill="#4bd6c8"/><circle cx="40" cy="91" r="4" fill="#f0b05f"/><circle cx="40" cy="122" r="4" fill="#69c982"/><text x="53" y="64" fill="#c9c5d9" font-family="Arial" font-size="12">transcript topics</text><text x="53" y="95" fill="#c9c5d9" font-family="Arial" font-size="12">resolution outcomes</text><text x="53" y="126" fill="#c9c5d9" font-family="Arial" font-size="12">demonstrated expert skills</text></g>
+    <path d="M538 92H602" stroke="#778b9d" stroke-width="3" marker-end="url(#arrow)"/>
+    <g transform="translate(620 38)"><rect width="150" height="118" rx="16" fill="#2d2519" stroke="#f0b05f" stroke-opacity=".62"/><text x="75" y="30" fill="#f0b05f" text-anchor="middle" font-family="monospace" font-size="11">ROUTING PLAN</text><rect x="21" y="47" width="108" height="16" rx="8" fill="#f0b05f" opacity=".28"/><rect x="21" y="72" width="82" height="16" rx="8" fill="#f0b05f" opacity=".2"/><rect x="21" y="97" width="56" height="9" rx="5" fill="#f0b05f" opacity=".13"/></g>
+    <path d="M782 92H838" stroke="#778b9d" stroke-width="3" marker-end="url(#arrow)"/>
+    <g transform="translate(856 34)"><rect width="164" height="126" rx="16" fill="#14281b" stroke="#69c982" stroke-opacity=".65"/><circle cx="38" cy="38" r="16" fill="#69c982" opacity=".75"/><text x="66" y="34" fill="#eef3f8" font-family="Arial" font-size="14" font-weight="700">CPA</text><text x="66" y="53" fill="#a9b8aa" font-family="Arial" font-size="12">real-estate tax</text><line x1="22" y1="70" x2="142" y2="70" stroke="#69c982" stroke-opacity=".22"/><text x="82" y="96" fill="#69c982" text-anchor="middle" font-family="monospace" font-size="12">best available fit</text></g>
+  </g>
+  <g transform="translate(76 556)"><text fill="#637486" font-family="monospace" font-size="15" letter-spacing="2">ERIC KENNEDY</text><text x="1048" fill="#69c982" text-anchor="end" font-family="monospace" font-size="15">0.5% → 40% COVERAGE · 3–6 MONTHS → &lt;4 HOURS</text></g>
+</svg>
