@@ -198,6 +198,38 @@ body {
   display: block;
 }
 
+.experience__story {
+  display: grid;
+  width: min(var(--max), 100%);
+  margin: clamp(46px, 6vw, 72px) auto 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 3vw, 42px);
+  row-gap: 16px;
+  padding-top: clamp(22px, 3vw, 36px);
+  border-top: 2px solid var(--ink);
+}
+
+.experience__story-title {
+  margin: 0;
+  grid-column: 1 / -1;
+  font-family: var(--utility);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.experience__story p {
+  margin: 0;
+  color: var(--ref-muted);
+  font-size: clamp(0.9rem, 1vw, 0.98rem);
+  line-height: 1.58;
+}
+
+.experience__story p + p {
+  margin-top: 18px;
+}
+
 .role--intuit,
 .role--anime,
 .role--ethos,
@@ -572,6 +604,11 @@ body {
   .role--foundation,
   .role__ethos-main {
     grid-template-columns: 1fr;
+  }
+
+  .experience__story {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 }
 
