@@ -486,6 +486,11 @@ h3 {
   line-height: 1.45;
 }
 
+.post-body--quiet .lede {
+  font-size: 1.16rem;
+  line-height: 1.6;
+}
+
 .post-body h2 {
   max-width: none;
   color: var(--ink);
