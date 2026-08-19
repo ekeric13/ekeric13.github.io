@@ -303,7 +303,37 @@ code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2p
 <section class="slide">
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
-<div class="eyebrow ok"><span class="ph">05</span> Rollout and outcome</div>
+<div class="eyebrow ai"><span class="ph">05</span> Intent taxonomy · semantic cache</div>
+<h1 class="title-lg">A semantic cache kept the intent taxonomy useful without freezing it in place.</h1>
+<div class="pipeline">
+<div class="node signal">Completed<br>transcript</div><div class="arr">→</div>
+<div class="node ai">LLM extracts<br>customer intent</div><div class="arr">→</div>
+<div class="node plan">Generate intent<br>embedding</div>
+</div>
+<div class="pipeline">
+<div class="node signal">Search OpenSearch<br>intent taxonomy</div><div class="arr">→</div>
+<div class="node ai">Compare top score<br>with threshold</div><div class="arr">→</div>
+<div class="node ok">Hit: reuse label<br>Miss: new candidate</div>
+</div>
+<div class="strip" style="--c:var(--ai)"><span class="lb">Decision rule</span> If the nearest intent met or exceeded the score threshold, it was a cache hit and we reused the existing taxonomy entry. A score below the threshold was a cache miss, so the intent became a candidate for the taxonomy.</div>
+</div>
+<div class="face detail">
+<div class="det-head">Vector search design</div>
+<div class="det-title">The threshold turned nearest-neighbor retrieval into an explicit taxonomy decision.</div>
+<p class="det-sub">We stored intent embeddings in an OpenSearch table and searched it as a semantic cache. This reduced duplicate labels while still surfacing genuinely different customer needs.</p>
+<div class="arch">
+<div class="tcard" style="--x:var(--signal)"><span class="tag">engine</span><div class="nm">Faiss</div><div class="role">approximate k-nearest neighbors</div><p>The vector-search library behind the index.</p></div>
+<div class="tcard" style="--x:var(--ai)"><span class="tag">algorithm</span><div class="nm">HNSW</div><div class="role">hierarchical graph search</div><p>The index method used to retrieve the nearest intent efficiently.</p></div>
+<div class="tcard" style="--x:var(--plan)"><span class="tag">space</span><div class="nm">L2</div><div class="role">squared Euclidean distance</div><p>OpenSearch converts distance into a higher-is-better score: 1 / (1 + distance).</p></div>
+</div>
+<div class="strip" style="--c:var(--signal)"><span class="lb">Implementation reference</span> OpenSearch documents the <a target="_blank" rel="noopener noreferrer" href="https://docs.opensearch.org/latest/mappings/supported-field-types/knn-methods-engines/">Faiss, HNSW, and L2 method configuration</a> and its <a target="_blank" rel="noopener noreferrer" href="https://docs.opensearch.org/latest/mappings/supported-field-types/knn-spaces/">distance-to-score conversion</a>.</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face overview">
+<div class="eyebrow ok"><span class="ph">06</span> Rollout and outcome</div>
 <h1 class="title-lg">The rollout expanded contact-attribute routing from a small set of expert collections to broad production use.</h1>
 <div class="split">
 <div>
@@ -341,7 +371,7 @@ code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2p
 <section class="slide">
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
-<div class="eyebrow risk"><span class="ph">06</span> What I would do differently</div>
+<div class="eyebrow risk"><span class="ph">07</span> What I would do differently</div>
 <h1 class="title-lg">I would invest earlier in <span class="r">observability</span> and reduce the dependency on human review.</h1>
 <div class="cards">
 <div class="card" style="--x:var(--plan)"><div class="ix">1</div><h3>Measure expert collection meaning first</h3><p>Create a clearer readout of each collection: customer intent, transfer patterns, resolution quality, and how that mix changed over time.</p></div>

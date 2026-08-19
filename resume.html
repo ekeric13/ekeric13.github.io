@@ -835,8 +835,8 @@
           position: relative;
           color: var(--ink);
           background: var(--ref-print-outer);
-          font-size: 9pt;
-          line-height: 1.18;
+          font-size: 8.8pt;
+          line-height: 1.16;
           print-color-adjust: exact;
         }
 
@@ -1138,7 +1138,8 @@
               <span class="chip">Redis</span><span class="chip">AWS</span><span class="chip">S3</span>
               <span class="chip">SQS</span><span class="chip">SNS</span><span class="chip">RDS</span>
               <span class="chip">PyTorch</span><span class="chip">OpenSearch</span><span class="chip">Vector Search</span>
-              <span class="chip">Embeddings</span><span class="chip">Next.js</span><span class="chip">Tailwind</span>
+              <span class="chip">Embeddings</span><span class="chip">Faiss</span><span class="chip">HNSW</span>
+              <span class="chip">Next.js</span><span class="chip">Tailwind</span>
               <span class="chip">SQLAlchemy</span><span class="chip">FastAPI</span><span class="chip">Express</span>
               <span class="chip">Koa</span><span class="chip">Mux</span><span class="chip">Gin</span><span class="chip">Stripe</span>
               <span class="chip">Cloudinary</span><span class="chip">OAuth</span><span class="chip">Debezium</span>
@@ -1218,10 +1219,12 @@
                     collaborative sessions, and interfaces for web, Slack, Claude Code, and service APIs.
                   </li>
                   <li>
-                    <strong>Transcript analysis:</strong> Built a Bring Your Own Prompt transcript-analysis platform for
-                    running customizable LLM prompts across thousands of customer conversations, used for tax policy
-                    compliance detection with
-                    <span class="highlight">95.5% precision</span>, QA at scale, and expert skill gap analysis.
+                    <strong>Transcript intelligence:</strong> Built two LLM systems over customer conversations. A Bring
+                    Your Own Prompt platform ran customizable analysis across thousands of transcripts for tax policy
+                    compliance detection with <span class="highlight">95.5% precision</span>, QA at scale, and expert
+                    skill gap analysis. A separate pipeline built an intent taxonomy for labeling and storing customer
+                    intents in OpenSearch for use across multiple models. It used a
+                    <strong>Faiss/HNSW semantic cache</strong> to reuse known taxonomy labels or surface new candidates.
                   </li>
                   <li>
                     <strong>Observability:</strong> Spearheaded obs-as-code (Terraform/IaC for observability) to move alert
