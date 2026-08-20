@@ -119,11 +119,15 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 .shot img{display:block;width:100%;height:auto;border-radius:11px}.shot .cap{margin:10px 4px 2px}
 .resultgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.resultgrid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
 .imageband{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:12px;margin-top:22px}.imageband img{width:100%;height:130px;object-fit:cover;border-radius:12px;border:1px solid var(--line);background:var(--panel)}
+.system-split{display:grid;grid-template-columns:minmax(270px,.72fr) minmax(0,1.28fr);gap:clamp(24px,3vw,42px);align-items:start;margin-top:20px}
+.input-proof .sub{font-size:clamp(14px,1.25vw,17px);margin-top:0}.input-proof .bullets{margin-top:14px}.input-proof .bullets li{font-size:clamp(12px,1.12vw,14px);margin:9px 0}
+.evidence-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:14px}.evidence-grid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
+.stackmap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:26px;align-items:stretch}.stackstage{position:relative;padding:16px 14px;border-top:3px solid var(--x,var(--product));background:rgba(11,12,16,.68);border-radius:0 0 12px 12px}.stackstage:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:50%;z-index:2;transform:translate(50%,-50%);color:var(--faint);font-family:var(--mono);font-weight:700}.stackstage .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--x,var(--product));margin-bottom:9px}.stackstage .v{font-family:var(--disp);font-size:18px;font-weight:700;line-height:1.1;margin-bottom:10px}.stackstage p{font-family:var(--mono);font-size:10.5px;line-height:1.5;color:var(--dim);margin:0}.slide--system .diagram{padding:16px}.slide--system .handoff{gap:6px}.slide--system .handoff-node{min-height:56px}
 .slide--intro,.slide--model{--pad-top:6.75vh;--pad-bottom:8vh}
 .slide--intro .title-xl{font-size:clamp(36px,5vw,70px);line-height:.96}.slide--intro .sub{margin-top:16px;font-size:clamp(14px,1.22vw,17px);line-height:1.48;max-width:66ch}.slide--intro .cont{margin-top:20px}.slide--intro .phasebox{padding:17px}.slide--intro .phasebox .n{font-size:20px;margin-bottom:10px}.slide--intro .row{font-size:12.5px;line-height:1.32;margin:7px 0}
 @media(min-width:901px) and (max-height:920px){.slide{--pad-top:5vh;--pad-bottom:6vh}.slide--intro,.slide--model{--pad-top:6.75vh;--pad-bottom:6vh}.slide--intro .title-xl{font-size:clamp(34px,4.55vw,64px)}.slide--intro .sub{margin-top:12px;font-size:15px;line-height:1.4}.slide--intro .cont{margin-top:15px}.slide--intro .phasebox{padding:14px}.slide--intro .phasebox .n{font-size:18px;margin-bottom:8px}.slide--intro .row{font-size:12px;line-height:1.24;margin:5px 0}.slide--intro .equals{padding:0 18px}.slide--intro .equals .eq{font-size:30px}.slide--intro .equals .lbl{font-size:9px}.slide--model .title-lg{font-size:clamp(30px,4vw,56px)}.slide--model .split{gap:28px}.slide--model .sub{font-size:16px;line-height:1.44}.slide--model .diagram{padding:18px}.slide--model .resultgrid{gap:8px}.slide--model .resultgrid img{aspect-ratio:auto;height:clamp(170px,24vh,220px)}}
 @media(max-width:1180px){.handoff{grid-template-columns:1fr;gap:14px}.handoff-node{text-align:center}.handoff-arrow{transform:rotate(90deg);justify-self:center}.handoff-node.store::before,.handoff-node.store::after{left:8%;right:8%}}
-@media(max-width:900px){.slide{--pad-top:5vh;--pad-x:6vw;--pad-bottom:8vh;--hud-space:56px;overflow-x:hidden}.slide--intro,.slide--model{--pad-top:6.75vh;--pad-bottom:8vh}.slide--model .face.detail{justify-content:flex-start;padding-top:42px}.slide--model .arch{grid-template-columns:1fr}.split,.levers,.stats,.arch,.journey,.queueviz,.imageband,.contract-grid,.tree-leaves{grid-template-columns:1fr}.split,.split>*,.cont,.pipeline,.handoff{min-width:0}.title-xl{overflow-wrap:anywhere}.slide--intro .title-xl{font-size:clamp(31px,9vw,42px)}.cont,.pipeline,.handoff{grid-template-columns:1fr;gap:14px}.imageband img{height:auto}.equals{padding:4px}.arr,.handoff-arrow{transform:rotate(90deg);justify-self:center}.shot{transform:none}.flipchip{right:6vw}.hint{display:none}}
+@media(max-width:900px){.slide{--pad-top:5vh;--pad-x:6vw;--pad-bottom:8vh;--hud-space:56px;overflow-x:hidden}.slide--intro,.slide--model{--pad-top:6.75vh;--pad-bottom:8vh}.slide--model .face.detail,.slide--system .face.detail{justify-content:flex-start;padding-top:42px}.slide--model .arch{grid-template-columns:1fr}.split,.levers,.stats,.arch,.journey,.queueviz,.imageband,.contract-grid,.tree-leaves,.system-split,.stackmap{grid-template-columns:1fr}.split,.split>*,.cont,.pipeline,.handoff,.system-split{min-width:0}.title-xl{overflow-wrap:anywhere}.slide--intro .title-xl{font-size:clamp(31px,9vw,42px)}.cont,.pipeline,.handoff{grid-template-columns:1fr;gap:14px}.imageband img{height:auto}.evidence-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stackstage:not(:last-child)::after{content:"↓";right:50%;top:auto;bottom:-12px;transform:translate(50%,50%)}.equals{padding:4px}.arr,.handoff-arrow{transform:rotate(90deg);justify-self:center}.shot{transform:none}.flipchip{right:6vw}.hint{display:none}}
 </style>
 </head>
 <body>
@@ -148,13 +152,13 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </div>
 </div>
 <div class="face detail">
-<div class="det-head">Grounding · system shape</div>
-<div class="det-title">The work split into three parts: experience, orchestration, and generation.</div>
-<p class="det-sub">The system split into a Next.js frontend, a Python API/worker backend, a GPU diffusion server, and a separate image workspace for style experiments and regularization assets. The frontend code shows the user path directly: subject info, theme/package selection, Stripe checkout, upload, dashboard/order completion, and gallery delivery.</p>
+<div class="det-head">Grounding · why now</div>
+<div class="det-title">Why now?</div>
+<p class="det-sub">People were already paying artists on marketplaces such as Etsy to turn personal photos into anime portraits. Stable Diffusion 1.5 created an opening to deliver that familiar outcome through software, while new personalization techniques made it possible to preserve a specific customer’s identity across many scenes.</p>
 <div class="arch">
-<div class="tcard" style="--x:var(--product)"><span class="tag">product surface</span><div class="nm">Funnel and delivery</div><div class="role">checkout, upload, email, gallery</div><p>Mobile-first flow for guest checkout, paid upload, async status, and return-to-gallery email delivery.</p></div>
-<div class="tcard" style="--x:var(--data)"><span class="tag">service layer</span><div class="nm">Order system</div><div class="role">Postgres, S3, Stripe, Kafka</div><p>Durable order state, photo storage, payment transitions, queue handoff, and result persistence.</p></div>
-<div class="tcard" style="--x:var(--ml)"><span class="tag">generation layer</span><div class="nm">GPU pipeline</div><div class="role">custom training and inference</div><p>Validated image inputs became personalized checkpoints, style merges, prompt batches, and final portrait sets.</p></div>
+<div class="tcard" style="--x:var(--product)"><span class="tag">validated demand</span><div class="nm">A service people bought</div><div class="role">personal photos → anime portraits</div><p>The customer desire was visible before the product existed. The opportunity was to make fulfillment repeatable.</p></div>
+<div class="tcard" style="--x:var(--ml)"><span class="tag">new capability</span><div class="nm">Personalization became practical</div><div class="role">Stable Diffusion 1.5 + DreamBooth</div><p>Recent open models made it possible to train identity and generate many new scenes from a small photo set.</p></div>
+<div class="tcard" style="--x:var(--data)"><span class="tag">founder fit</span><div class="nm">I could own the full loop</div><div class="role">product, backend, infrastructure, ML</div><p>My frontend, backend, and infrastructure experience let me build the consumer product and the GPU system together.</p></div>
 </div>
 </div>
 </section>
@@ -163,7 +167,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
 <div class="eyebrow"><span class="ph">01</span> Funnel</div>
-<h1 class="title-lg">The product was designed around <span class="p">long-running jobs</span> and limited GPU capacity.</h1>
+<h1 class="title-lg">Product funnel</h1>
 <div class="journey">
 <div class="step"><div class="num">01</div><div class="name">Choose</div><p>User selects package, themes, and subject traits needed by prompts.</p></div>
 <div class="step"><div class="num">02</div><div class="name">Pay</div><p>Stripe checkout creates a durable paid order before expensive GPU work starts.</p></div>
@@ -174,154 +178,78 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="strip"><span class="lb">Product decision</span> Keep the customer-facing steps familiar: choose, pay, upload, leave, return by email. The expensive GPU work runs after the product has the inputs it needs.</div>
 </div>
 <div class="face detail">
-<div class="det-head">Grounding · frontend implementation</div>
-<div class="det-title">The UX gathered model parameters without exposing the user to model language.</div>
-<p class="det-sub">The Next.js app stored funnel state with Zustand, authenticated with NextAuth, used Stripe checkout, and passed subject traits such as hair color, eye color, glasses, sex, and age into the backend order. The upload page then created a multipart payload of training photos under the `training_photos` field.</p>
+<div class="det-head">Grounding · GPU-shaped product</div>
+<div class="det-title">Heavy ML path shaped the product</div>
+<p class="det-sub">A key product decision was not to promise instant results. With one GPU, a single personalized job could take more than an hour, and a queue of orders could push delivery into multiple hours. The user experience was built around that reality: pay, upload validated photos, leave, then come back from email when the gallery was ready.</p>
 <div class="arch">
-<div class="tcard" style="--x:var(--product)"><span class="tag">frontend</span><div class="nm">Next.js + Tailwind</div><div class="role">mobile-first flow</div><p>Pages covered landing, subject info, themes, payment success, upload, dashboard, and gallery.</p></div>
-<div class="tcard" style="--x:var(--data)"><span class="tag">state</span><div class="nm">Zustand + React Query</div><div class="role">flow state and cache</div><p>Local state carried the funnel; query invalidation refreshed dashboard status after upload.</p></div>
-<div class="tcard" style="--x:var(--ops)"><span class="tag">growth loop</span><div class="nm">Email, analytics, chat</div><div class="role">operating a consumer app</div><p>Amplitude, GA, pixels, email links, and live chat made the product measurable and supportable.</p></div>
+<div class="tcard" style="--x:var(--product)"><span class="tag">expectation</span><div class="nm">Async by design</div><div class="role">quality over immediacy</div><p>The wait was not hidden. The product flow made long-running generation normal.</p></div>
+<div class="tcard" style="--x:var(--ml)"><span class="tag">constraint</span><div class="nm">Heavy ML path</div><div class="role">serial work per order</div><p>Identity training, model merges, and prompt batches made queueing and status part of fulfillment.</p></div>
+<div class="tcard" style="--x:var(--ops)"><span class="tag">delivery</span><div class="nm">Email integration</div><div class="role">return path</div><p>Payment, upload, and fulfillment emails brought users back to finish uploads or view completed galleries.</p></div>
 </div>
-<div class="imageband">
+</div>
+</section>
+
+<section class="slide slide--system">
+<div class="flipchip"><span class="sw"></span>detail</div>
+<div class="face detail">
+<div class="det-head">Grounding · input quality</div>
+<div class="det-title">Good photos were the strongest product engineering challenge.</div>
+<div class="system-split">
+<div class="input-proof">
+<p class="sub">Input quality had an outsized effect on the final gallery. The browser rejected bad photos and produced model-ready crops before the backend committed scarce GPU time.</p>
+<ul class="bullets" style="--c:var(--data)">
+<li><strong>Face checks.</strong> <span>Reject missing or likely multiple faces.</span></li>
+<li><strong>Minimum quality.</strong> <span>Reject images below 512 by 512.</span></li>
+<li><strong>Smart crop.</strong> <span>Center the face and emit a 512 by 512 input.</span></li>
+</ul>
+<div class="evidence-grid">
 <img src="../../assets/anime-pics/hero-no-text.jpeg" alt="AnimePics transformation product graphic">
 <img src="../../assets/anime-pics/result-american.jpeg" alt="AnimePics generated result">
 <img src="../../assets/anime-pics/result-cartoon.jpeg" alt="AnimePics generated result">
 <img src="../../assets/anime-pics/result-shinkai.jpeg" alt="AnimePics generated result">
 </div>
 </div>
-</section>
-
-<section class="slide">
-<div class="flipchip"><span class="sw"></span>detail</div>
-<div class="face overview">
-<div class="eyebrow data"><span class="ph">02</span> Input quality</div>
-<h1 class="title-lg">Better input photos made the <span class="d">customer result</span> better.</h1>
-<div class="split">
-<div>
-<p class="sub">Picture quality had an outsized effect on whether customers liked the final gallery. I added ML face detection and smart cropping in the browser so users could fix bad inputs before the async training process started.</p>
-<ul class="bullets" style="--c:var(--data)">
-<li><strong>Minimum input size.</strong> <span>Images below 512 by 512 were rejected.</span></li>
-<li><strong>Face count checks.</strong> <span>No-face and likely multi-face photos were rejected.</span></li>
-<li><strong>Centered crop.</strong> <span>Smartcrop used the detected face as a boost region and emitted 512 by 512 files.</span></li>
-</ul>
-</div>
-<div class="diagram">
-<div class="cap">client-side gate</div>
-<div class="flowrow"><span class="node product">Phone photos</span><span class="arr">-></span><span class="node data">face-api.js</span><span class="arr">-></span><span class="node data">smartcrop</span><span class="arr">-></span><span class="node ops">S3-ready files</span></div>
-<div style="height:18px"></div>
-<div class="flowrow"><span class="node bad">no face</span><span class="node bad">too small</span><span class="node bad">face too large</span><span class="node bad">likely multiple people</span></div>
-</div>
-</div>
-</div>
-<div class="face detail">
-<div class="det-head">Grounding · quality tradeoff</div>
-<div class="det-title">Client validation improved satisfaction, but moved compute into the upload UX.</div>
-<p class="det-sub">The browser loaded face detection models and warned that validation could take several seconds per uploaded photo. That was an intentional product tradeoff: a slightly slower upload flow was better than letting customers wait for a gallery trained on faces that were too small, missing, or mixed with other people.</p>
-<div class="strip" style="--c:var(--data)"><span class="lb">Why this mattered</span> The ML pipeline used up to 20 training photos. Better crops and cleaner face selection gave the personalization step a much stronger signal, which directly affected whether the final portraits looked like the customer.</div>
-</div>
-</section>
-
-<section class="slide">
-<div class="flipchip"><span class="sw"></span>detail</div>
-<div class="face overview">
-<div class="eyebrow data"><span class="ph">03</span> Web backend</div>
-<h1 class="title-lg">The backend tracked orders, stored photos, and handed off <span class="d">GPU jobs</span>.</h1>
-<div class="split">
-<div>
-<p class="sub">The Python web service tracked payment state, user sessions, order metadata, photo metadata, and queue handoff. S3 stored the image files. Kafka connected the web server to the GPU worker without keeping HTTP requests open.</p>
-<ul class="bullets" style="--c:var(--data)">
-<li><strong>Postgres:</strong> <span>users, payors, orders, themes, training photos, result photos.</span></li>
-<li><strong>S3:</strong> <span>training and result image objects organized by order ID.</span></li>
-<li><strong>Redis:</strong> <span>session and cache state updated after payment and upload transitions.</span></li>
-</ul>
-</div>
-<div class="diagram">
-<div class="cap">web service boundary</div>
-<div class="pipeline">
-<span class="node product">Next.js</span><span class="arr">-></span>
-<div class="stack"><span class="node data">Litestar API</span><span class="node data">Postgres</span></div><span class="arr">-></span>
-<div class="stack"><span class="node ops">S3 photos</span><span class="node ml">Kafka job</span></div>
-</div>
-</div>
-</div>
-</div>
-<div class="face detail">
-<div class="det-head">Grounding · training contract</div>
-<div class="det-title">The web backend converted checkout and uploads into one durable training contract.</div>
-<p class="det-sub">After payment, upload saved cropped photos to S3, recorded photo metadata in Postgres, moved the order into `training`, and produced a compact job payload. The GPU side did not need the web session or uploaded binaries; it needed an order ID, selected themes, subject traits, and stable S3 object keys.</p>
-<div class="contract-grid">
-<div class="contract-box" style="--x:var(--product)"><div class="k">customer state</div><div class="v">paid order</div><p>Stripe webhook marks the order paid and gives guest users an upload link.</p></div>
-<div class="contract-box" style="--x:var(--data)"><div class="k">photo state</div><div class="v">S3 keys + DB rows</div><p>Training photos are stored as objects; Postgres keeps order, theme, and photo metadata.</p></div>
-<div class="contract-box" style="--x:var(--ml)"><div class="k">model inputs</div><div class="v">subject traits</div><p>Hair, eyes, glasses, sex, age, name, and selected themes become prompt and training parameters.</p></div>
-<div class="contract-box" style="--x:var(--ops)"><div class="k">queue payload</div><div class="v">TrainingJob</div><p>The GPU worker receives a bounded job schema instead of a long-running HTTP request.</p></div>
-</div>
-</div>
-</section>
-
-<section class="slide">
-<div class="flipchip"><span class="sw"></span>detail</div>
-<div class="face overview">
-<div class="eyebrow ml"><span class="ph">04</span> Async jobs</div>
-<h1 class="title-lg">Kafka handed work to the GPU, then handed results back to the <span class="m">web app</span>.</h1>
-<div class="split">
-<div>
-<p class="sub">The web server produced a message on the training topic after upload. The GPU worker consumed one order at a time, ran the expensive ML pipeline, uploaded generated images to S3, then produced a message on the results photo topic so the web app could mark the order complete and email the customer.</p>
-<ul class="bullets" style="--c:var(--ml)">
-<li><strong>Two topics:</strong> <span>one for GPU training, one for web fulfillment after results land in S3.</span></li>
-<li><strong>One order per GPU worker:</strong> <span>each job could monopolize scarce GPU time for a long run.</span></li>
-<li><strong>Manual commits:</strong> <span>the worker committed offsets after the handler completed.</span></li>
-</ul>
-</div>
 <div class="diagram">
 <div class="cap">async fulfillment loop</div>
 <div class="handoff">
-<div class="handoff-node cpu"><b>BE upload endpoint</b><span>CPU · Litestar<br>Postgres status -> training</span></div>
+<div class="handoff-node cpu"><b>Upload endpoint</b><span>validated photo keys<br>order → training</span></div>
 <div class="handoff-arrow">-></div>
-<div class="handoff-node topic"><b>training_ds</b><span>Kafka topic<br>TrainingJob schema</span></div>
+<div class="handoff-node topic"><b>Training queue</b><span>durable job<br>small payload</span></div>
 <div class="handoff-arrow">-></div>
-<div class="handoff-node gpu"><b>GPU ML worker</b><span>ML training worker<br>PyTorch merge + inference</span></div>
-<div class="handoff-node store"><b>S3 result photos</b><span>object storage<br>result_photos/<br>order_id</span></div>
+<div class="handoff-node gpu"><b>GPU worker</b><span>identity training<br>merge + inference</span></div>
+<div class="handoff-node store"><b>S3 results</b><span>portrait objects<br>by order ID</span></div>
 <div class="handoff-arrow">-></div>
-<div class="handoff-node topic"><b>save_result_<br>photos_ws</b><span>Kafka topic<br>result-save request</span></div>
+<div class="handoff-node topic"><b>Result queue</b><span>gallery-save<br>request</span></div>
 <div class="handoff-arrow">-></div>
-<div class="handoff-node cpu"><b>BE result saver</b><span>CPU · Litestar<br>Postgres rows + trained</span></div>
-<div class="handoff-node store"><b>Postgres DB</b><span>gallery rows<br>status trained</span></div>
+<div class="handoff-node cpu"><b>Web service</b><span>gallery rows<br>order → trained</span></div>
+<div class="handoff-node store"><b>Postgres</b><span>order state<br>photo metadata</span></div>
 <div class="handoff-arrow">+</div>
-<div class="handoff-node email"><b>Email service</b><span>gallery link<br>return path</span></div>
+<div class="handoff-node email"><b>Email</b><span>gallery link<br>return path</span></div>
 </div>
 </div>
 </div>
 </div>
-<div class="face detail">
-<div class="split">
-<div>
-<div class="det-head">Grounding · orchestration tradeoff</div>
-<div class="det-title">The queue boundary protected the web app from GPU runtime, but the GPU job still needed better internal state.</div>
-<p class="det-sub">Inside one handler, the GPU server downloaded training photos, created models, ran inference, uploaded results, cleaned local files, and then produced a result-save job back to the web service. I kept stage outputs on disk while the job was active, so a failure during inference or upload did not automatically mean starting from raw photos again.</p>
-<div class="strip" style="--c:var(--ml)"><span class="lb">Tradeoff</span> Kafka made the web-to-GPU handoff durable, but the training job itself was still a large stateful unit. At higher volume I would move stage checkpoints into backend state so retries, support, and scheduling could reason about each phase directly.</div>
-</div>
-<div class="diagram">
-<div class="cap">inside the GPU handler</div>
-<div class="flowrow">
-<span class="node store">S3 training photos</span><span class="arr">-></span>
-<span class="node ml">ML training code</span><span class="arr">-></span>
-<span class="node ml">style merges</span><span class="arr">-></span>
-<span class="node ml">prompt batches</span><span class="arr">-></span>
-<span class="node store">S3 result photos</span>
-</div>
-</div>
+<div class="face overview">
+<div class="eyebrow data"><span class="ph">02</span> End-to-end system</div>
+<h1 class="title-lg">Product stack</h1>
+<p class="det-sub">The frontend collected payment, subject traits, and validated photos. The web service persisted the order and handed a bounded job to the GPU worker. Postgres stored durable state, S3 stored image binaries, and Kafka connected the long-running stages.</p>
+<div class="stackmap">
+<div class="stackstage" style="--x:var(--product)"><div class="k">Web UI</div><div class="v">Next.js</div><p>Tailwind<br>Zustand<br>React Query<br>NextAuth + Stripe<br>face-api.js + smartcrop</p></div>
+<div class="stackstage" style="--x:var(--data)"><div class="k">Web service</div><div class="v">Python API</div><p>Litestar<br>SQLAlchemy<br>payment webhooks<br>order transitions<br>photo metadata</p></div>
+<div class="stackstage" style="--x:var(--ops)"><div class="k">Persistence</div><div class="v">Postgres + S3</div><p>orders and users<br>theme selection<br>training photo keys<br>result photo keys<br>session cache</p></div>
+<div class="stackstage" style="--x:var(--product)"><div class="k">Orchestration</div><div class="v">Kafka</div><p>training jobs<br>result-save jobs<br>manual commits<br>bounded schemas<br>durable queue boundary</p></div>
+<div class="stackstage" style="--x:var(--ml)"><div class="k">Generation</div><div class="v">GPU worker</div><p>DreamBooth<br>PyTorch merging<br>prompt batches<br>high-res correction<br>upscaling</p></div>
 </div>
 </div>
 </section>
 
 <section class="slide slide--model">
-<div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
-<div class="eyebrow ml"><span class="ph">05</span> Model pipeline</div>
+<div class="eyebrow ml"><span class="ph">03</span> Model pipeline</div>
 <h1 class="title-lg">The product trained identity once, then branched into <span class="m">selected styles</span>.</h1>
 <div class="split">
 <div>
-<p class="sub">The GPU server used a forked DreamBooth flow to train a personalized checkpoint from the uploaded photos. Then custom PyTorch merging code blended that identity model with the pretrained style models required by the customer's package before running prompt batches.</p>
+<p class="sub">The GPU server used my own DreamBooth implementation to train a personalized checkpoint from the uploaded photos. Then custom PyTorch merging code blended that identity model with the pretrained style models required by the customer's package before running prompt batches.</p>
 <ul class="bullets" style="--c:var(--ml)">
 <li><strong>Identity once:</strong> <span>one person checkpoint captures the uploaded subject.</span></li>
 <li><strong>Style branches:</strong> <span>selected package themes decide which custom style checkpoints get merged.</span></li>
@@ -345,8 +273,11 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </div>
 </div>
 </div>
-<div class="face detail">
-<div class="det-head">Grounding · ML engineering reality</div>
+</section>
+
+<section class="slide slide--model">
+<div class="face overview">
+<div class="eyebrow ml"><span class="ph">04</span> ML engineering reality</div>
 <div class="det-title">Training models was harder than writing software... imo</div>
 <p class="det-sub">Software gives me a fast, mostly deterministic feedback loop. Model training does not. The hardest part of this project was ensuring good results. I made my own <a href="https://arxiv.org/abs/2208.12242" target="_blank" rel="noreferrer">DreamBooth implementation</a>: I changed its execution path for synchronous worker use, customized the per-customer training configuration, selected class-specific regularization data based on the customer’s subject class, and normalized epoch count against the number of uploaded photos to target approximately 1,700 total training steps. I built prompt templates around characteristics such as hair, eyes, and age. I tested sampler settings and seeds, spent weeks curating better training sets, and added an upscaler step when customers paid for larger outputs. A major breakthrough was model merging. Instead of training each customer in four different styles, each with a different base model, I trained the identity once and transferred its learned delta into each style checkpoint. Model merging was still novel then, but it cut GPU time in half on average while preserving quality in the final outputs.</p>
 <div class="arch">
@@ -361,54 +292,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <section class="slide">
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
-<div class="eyebrow ops"><span class="ph">06</span> Scaling path</div>
-<h1 class="title-lg">Scarce GPUs made queueing and status part of the <span class="o">product</span>.</h1>
-<div class="levers">
-<div class="lever" style="--x:var(--product)"><div class="ix">Product</div><h3>Async promise,<br>not realtime</h3><p>The model path was too heavy for an instant UX, even with more GPU capacity.</p></div>
-<div class="lever" style="--x:var(--ml)"><div class="ix">Compute</div><h3>Identity training<br>plus style branches</h3><p>Each order required personalized training and multiple themed inference batches.</p></div>
-<div class="lever" style="--x:var(--data)"><div class="ix">Data</div><h3>Status became<br>user experience</h3><p>Queue position, email return paths, and gallery state mattered because users left and came back.</p></div>
-</div>
-<div class="strip" style="--c:var(--ops)"><span class="lb">Next scaling step</span> Add GPU capacity-aware scheduling, parallelize orders across a GPU pool, persist per-stage state, add dead-letter/manual rerun flows, and expose ETA from queue depth plus historical job time.</div>
-</div>
-<div class="face detail">
-<div class="det-head">Grounding · what I would change at higher scale</div>
-<div class="det-title">More GPUs would increase throughput, but the product would still be asynchronous.</div>
-<div class="arch">
-<div class="tcard" style="--x:var(--ops)"><span class="tag">scheduler</span><div class="nm">Capacity-aware queueing</div><div class="role">GPU pool pressure</div><p>Track available GPU workers and route paid jobs, trials, retries, and reruns with explicit priorities.</p></div>
-<div class="tcard" style="--x:var(--data)"><span class="tag">state</span><div class="nm">Stage checkpoints</div><div class="role">resume and observability</div><p>Persist downloaded, trained, merged, inferred, uploaded, persisted, and notified states.</p></div>
-<div class="tcard" style="--x:var(--ml)"><span class="tag">parallelism</span><div class="nm">Order-level concurrency</div><div class="role">throughput, not realtime</div><p>Run independent orders in parallel across GPUs while keeping each order's identity-training pipeline async.</p></div>
-</div>
-</div>
-</section>
-
-<section class="slide">
-<div class="flipchip"><span class="sw"></span>detail</div>
-<div class="face overview">
-<div class="eyebrow"><span class="ph">07</span> product · architecture · learning</div>
-<h1 class="title-lg">Quality-first output.<br>Async GPU pipeline.<br>Email-driven delivery.</h1>
-<div class="levers">
-<div class="lever" style="--x:var(--product)"><div class="ix">Ownership</div><h3>Built the whole<br>product loop</h3><p>Checkout, upload guidance, async expectations, email delivery, gallery, support, and trial upsell.</p></div>
-<div class="lever" style="--x:var(--data)"><div class="ix">Architecture</div><h3>Orders in Postgres.<br>Images in S3.</h3><p>Postgres tracked order state. S3 stored photos. Kafka bridged the web app and GPU worker.</p></div>
-<div class="lever" style="--x:var(--ml)"><div class="ix">ML system</div><h3>Identity model to<br>style branches</h3><p>Personalized checkpoints were merged with style models and used to generate themed galleries.</p></div>
-</div>
-<div class="strip"><span class="lb">The through-line</span> AnimePics was a product and systems exercise: set expectations that quality takes time, spend real GPU time per order, and make an asynchronous consumer workflow feel reliable through status, email, and gallery delivery.</div>
-</div>
-<div class="face detail">
-<div class="det-head">Grounding · quality and delivery</div>
-<div class="det-title">The product chose async delivery so the model could spend enough time on quality.</div>
-<p class="det-sub">A key product decision was not to promise instant results. With one GPU, a single personalized job could take more than an hour, and a queue of orders could push delivery into multiple hours. The user experience was built around that reality: pay, upload validated photos, leave, then come back from email when the gallery was ready.</p>
-<div class="arch">
-<div class="tcard" style="--x:var(--product)"><span class="tag">expectation</span><div class="nm">Async by design</div><div class="role">quality over immediacy</div><p>The wait was not hidden; the product flow made long-running generation normal.</p></div>
-<div class="tcard" style="--x:var(--ml)"><span class="tag">constraint</span><div class="nm">Heavy ML path</div><div class="role">serial work per order</div><p>Identity training, model merges, and prompt batches made queueing and status part of fulfillment.</p></div>
-<div class="tcard" style="--x:var(--ops)"><span class="tag">delivery</span><div class="nm">Email integration</div><div class="role">return path</div><p>Payment, upload, and fulfillment emails brought users back to finish uploads or view completed galleries.</p></div>
-</div>
-</div>
-</section>
-
-<section class="slide">
-<div class="flipchip"><span class="sw"></span>detail</div>
-<div class="face overview">
-<div class="eyebrow ops"><span class="ph">08</span> Failure mode</div>
+<div class="eyebrow ops"><span class="ph">05</span> Failure mode</div>
 <h1 class="title-lg">The product was technically differentiated.<br>The business did not have <span class="o">distribution</span>.</h1>
 <div class="levers">
 <div class="lever" style="--x:var(--ml)"><div class="ix">Edge</div><h3>Owned GPU and<br>custom ML</h3><p>Running my own GPU meant I was not just reselling a commodity API. I could tune quality and spend real compute per order.</p></div>
@@ -431,7 +315,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 
 </div>
 <div class="hud"><div class="nav"><button id="prev" aria-label="previous slide">&lsaquo;</button></div><div class="dots" id="dots"></div><div class="nav"><button id="next" aria-label="next slide">&rsaquo;</button></div></div>
-<div class="hint">left/right advance · detail toggle / space flips detail</div>
+<div class="hint" id="hint">left/right advance · detail toggle / space flips detail</div>
 <div class="count"><span id="cur">1</span>/<span id="tot">10</span></div>
 <script>
 const slides=[...document.querySelectorAll('.slide')];
@@ -442,8 +326,8 @@ function syncUrl(){const url=new URL(location.href);url.searchParams.set('slide'
 document.getElementById('tot').textContent=slides.length;
 slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',e=>{e.stopPropagation();go(n)});dotsWrap.appendChild(b)});
 const dots=[...dotsWrap.children];
-function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k!==i)s.classList.remove('flip')});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;if(updateUrl)syncUrl()}
-function next(){go(i+1)}function prev(){go(i-1)}function flip(){slides[i].classList.toggle('flip')}
+function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k!==i)s.classList.remove('flip')});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;document.getElementById('hint').textContent=slides[i].querySelector('.face.detail')?'left/right advance · detail toggle / space flips detail':'left/right advance';if(updateUrl)syncUrl()}
+function next(){go(i+1)}function prev(){go(i-1)}function flip(){if(slides[i].querySelector('.face.detail'))slides[i].classList.toggle('flip')}
 document.getElementById('next').addEventListener('click',e=>{e.stopPropagation();next()});
 document.getElementById('prev').addEventListener('click',e=>{e.stopPropagation();prev()});
 document.querySelectorAll('.flipchip').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();flip()}));
