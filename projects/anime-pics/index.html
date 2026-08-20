@@ -149,7 +149,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · system shape</div>
-<div class="det-title">The work was a whole product system, not just a diffusion script.</div>
+<div class="det-title">The work split into three parts: experience, orchestration, and generation.</div>
 <p class="det-sub">The system split into a Next.js frontend, a Python API/worker backend, a GPU diffusion server, and a separate image workspace for style experiments and regularization assets. The frontend code shows the user path directly: subject info, theme/package selection, Stripe checkout, upload, dashboard/order completion, and gallery delivery.</p>
 <div class="arch">
 <div class="tcard" style="--x:var(--product)"><span class="tag">product surface</span><div class="nm">Funnel and delivery</div><div class="role">checkout, upload, email, gallery</div><p>Mobile-first flow for guest checkout, paid upload, async status, and return-to-gallery email delivery.</p></div>
@@ -163,7 +163,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
 <div class="eyebrow"><span class="ph">01</span> Funnel</div>
-<h1 class="title-lg">The flow had to feel simple before the <span class="p">long wait</span>.</h1>
+<h1 class="title-lg">The product was designed around <span class="p">long-running jobs</span> and limited GPU capacity.</h1>
 <div class="journey">
 <div class="step"><div class="num">01</div><div class="name">Choose</div><p>User selects package, themes, and subject traits needed by prompts.</p></div>
 <div class="step"><div class="num">02</div><div class="name">Pay</div><p>Stripe checkout creates a durable paid order before expensive GPU work starts.</p></div>
@@ -348,12 +348,12 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="face detail">
 <div class="det-head">Grounding · ML engineering reality</div>
 <div class="det-title">Training models was harder than writing software... imo</div>
-<p class="det-sub">Software gives me a fast, mostly deterministic feedback loop. Model training does not. The hardest part of this project was ensuring good results. I made my own <a href="https://arxiv.org/abs/2208.12242" target="_blank" rel="noreferrer">DreamBooth implementation</a>, tuned hyperparameters for each style model, selected subject-specific class-regularization images, and made the epoch count depend on the number of uploaded photos. I built prompt templates around characteristics such as hair, eyes, and age. I tested sampler settings and seeds, spent weeks curating better training sets, and added an upscaler step when customers paid for larger outputs. A major breakthrough was model merging. Instead of training each customer in four different styles, each with a different base model, I trained the identity once and merged it with each style model at inference time. Model merging was still novel then, but it cut GPU time in half on average while preserving quality in the final outputs.</p>
+<p class="det-sub">Software gives me a fast, mostly deterministic feedback loop. Model training does not. The hardest part of this project was ensuring good results. I made my own <a href="https://arxiv.org/abs/2208.12242" target="_blank" rel="noreferrer">DreamBooth implementation</a>: I changed its execution path for synchronous worker use, customized the per-customer training configuration, selected class-specific regularization data based on the customer’s subject class, and normalized epoch count against the number of uploaded photos to target approximately 1,700 total training steps. I built prompt templates around characteristics such as hair, eyes, and age. I tested sampler settings and seeds, spent weeks curating better training sets, and added an upscaler step when customers paid for larger outputs. A major breakthrough was model merging. Instead of training each customer in four different styles, each with a different base model, I trained the identity once and transferred its learned delta into each style checkpoint. Model merging was still novel then, but it cut GPU time in half on average while preserving quality in the final outputs.</p>
 <div class="arch">
 <div class="tcard" style="--x:var(--ml)"><span class="tag">feedback loop</span><div class="nm">Painfully slow evals</div><div class="role">quality was slow to measure</div><p>Just as gradient descent only tells you directionally where to go, improving the model felt similar. Each change had to be tested in isolation and run against multiple types of users.</p></div>
 <div class="tcard" style="--x:var(--ops)"><span class="tag">failed pain</span><div class="nm">GPU environments were fragile</div><div class="role">PyTorch, CUDA, xformers</div><p>The exact package versions had to line up with the GPU before training could run. Changing hardware often meant rebuilding the environment.</p></div>
 <div class="tcard" style="--x:var(--product)"><span class="tag">lesson</span><div class="nm">Data quality mattered most</div><div class="role">the highest-leverage variable</div><p>Great training data and an okay model &gt; okay training data and a great model.</p></div>
-<div class="tcard" style="--x:var(--data)"><span class="tag">optimization</span><div class="nm">Model merging</div><div class="role">~50% less GPU time</div><p>Train the identity once, then merge it with four style checkpoints at inference time. That replaced four separate training runs while preserving output quality.</p></div>
+<div class="tcard" style="--x:var(--data)"><span class="tag">optimization</span><div class="nm">Model merging</div><div class="role">~50% less GPU time</div><p>Train identity once, then transfer its learned delta into each style checkpoint: style + 0.9 × (personalized − base). That replaced four separate training runs while preserving output quality.</p></div>
 </div>
 </div>
 </section>
@@ -412,15 +412,15 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <h1 class="title-lg">The product was technically differentiated.<br>The business did not have <span class="o">distribution</span>.</h1>
 <div class="levers">
 <div class="lever" style="--x:var(--ml)"><div class="ix">Edge</div><h3>Owned GPU and<br>custom ML</h3><p>Running my own GPU meant I was not just reselling a commodity API. I could tune quality and spend real compute per order.</p></div>
-<div class="lever" style="--x:var(--product)"><div class="ix">Constraint</div><h3>Cost forced<br>revenue</h3><p>That same edge made the product expensive to operate. It needed paid conversion, not just usage.</p></div>
+<div class="lever" style="--x:var(--product)"><div class="ix">Constraint</div><h3>Low utilization<br>hurt economics</h3><p>At low volume, dedicated GPU capacity sat underused while paid acquisition failed to create enough demand to amortize it.</p></div>
 <div class="lever" style="--x:var(--stop)"><div class="ix">Failure</div><h3>No GTM<br>flywheel</h3><p>The product was better than competitors at the time, but marketing was weak and there was no built-in distribution loop.</p></div>
 </div>
 <div class="strip" style="--c:var(--ops)"><span class="lb">Market lesson</span> The idea was directionally right. Later, when the OpenAI image model made "Ghibli-fying" yourself a fad, the mass-market version won on speed, quality, and breadth: roughly seconds instead of an hour, plus support for multiple people, pets, and more arbitrary scenes.</div>
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · why it ended</div>
-<div class="det-title">Quality alone was not enough to overcome speed, cost, and distribution.</div>
-<p class="det-sub">AnimePics could produce higher-quality personalized outputs because it controlled the GPU workflow and spent meaningful time per order. But the experience was not magical enough to sell itself: delivery could take hours, the product needed revenue to cover compute, and I did not build a repeatable channel or social sharing flywheel that made acquisition cheaper over time.</p>
+<div class="det-title">Quality alone was not enough to overcome speed, utilization, and distribution.</div>
+<p class="det-sub">AnimePics could produce higher-quality personalized outputs because it controlled the GPU workflow and spent meaningful time per order. But the experience was not magical enough to sell itself: delivery could take hours, low order volume left dedicated GPU capacity underused, and I did not build a repeatable channel or social sharing flywheel that made acquisition cheaper over time.</p>
 <div class="arch">
 <div class="tcard" style="--x:var(--ml)"><span class="tag">technical win</span><div class="nm">Not commodity API wrapper</div><div class="role">custom pipeline</div><p>Owning the GPU and model path created room to compete on output quality.</p></div>
 <div class="tcard" style="--x:var(--product)"><span class="tag">product miss</span><div class="nm">Not magical enough</div><div class="role">delay hurt delight</div><p>One-hour-plus delivery made the payoff less immediate than consumer AI users increasingly expected.</p></div>
