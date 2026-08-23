@@ -169,8 +169,8 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 
 <section class="slide">
 <div class="flipchip"><span class="sw"></span>detail</div>
-<div class="face overview">
-<div class="eyebrow bus"><span class="ph">01</span> Requirements</div>
+<div class="face detail">
+<div class="det-head">Grounding · failure modes</div>
 <h1 class="title-lg">We designed around the <span class="b">failure modes</span> we had already hit.</h1>
 <div class="levers">
 <div class="lever" style="--x:var(--consistency)"><div class="ix">Producer</div><h3>State and event<br>commit together</h3><p>A DB write and an emitted event cannot disagree after a crash.</p></div>
@@ -179,9 +179,10 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </div>
 <div class="strip" style="--c:var(--bus)"><span class="lb">The adoption constraint</span> Beyond the failure modes, we emphasized developer experience so teams could adopt the platform under normal delivery pressure.</div>
 </div>
-<div class="face detail">
-<div class="det-head">Grounding · proposal checklist</div>
-<div class="det-title">Every option got scored against scale, cost, reversibility, and ownership.</div>
+<div class="face overview">
+<div class="eyebrow bus"><span class="ph">01</span> Requirements</div>
+<div class="det-title">I defined the requirements in collaboration with engineering team leads.</div>
+<p class="det-sub">Every option got scored against scale, cost, reversibility, and ownership.</p>
 <div class="arch">
 <div class="tcard" style="--x:var(--consistency)"><span class="tag">must have</span><div class="nm">strong consistency</div><div class="role">local transaction boundary</div><p>Network partitions and crashes cannot create a committed entity with no event.</p></div>
 <div class="tcard" style="--x:var(--bus)"><span class="tag">must have</span><div class="nm">schema validation</div><div class="role">contract compatibility</div><p>Without a schema contract, the bus just moves breaking changes faster.</p></div>
