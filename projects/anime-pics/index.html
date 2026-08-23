@@ -235,10 +235,10 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <p class="det-sub">The frontend collected payment, subject traits, and validated photos. The web service persisted the order and handed a bounded job to the GPU worker. Postgres stored durable state, S3 stored image binaries, and Kafka connected the long-running stages.</p>
 <div class="stackmap">
 <div class="stackstage" style="--x:var(--product)"><div class="k">Web UI</div><div class="v">Next.js</div><p>Tailwind<br>Zustand<br>React Query<br>NextAuth + Stripe<br>face-api.js + smartcrop</p></div>
-<div class="stackstage" style="--x:var(--data)"><div class="k">Web service</div><div class="v">Python API</div><p>Litestar<br>SQLAlchemy<br>payment webhooks<br>order transitions<br>photo metadata</p></div>
-<div class="stackstage" style="--x:var(--ops)"><div class="k">Persistence</div><div class="v">Postgres + S3</div><p>orders and users<br>theme selection<br>training photo keys<br>result photo keys<br>session cache</p></div>
-<div class="stackstage" style="--x:var(--product)"><div class="k">Orchestration</div><div class="v">Kafka</div><p>training jobs<br>result-save jobs<br>manual commits<br>bounded schemas<br>durable queue boundary</p></div>
-<div class="stackstage" style="--x:var(--ml)"><div class="k">Generation</div><div class="v">GPU worker</div><p>DreamBooth<br>PyTorch merging<br>prompt batches<br>high-res correction<br>upscaling</p></div>
+<div class="stackstage" style="--x:var(--data)"><div class="k">Web service</div><div class="v">Python API</div><p>Litestar<br>SQLAlchemy<br>Stripe webhooks<br>Redis authz</p></div>
+<div class="stackstage" style="--x:var(--ops)"><div class="k">Persistence</div><div class="v">Postgres + S3</div><p>orders and users<br>theme selection<br>training photo keys<br>result photo keys</p></div>
+<div class="stackstage" style="--x:var(--product)"><div class="k">Orchestration</div><div class="v">Kafka</div><p>training jobs<br>result-save jobs<br>manual commits<br>Pydantic schema</p></div>
+<div class="stackstage" style="--x:var(--ml)"><div class="k">Generation</div><div class="v">GPU worker</div><p>training<br>inference<br>PyTorch merging<br>prompt batches<br>high-res correction<br>upscaling</p></div>
 </div>
 </div>
 </section>
@@ -246,10 +246,11 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <section class="slide slide--model">
 <div class="face overview">
 <div class="eyebrow ml"><span class="ph">03</span> Model pipeline</div>
-<h1 class="title-lg">The product trained identity once, then branched into <span class="m">selected styles</span>.</h1>
+<h1 class="title-lg">Model pipeline</h1>
+<p class="sub">The product trained identity once, then branched into selected styles.</p>
 <div class="split">
 <div>
-<p class="sub">The GPU server used my own DreamBooth implementation to train a personalized checkpoint from the uploaded photos. Then custom PyTorch merging code blended that identity model with the pretrained style models required by the customer's package before running prompt batches.</p>
+<p class="sub">The GPU server used my own DreamBooth implementation to train a personalized checkpoint from the uploaded photos. Custom PyTorch code then merged that identity checkpoint into each selected style model. Reusing the checkpoint avoided training once per style and saved substantial GPU time. GPU compute was by far the product's largest expense.</p>
 <ul class="bullets" style="--c:var(--ml)">
 <li><strong>Identity once:</strong> <span>one person checkpoint captures the uploaded subject.</span></li>
 <li><strong>Style branches:</strong> <span>selected package themes decide which custom style checkpoints get merged.</span></li>
@@ -279,7 +280,7 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="face overview">
 <div class="eyebrow ml"><span class="ph">04</span> ML engineering reality</div>
 <div class="det-title">Training models was harder than writing software... imo</div>
-<p class="det-sub">Software gives me a fast, mostly deterministic feedback loop. Model training does not. The hardest part of this project was ensuring good results. I made my own <a href="https://arxiv.org/abs/2208.12242" target="_blank" rel="noreferrer">DreamBooth implementation</a>: I changed its execution path for synchronous worker use, customized the per-customer training configuration, selected class-specific regularization data based on the customer’s subject class, and normalized epoch count against the number of uploaded photos to target approximately 1,700 total training steps. I built prompt templates around characteristics such as hair, eyes, and age. I tested sampler settings and seeds, spent weeks curating better training sets, and added an upscaler step when customers paid for larger outputs. A major breakthrough was model merging. Instead of training each customer in four different styles, each with a different base model, I trained the identity once and transferred its learned delta into each style checkpoint. Model merging was still novel then, but it cut GPU time in half on average while preserving quality in the final outputs.</p>
+<p class="det-sub">Software gives me a fast, mostly deterministic feedback loop. Model training does not. The hardest part of this project was ensuring good results. I made my own <a href="https://arxiv.org/abs/2208.12242" target="_blank" rel="noreferrer">DreamBooth implementation</a>. I also customized training for each customer: I selected class-specific regularization data based on the customer’s subject class and normalized epoch count against the number of uploaded photos to target approximately 1,700 total training steps. I built prompt templates around characteristics such as hair, eyes, and age. I tested sampler settings and seeds, spent weeks curating better training sets, and added an upscaler step when customers paid for larger outputs. A major breakthrough was model merging. Instead of training each customer in four different styles, each with a different base model, I trained the identity once and transferred its learned delta into each style checkpoint. Model merging was still novel then, but it cut GPU time in half on average while preserving quality in the final outputs.</p>
 <div class="arch">
 <div class="tcard" style="--x:var(--ml)"><span class="tag">feedback loop</span><div class="nm">Painfully slow evals</div><div class="role">quality was slow to measure</div><p>Just as gradient descent only tells you directionally where to go, improving the model felt similar. Each change had to be tested in isolation and run against multiple types of users.</p></div>
 <div class="tcard" style="--x:var(--ops)"><span class="tag">failed pain</span><div class="nm">GPU environments were fragile</div><div class="role">PyTorch, CUDA, xformers</div><p>The exact package versions had to line up with the GPU before training could run. Changing hardware often meant rebuilding the environment.</p></div>
@@ -289,27 +290,16 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 </div>
 </section>
 
-<section class="slide">
-<div class="flipchip"><span class="sw"></span>detail</div>
+<section class="slide no-detail">
 <div class="face overview">
 <div class="eyebrow ops"><span class="ph">05</span> Failure mode</div>
 <h1 class="title-lg">The product was technically differentiated.<br>The business did not have <span class="o">distribution</span>.</h1>
 <div class="levers">
-<div class="lever" style="--x:var(--ml)"><div class="ix">Edge</div><h3>Owned GPU and<br>custom ML</h3><p>Running my own GPU meant I was not just reselling a commodity API. I could tune quality and spend real compute per order.</p></div>
-<div class="lever" style="--x:var(--product)"><div class="ix">Constraint</div><h3>Low utilization<br>hurt economics</h3><p>At low volume, dedicated GPU capacity sat underused while paid acquisition failed to create enough demand to amortize it.</p></div>
 <div class="lever" style="--x:var(--stop)"><div class="ix">Failure</div><h3>No GTM<br>flywheel</h3><p>The product was better than competitors at the time, but marketing was weak and there was no built-in distribution loop.</p></div>
+<div class="lever" style="--x:var(--product)"><div class="ix">Constraint</div><h3>Low utilization<br>hurt economics</h3><p>At low volume, dedicated GPU capacity sat underused while paid acquisition failed to create enough demand to amortize it.</p></div>
+<div class="lever" style="--x:var(--ml)"><div class="ix">Product miss</div><h3>Not magical enough</h3><p>The result took more than an hour and could include only one person. People often wanted anime photos with friends, family, or pets.</p></div>
 </div>
 <div class="strip" style="--c:var(--ops)"><span class="lb">Market lesson</span> The idea was directionally right. Later, when the OpenAI image model made "Ghibli-fying" yourself a fad, the mass-market version won on speed, quality, and breadth: roughly seconds instead of an hour, plus support for multiple people, pets, and more arbitrary scenes.</div>
-</div>
-<div class="face detail">
-<div class="det-head">Grounding · why it ended</div>
-<div class="det-title">Quality alone was not enough to overcome speed, utilization, and distribution.</div>
-<p class="det-sub">AnimePics could produce higher-quality personalized outputs because it controlled the GPU workflow and spent meaningful time per order. But the experience was not magical enough to sell itself: delivery could take hours, low order volume left dedicated GPU capacity underused, and I did not build a repeatable channel or social sharing flywheel that made acquisition cheaper over time.</p>
-<div class="arch">
-<div class="tcard" style="--x:var(--ml)"><span class="tag">technical win</span><div class="nm">Not commodity API wrapper</div><div class="role">custom pipeline</div><p>Owning the GPU and model path created room to compete on output quality.</p></div>
-<div class="tcard" style="--x:var(--product)"><span class="tag">product miss</span><div class="nm">Not magical enough</div><div class="role">delay hurt delight</div><p>One-hour-plus delivery made the payoff less immediate than consumer AI users increasingly expected.</p></div>
-<div class="tcard" style="--x:var(--stop)"><span class="tag">business miss</span><div class="nm">No distribution engine</div><div class="role">marketing and GTM</div><p>Poor marketing and no durable acquisition loop meant quality did not translate into scale.</p></div>
-</div>
 </div>
 </section>
 
