@@ -136,7 +136,19 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 .slide--prebus .title-lg{font-size:clamp(30px,4vw,54px);max-width:16ch}
 .slide--prebus .sub{font-size:clamp(14px,1.32vw,17px);line-height:1.45;max-width:78ch;margin-top:14px}
 .slide--prebus .prebus-diagram{margin-top:20px}
-@media(max-width:900px){.slide{--pad-top:6.5vh;--pad-x:6vw;--pad-bottom:8vh;--hud-space:72px}.split,.levers,.stats,.arch,.badflow,.sidecar-flow,.fanout .choices,.option-detail,.sidecar-model .containers{grid-template-columns:1fr}.slide--consumer .face.overview::after{content:"";display:block;flex:0 0 84px}.cont{grid-template-columns:1fr;gap:14px}.equals{padding:4px}.outboxviz{grid-template-columns:1fr}.prebus-diagram{aspect-ratio:1.25/1;padding:12px}.prebus-node{font-size:13px;min-height:48px;padding:10px}.prebus-label{font-size:9px;padding:3px 5px}.arr,.flowarrow{transform:rotate(90deg);justify-self:center}.flowarrow{min-height:34px}.flipchip{right:var(--pad-x)}.hint{display:none}}
+.slide--2026 .title-lg{max-width:none}
+.slide--2026 .eyebrow{margin-bottom:14px}
+.slide--2026 .sub{max-width:78ch;margin-top:14px}
+.slide--2026 .levers{margin-top:22px}
+.slide--2026 .lever{padding:18px}
+.slide--2026 .lever h3{font-size:clamp(18px,1.65vw,22px)}
+.slide--2026 .lever p{font-size:clamp(12.5px,1.05vw,14px)}
+.agent-additions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:14px}
+.agent-additions .lever{display:grid;grid-template-columns:.72fr 1.28fr;gap:18px;align-items:start;padding:14px 18px}
+.agent-additions .lever h3{margin:6px 0 0}
+.agent-additions .lever p{padding-top:1px}
+@media(min-width:901px) and (max-height:780px){.slide--2026{--pad-top:7vh}.slide--2026 .face{justify-content:flex-start}.slide--2026 .eyebrow{margin-bottom:8px}.slide--2026 .title-lg{font-size:clamp(30px,4vw,50px)}.slide--2026 .sub{font-size:16px;line-height:1.4;margin-top:10px}.slide--2026 .levers{margin-top:16px}.slide--2026 .lever{padding:14px}.slide--2026 .lever h3{font-size:18px;margin:6px 0}.slide--2026 .lever p{font-size:12px;line-height:1.4}.slide--2026 .agent-additions{margin-top:12px}.slide--2026 .agent-additions .lever{grid-template-columns:.68fr 1.32fr;gap:12px;padding:11px 14px}.slide--2026 .agent-additions .lever h3{font-size:16px}.slide--2026 .agent-additions .lever p{font-size:11.5px}}
+@media(max-width:900px){.slide{--pad-top:6.5vh;--pad-x:6vw;--pad-bottom:8vh;--hud-space:72px}.split,.levers,.stats,.arch,.badflow,.sidecar-flow,.fanout .choices,.option-detail,.sidecar-model .containers,.agent-additions{grid-template-columns:1fr}.agent-additions .lever{grid-template-columns:1fr}.slide--consumer .face.overview::after{content:"";display:block;flex:0 0 84px}.cont{grid-template-columns:1fr;gap:14px}.equals{padding:4px}.outboxviz{grid-template-columns:1fr}.prebus-diagram{aspect-ratio:1.25/1;padding:12px}.prebus-node{font-size:13px;min-height:48px;padding:10px}.prebus-label{font-size:9px;padding:3px 5px}.arr,.flowarrow{transform:rotate(90deg);justify-self:center}.flowarrow{min-height:34px}.flipchip{right:var(--pad-x)}.hint{display:none}}
 </style>
 </head>
 <body>
@@ -521,6 +533,23 @@ output:
 </div>
 </section>
 
+<section class="slide slide--2026">
+<div class="face overview">
+<div class="eyebrow ok"><span class="ph">10</span> Retrospective</div>
+<h1 class="title-lg">2021 → 2026: <span class="g">What might be different?</span></h1>
+<p class="sub">Developer experience should now be designed more for agents than humans. In 2021, I built a system that any product engineer could use safely without becoming an infrastructure expert. In 2026, I would give an agent the context and guardrails to help a strong engineer own more of the system.</p>
+<div class="levers">
+<div class="lever" style="--x:var(--consistency)"><div class="ix">CDC</div><h3>Keep the custom CDC outbox monitor instead of migrating to Debezium</h3><p>I migrated mainly to reduce bus-factor risk: the high-throughput WAL processing and Kafka queueing code was complex and deeply technical. My Go implementation also outperformed Debezium in our workload. Today, an agent could quickly explain it to a strong engineer, making the custom system maintainable without me available for questions.</p></div>
+<div class="lever" style="--x:var(--bus)"><div class="ix">Consumption</div><h3>Let teams own their Kafka consumers</h3><p>In 2021, asking the average product engineer to learn Kafka well enough to build a safe consumer was too large a lift, so Benthos delivered events to HTTP endpoints. In 2026, I would keep that sidecar as the default but use a skill to teach MSK IAM auth and scaffold a direct consumer when a team wants more control.</p></div>
+<div class="lever" style="--x:var(--ops)"><div class="ix">Provisioning</div><h3>Replace the onboarding meeting with an agent</h3><p>In 2021, engineers read my Notion guide, then worked with me to choose partitions and other topic requirements; I applied the Terraform module. In 2026, a Slack agent should run that interview, open the Terraform PR, send it to the engineer, and merge after approval. I only join for edits or deletes.</p></div>
+</div>
+<div class="agent-additions">
+<div class="lever" style="--x:var(--stop)"><div><div class="ix">Incident response</div><h3>Event bus incident agent</h3></div><p>With access to Datadog and the codebase, an agent knows which monitors and code paths map to each part of the bus. It can correlate WAL growth, CDC and consumer lag, DLQs, and recent deploys—then guide the owning engineer to the likely failure.</p></div>
+<div class="lever" style="--x:var(--ok)"><div><div class="ix">Schema evolution</div><h3>Schema change agent</h3></div><p>When a schema changes, an agent can find every repository and service that produces or consumes it, check compatibility, propose the coordinated code changes, and sequence the rollout.</p></div>
+</div>
+</div>
+</section>
+
 <section class="slide">
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
@@ -557,7 +586,7 @@ document.getElementById('tot').textContent=slides.length;
 slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','slide '+(n+1));b.addEventListener('click',e=>{e.stopPropagation();go(n)});dotsWrap.appendChild(b)});
 const dots=[...dotsWrap.children];
 function go(n,updateUrl=true){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>{s.classList.toggle('active',k===i);if(k!==i)s.classList.remove('flip')});dots.forEach((d,k)=>d.classList.toggle('on',k===i));document.getElementById('cur').textContent=i+1;drawLag();if(updateUrl)syncUrl()}
-function next(){go(i+1)}function prev(){go(i-1)}function flip(){slides[i].classList.toggle('flip')}
+function next(){go(i+1)}function prev(){go(i-1)}function flip(){if(slides[i].querySelector('.face.detail'))slides[i].classList.toggle('flip')}
 document.getElementById('next').addEventListener('click',e=>{e.stopPropagation();next()});
 document.getElementById('prev').addEventListener('click',e=>{e.stopPropagation();prev()});
 document.querySelectorAll('.flipchip').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();flip()}));
