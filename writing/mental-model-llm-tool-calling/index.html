@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A Mental Model for LLM Tool Calling | Eric Kennedy</title>
+    <meta name="description" content="An LLM doesn't actually call tools. It generates tokens indicating that it wants a tool called." />
+    <meta property="og:title" content="A Mental Model for LLM Tool Calling | Eric Kennedy" />
+    <meta property="og:description" content="An LLM doesn't actually call tools. It generates tokens indicating that it wants a tool called." />
+    <meta property="og:image" content="https://ekeric13.github.io/assets/writing/post_15_llm-tool-calling-thumbnail-2560x1440.png" />
+    <meta property="og:image:secure_url" content="https://ekeric13.github.io/assets/writing/post_15_llm-tool-calling-thumbnail-2560x1440.png" />
+    <meta property="og:url" content="https://ekeric13.github.io/writing/mental-model-llm-tool-calling/" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="A Mental Model for LLM Tool Calling | Eric Kennedy" />
+    <meta name="twitter:description" content="An LLM doesn't actually call tools. It generates tokens indicating that it wants a tool called." />
+    <meta name="twitter:image" content="https://ekeric13.github.io/assets/writing/post_15_llm-tool-calling-thumbnail-2560x1440.png" />
+    <link rel="icon" href="/favicon.ico?v=6" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/assets/brand/ek-v3-mark.svg?v=6" />
+    <link rel="icon" type="image/png" href="/assets/brand/ek-v3-icon-32.png?v=6" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/brand/ek-v3-apple-touch-icon.png?v=6" />
+    <link rel="stylesheet" href="../../styles/site.css?v=modernist-print-3" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a class="back-link" href="../../#writing">Back to writing</a>
+      <article>
+        <header class="post-hero">
+          <h1>A Mental Model for LLM Tool Calling</h1>
+          <img class="post-hero__image" src="../../assets/writing/post_15_llm-tool-calling-thumbnail-2560x1440.png" alt="Image for A Mental Model for LLM Tool Calling" />
+        </header>
+        <div class="post-body">
+          <p>I wanted to dive into how LLM tool calling really works since the first time you use it, it feels like magic. If the model is just predicting token after token, how can it suddenly make an API call? The short answer is: <strong>it doesn't.</strong> The runtime does though. The runtime being the server that is executing the model.</p>
+
+          <p>An LLM generates tokens indicating that it wants a tool called. Software outside the LLM interprets those tokens, runs the tool, and sends the result back to the model. Let's break it down:</p>
+
+          <h2>1. LLMs predict the next token</h2>
+
+          <p>At the most basic level, a transformer receives a sequence of tokens:</p>
+
+          <pre><code>[x1, x2, x3, ... xn]</code></pre>
+
+          <p>And produces a probability distribution for the next token:</p>
+
+          <pre><code>P(x[n+1] | x[1:n])</code></pre>
+
+          <p>Then it picks a token, appends it to the sequence, and does it again:</p>
+
+          <pre><code>prompt
+  ↓
+predict token
+  ↓
+append token
+  ↓
+predict token
+  ↓
+append token
+  ↓
+...</code></pre>
+
+          <p>Nothing about that primitive says:</p>
+
+          <pre><code>HTTP
+Bash
+Read
+Write</code></pre>
+
+          <p>It just predicts tokens.</p>
+
+          <h2>2. So how can predicting tokens cause an API call?</h2>
+
+          <p><a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/transformers/chat_extras">Model trainers give certain outputs special meaning.</a> Conceptually, the model might generate something like:</p>
+
+          <pre><code>&lt;tool_call&gt;
+{
+  "name": "get_weather",
+  "arguments": {
+    "city": "Tokyo"
+  }
+}
+&lt;/tool_call&gt;</code></pre>
+
+          <p>The exact representation depends on the model and provider. But the point I want to drive home is from the model's perspective, it just generated another sequence of tokens. But from the runtime's perspective, which has been observing the token outputs, that sequence means something:</p>
+
+          <blockquote><p>Stop generating text and return a tool request.</p></blockquote>
+
+          <p>The model did not make an HTTP request. It predicted that <code>get_weather</code> was the most appropriate thing to generate next. The software around the model is what gives that prediction real-world consequences.</p>
+
+          <h2>3. Your server actually calls the tool</h2>
+
+          <p>For a custom tool, the flow is roughly:</p>
+
+          <pre><code>Your server
+    ↓
+sends prompt + tool definitions
+    ↓
+Model provider
+    ↓
+LLM generates a tool request
+    ↓
+Model provider returns the request
+    ↓
+Your server calls the weather API</code></pre>
+
+          <p>Your server might receive something like:</p>
+
+          <pre><code>{
+  "type": "function_call",
+  "name": "get_weather",
+  "arguments": {
+    "city": "Tokyo"
+  }
+}</code></pre>
+
+          <p>Then ordinary deterministic software takes over:</p>
+
+          <pre><code>if tool_call.name == "get_weather":
+    result = weather_api.get(
+        city=tool_call.arguments["city"]
+    )</code></pre>
+
+          <p>The LLM proposes the operation. Your application decides whether to run it and performs the actual IO. The model saying:</p>
+
+          <pre><code>delete_customer(id=123)</code></pre>
+
+          <p>does not mean the customer should be deleted.</p>
+
+          <p>Your software still needs to check authentication, authorization, tenant boundaries, input validation, and business rules. The LLM proposes an action. <strong>Software decides whether that action is allowed to happen.</strong></p>
+
+          <h2>4. The tool result becomes input to another inference step</h2>
+
+          <p>Suppose the weather API returns:</p>
+
+          <pre><code>{
+  "city": "Tokyo",
+  "temperature": 27,
+  "conditions": "Rain"
+}</code></pre>
+
+          <p>Your server adds both the model's tool call and the result to the conversation in a structured form:</p>
+
+          <pre><code>{
+  "role": "assistant",
+  "tool_calls": [{
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "arguments": {"city": "Tokyo"}
+    }
+  }]
+}
+
+{
+  "role": "tool",
+  "name": "get_weather",
+  "content": "Tokyo is 27°C with rain."
+}</code></pre>
+
+          <p>This is how you square the earlier <code>&lt;tool_call&gt;</code> output with the <code>assistant</code> and <code>tool</code> messages. The model emits whatever tool-call format it was trained to use. The runtime parses that output into a structured tool-call object for your application. After your application runs the tool, it adds the result to the conversation. Before the next inference step, a <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/transformers/chat_extras">model-specific chat template</a> turns those structured messages back into the exact format the model expects.</p>
+
+          <pre><code>API / tool result
+        ↓
+structured conversation
+        ↓
+model-specific chat template
+        ↓
+serialized text
+        ↓
+tokenizer
+        ↓
+token IDs
+        ↓
+embedding layer
+        ↓
+vectors for the next inference step</code></pre>
+
+          <p>That content gets serialized into the model's expected message format, tokenized, embedded, and processed like the rest of its input. Then a new inference step begins and the model can now predict:</p>
+
+          <pre><code>It is currently 27°C and raining in Tokyo.</code></pre>
+
+          <p>So the complete loop is:</p>
+
+          <pre><code>tokens
+  ↓
+tool request
+  ↓
+normal software
+  ↓
+API response
+  ↓
+more tokens
+  ↓
+more inference</code></pre>
+
+          <p>The tool result did not get injected into some persistent internal memory. It became context for the next prediction.</p>
+
+          <h2>What happens to batching while the tool runs?</h2>
+
+          <p>When reading this, I am sure you thought about the performance implications of this and how it might effect batching. How are model providers able to most efficiently use the gpu, given they do not want the GPU sitting around waiting for your weather API. Once the model finishes generating the tool request, that inference step is done. The provider can use the GPU capacity for other requests while your server is making the API call. When your server sends the tool result back, it becomes another inference request that can be scheduled onto the GPU.</p>
+
+          <p>So tool calling is less like pausing a function halfway through:</p>
+
+          <pre><code>weather = await get_weather()</code></pre>
+
+          <p>And more like ending one model invocation and starting another:</p>
+
+          <pre><code>inference
+  ↓
+external IO
+  ↓
+new inference</code></pre>
+
+          <p>The external API does not necessarily block everyone else using the model. But it absolutely adds latency to your agent's workflow. In an inference engine such as <a target="_blank" rel="noopener noreferrer" href="https://vllm.ai/blog/2025-09-05-anatomy-of-vllm">vLLM, they might use the term batching, but under the hood it is really a complicated scheduling algorithm</a>: after each model step, finished requests can leave and new requests can join. Your tool call ends one inference request, and the tool result returns later as another. The weather API adds a gap to your workflow, but it does not reserve an empty seat on the GPU while everyone waits.</p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

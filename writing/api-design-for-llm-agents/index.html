@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How API Design Changes When Your Client Is an LLM | Eric Kennedy</title>
+    <meta name="description" content="An API response for an agent is not just data returned to a program. It is context for the model's next decision." />
+    <meta property="og:title" content="How API Design Changes When Your Client Is an LLM | Eric Kennedy" />
+    <meta property="og:description" content="An API response for an agent is not just data returned to a program. It is context for the model's next decision." />
+    <meta property="og:image" content="https://ekeric13.github.io/assets/writing/post_17_api-design-llm-agents-thumbnail-2560x1440.png" />
+    <meta property="og:image:secure_url" content="https://ekeric13.github.io/assets/writing/post_17_api-design-llm-agents-thumbnail-2560x1440.png" />
+    <meta property="og:url" content="https://ekeric13.github.io/writing/api-design-for-llm-agents/" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="How API Design Changes When Your Client Is an LLM | Eric Kennedy" />
+    <meta name="twitter:description" content="An API response for an agent is not just data returned to a program. It is context for the model's next decision." />
+    <meta name="twitter:image" content="https://ekeric13.github.io/assets/writing/post_17_api-design-llm-agents-thumbnail-2560x1440.png" />
+    <link rel="icon" href="/favicon.ico?v=6" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/assets/brand/ek-v3-mark.svg?v=6" />
+    <link rel="icon" type="image/png" href="/assets/brand/ek-v3-icon-32.png?v=6" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/brand/ek-v3-apple-touch-icon.png?v=6" />
+    <link rel="stylesheet" href="../../styles/site.css?v=modernist-print-3" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a class="back-link" href="../../#writing">Back to writing</a>
+      <article>
+        <header class="post-hero">
+          <h1>How API Design Changes When Your Client Is an LLM</h1>
+          <img class="post-hero__image" src="../../assets/writing/post_17_api-design-llm-agents-thumbnail-2560x1440.png" alt="Image for How API Design Changes When Your Client Is an LLM" />
+        </header>
+        <div class="post-body">
+          <p>APIs have historically been designed for two types of consumers:</p>
+
+          <ol>
+            <li>Humans indirectly using them through an application.</li>
+            <li>Deterministic programs consuming them directly.</li>
+          </ol>
+
+          <p>LLMs are kind of a hybrid of those two. They are programs, but they have limited context windows, lossy memory, and probabilistic reasoning. Earlier models probably operated more like a deterministic program consuming it - everything had to be setup just right. Later model improvements and more advanced harness programming have lead them to interact more like how a human might consume an api - much more flexible. It can still be slow, expensive, and unreliable if things are not setup right.</p>
+
+          <h2>The conventional API model</h2>
+
+          <p>A normal API interaction might look like:</p>
+
+          <pre><code>Frontend
+   ↓
+Backend
+   ↓
+GET /customers/123
+   ↓
+Customer service
+   ↓
+JSON</code></pre>
+
+          <p>Suppose the endpoint returns a customer with 200 fields:</p>
+
+          <pre><code>{
+  "id": "123",
+  "name": "Alice",
+  "email": "alice@example.com",
+  "plan": "basic",
+  "...": "196 more fields"
+}</code></pre>
+
+          <p>But the frontend only needs:</p>
+
+          <pre><code>name
+email
+plan</code></pre>
+
+          <p>You will still just send it all over, since the cost of sending extra data over the wire is generally less than the cost of having to go through the pomp and circumstance of another BE change and deployment. Now the FE can cheaply do <code>customer["address"]</code> if another field is used. So you have bandwidth and latency concerns, but the program itself is not confused by returning so many fields.</p>
+
+          <h2>An agent consumes an API differently</h2>
+
+          <p>An agent interaction looks more like:</p>
+
+          <pre><code>LLM
+ ↓
+generates a tool request
+ ↓
+Agent runtime
+ ↓
+Your API
+ ↓
+Agent runtime
+ ↓
+serialize + tokenize response
+ ↓
+LLM</code></pre>
+
+          <p>The API response becomes input to another inference step. If your endpoint returns 200 fields but there are only 3 that matter, the other 197 pollute the context window. And one of the <strong>core tenets of engineering these days is context management.</strong> Those extra fields now cost:</p>
+
+          <pre><code>tokens
+attention
+context-window space
+inference time</code></pre>
+
+          <p>Every tool call crosses a runtime boundary, and the result has to be serialized back into model context before the model can reason about it. That creates some API design pressures that conventional clients do not have.</p>
+
+          <h2>1. Optimize for context transfer, not API completeness</h2>
+
+          <p>A traditional API often returns the canonical representation of a resource:</p>
+
+          <pre><code>get_customer(id)
+       ↓
+entire customer object</code></pre>
+
+          <p>This makes sense. There is one well-understood shape, and every application can select the fields it needs. For an agent, it can be better to support projection:</p>
+
+          <pre><code>get_customer(
+    id="123",
+    fields=["name", "plan", "balance"]
+)</code></pre>
+
+          <p>Or filtering:</p>
+
+          <pre><code>list_orders(
+    customer_id="123",
+    status="open"
+)</code></pre>
+
+          <p>Or a purpose-built summary:</p>
+
+          <pre><code>{
+  "customer_id": "123",
+  "plan": "basic",
+  "outstanding_balance": 74.22,
+  "open_orders": 2
+}</code></pre>
+
+          <p>The goal is not to create 50 slightly different agent endpoints. The goal is to let the agent communicate:</p>
+
+          <blockquote><p>This is the information I actually need.</p></blockquote>
+
+          <h2>2. Return enough state to re-ground the model after mutations</h2>
+
+          <p>Suppose the model reads:</p>
+
+          <pre><code>{
+  "customer_id": "123",
+  "plan": "basic"
+}</code></pre>
+
+          <p>Then it requests:</p>
+
+          <pre><code>update_customer(
+    id="123",
+    plan="pro"
+)</code></pre>
+
+          <p>A conventional API might return:</p>
+
+          <pre><code>{
+  "success": true
+}</code></pre>
+
+          <p>That is perfectly reasonable for a deterministic program. The program already knows what it requested. But the agent is about to enter another inference step, and its context now says:</p>
+
+          <pre><code>Earlier:
+plan = basic
+
+Requested:
+change plan to pro
+
+Result:
+success = true</code></pre>
+
+          <p>The model can probably reconstruct the current state. <strong>But why make it? You are simply just increasing the hallucination rate.</strong> A better response would be:</p>
+
+          <pre><code>{
+  "customer_id": "123",
+  "before": {
+    "plan": "basic"
+  },
+  "after": {
+    "plan": "pro"
+  },
+  "version": 42
+}</code></pre>
+
+          <p>Now the most recent authoritative information explicitly says:</p>
+
+          <pre><code>plan = pro</code></pre>
+
+          <p>The model has been re-grounded in the current state of the world. You do not necessarily need to return the entire customer object either. A semantic delta can be enough:</p>
+
+          <pre><code>{
+  "changed": {
+    "plan": {
+      "from": "basic",
+      "to": "pro"
+    }
+  },
+  "unchanged": [
+    "name",
+    "email"
+  ],
+  "version": 42
+}</code></pre>
+
+          <p>This is much more useful than:</p>
+
+          <pre><code>{
+  "status": 200
+}</code></pre>
+
+          <h2>3. Prefer stable references over repeatedly retransmitting large objects</h2>
+
+          <p>Suppose an agent runs a query that returns 80,000 rows. You probably do not want to put this into model context:</p>
+
+          <pre><code>{
+  "rows": [
+    "...80,000 rows..."
+  ]
+}</code></pre>
+
+          <p>You probably cannot even put that into the model context.</p>
+
+          <p>Instead, return a stable reference:</p>
+
+          <pre><code>{
+  "result_id": "result_84721",
+  "row_count": 80137,
+  "columns": [
+    "customer_id",
+    "revenue",
+    "region"
+  ],
+  "summary": "Revenue by customer for Q2 2026."
+}</code></pre>
+
+          <p>Then expose tools like:</p>
+
+          <pre><code>inspect_result(result_id)
+
+query_result(result_id, query)
+
+read_result(result_id, offset, limit)
+
+aggregate_result(result_id, ...)</code></pre>
+
+          <p>The data stays in the tool runtime. Only the information needed for reasoning crosses into model context. This also makes the workflow easier to resume. An agent interaction is not one long-running process:</p>
+
+          <pre><code>model → tool → model → tool → model</code></pre>
+
+          <p>It is a series of separate inference turns. Stable IDs, cursors, and versions let the next turn refer to previous work without relying on hidden process-local state or retransmitting the entire object.</p>
+
+          <h2>4. Pagination is a must</h2>
+
+          <p>Pagination is a must for any endpoint that can return a large result set. This is already standard API design, but it matters even more for agents because returning everything at once can pollute or overflow the model context.</p>
+
+          <pre><code>{
+  "data": ["..."],
+  "next_cursor": "cursor_abc",
+  "returned": 50,
+  "remaining_estimate": 4237,
+  "has_more": true
+}</code></pre>
+
+          <h2>5. Expose cheap ways to inspect before fetching</h2>
+
+          <p>A normal API might expose:</p>
+
+          <pre><code>get_document(id)</code></pre>
+
+          <p>And return the entire document. That is fine for a 20 KB document. It becomes a problem when <code>get_document</code> returns a 300-page PDF or a 10 MB log file. A better interface might be:</p>
+
+          <pre><code>describe_document(id)
+        ↓
+title
+size
+sections
+metadata
+
+search_document(id, query)
+        ↓
+matching passages
+
+read_document(id, range)
+        ↓
+specific content</code></pre>
+
+          <p>This lets the model progressively discover information. The agent can inspect the shape of the data, search for the relevant section, and only then fetch the content it needs.</p>
+
+          <p>Progressive disclosure also avoids a bad failure mode where one overly broad tool response fills most of the context window before the agent even understands what it is looking for.</p>
+
+          <h2>Does this mean everyone needs a separate agent API? No.</h2>
+
+          <p>A sophisticated agent harness can compensate for a mediocre API. Suppose a legacy endpoint returns 5 MB of JSON. Instead of dumping that entire response into the context window, the harness can do this:</p>
+
+          <pre><code>API response
+     ↓
+save result.json
+     ↓
+tell model:
+"Result stored in result.json.
+5.1 MB, 83,294 records."
+     ↓
+model searches or processes the file
+     ↓
+only relevant data enters context</code></pre>
+
+          <p>The harness acts as an adapter between an API designed for deterministic software and a model that reasons through context. As models and harnesses get better, the need for agent specific endpoints decrease. A good API for humans does include compact responses, semantic mutation state, stable references, pagination, etc. It is just all the more important for an agent API. What you are optimizing for slightly changes though:</p>
+
+          <pre><code>Traditional API:
+developer ergonomics
+latency
+bandwidth
+
+Agent-facing API:
+context pressure
+token cost
+re-grounding
+latency
+bandwidth</code></pre>
+
+        </div>
+      </article>
+    </main>
+  </body>
+</html>
