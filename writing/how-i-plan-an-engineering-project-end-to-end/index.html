@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>How I Plan an Engineering Project End to End | Eric Kennedy</title>
-    <meta name="description" content="How I plan engineering projects at a big tech company: understand, align, de-risk, deliver, validate, and iterate." />
+    <meta name="description" content="How I plan engineering projects at a big tech company: understand, align, de-risk, execute, validate, and iterate." />
     <meta property="og:title" content="How I Plan an Engineering Project End to End | Eric Kennedy" />
-    <meta property="og:description" content="How I plan engineering projects at a big tech company: understand, align, de-risk, deliver, validate, and iterate." />
+    <meta property="og:description" content="How I plan engineering projects at a big tech company: understand, align, de-risk, execute, validate, and iterate." />
     <meta property="og:image" content="https://ekeric13.github.io/assets/writing/post_18_engineering-project-end-to-end-thumbnail-2560x1440.png" />
     <meta property="og:image:secure_url" content="https://ekeric13.github.io/assets/writing/post_18_engineering-project-end-to-end-thumbnail-2560x1440.png" />
     <meta property="og:url" content="https://ekeric13.github.io/writing/how-i-plan-an-engineering-project-end-to-end/" />
     <meta property="og:type" content="article" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="How I Plan an Engineering Project End to End | Eric Kennedy" />
-    <meta name="twitter:description" content="How I plan engineering projects at a big tech company: understand, align, de-risk, deliver, validate, and iterate." />
+    <meta name="twitter:description" content="How I plan engineering projects at a big tech company: understand, align, de-risk, execute, validate, and iterate." />
     <meta name="twitter:image" content="https://ekeric13.github.io/assets/writing/post_18_engineering-project-end-to-end-thumbnail-2560x1440.png" />
     <link rel="icon" href="/favicon.ico?v=6" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/assets/brand/ek-v3-mark.svg?v=6" />
@@ -32,33 +32,52 @@
         <div class="post-body">
           <p>Caveat: This is how I operate at a big tech company. This would look different at a startup and vastly different if I was just building by myself. At a large company there is definitely a coordination tax you need to pay, and that seeps into how you build.</p>
 
-          <p>I usually spend the first couple of days just building context. I use an LLM to explore the codebases this might touch, read the PRDs, and understand how the project fits into the existing ecosystem. From there, I start figuring out which services we can extend, what might need to be new, and start reaching out to the owners of the services that we might be extending.</p>
+          <h2>1. Build Context - Understand</h2>
 
-          <p>I will then write a couple of different design docs for the proposal. One high level for the business that focuses on the why, and one low level for the engineering team that focuses on the how.</p>
+          <p>I usually spend the first couple of days just building context. I use an LLM to explore the codebases this might touch, read the PRDs, and understand how the project fits into the existing ecosystem. The goal is to build a strong mental model of what is already there and how well it is working. From there, I start figuring out which services we can extend, what might need to be new, and reaching out to the owners of the services that we might be extending.</p>
 
-          <ul>
-            <li>For the <strong>high level doc</strong>, if I need management buy-in I might prototype a FE that shows what the final result might look/feel like.</li>
-            <li>For the <strong>low level doc</strong> I will generally include a few options on how to do something if that part of the feature is ambiguous or hard to reverse. And then do a spike on each of those options to find which one we want to commit to. This doc will be full of pseudo code snippets and links to the services+files this code will be.</li>
-          </ul>
+          <p>I will then write a couple of different design docs for the proposal. One high-level doc for the business that focuses on the why, and one low-level doc for the engineering team that focuses on the how.</p>
 
-          <p>For key architecture decisions, I usually evaluate the options across a few dimensions</p>
+          <h2>2. High-Level Doc - Align</h2>
+
+          <p>For the high-level doc, the audience is generally very senior engineers/PMs, directors, and VPs. They are either technical or used to be technical, but the common denominator is that they have a million things on their plate. You are communicating the what and the why, so the core idea needs to be memorable.</p>
+
+          <p>Historically, this might have been a detailed powerpoint or a concise Google Doc. What I have been doing lately is writing everything in markdown and then having an LLM convert it into an HTML/CSS/JS presentation. The front of each slide stays high level, but clicking it reveals a back side with underlying details.</p>
+
+          <p>Definitely have an LLM make the architecture and sequence diagrams. If something is confusing, make the diagram interactive. LLMs are really good at this. If I really need management buy-in, I would prototype a demo that shows what the final result could look/feel like and link to it.</p>
+
+          <h2>3. Low-Level Doc - De-Risk</h2>
+
+          <p>For the low-level doc, the audience is whoever will be doing the implementation. Historically this meant engineering teammates, but these days it means agents too. Since people can use LLMs to ask what something means, I generally keep this doc pretty technical. If part of a feature is ambiguous or hard to reverse, I will usually include a few options and do a spike on each one before deciding which direction to commit to. This doc will be full of pseudocode snippets and links to the services and files that the implementation will touch.</p>
+
+          <p>By the end of the document, there should be a very clear answer for how we will address each of the "whys" from the high-level doc, what metrics we will use to measure the success of the rollout, and how the project will be released in stages that build on top of each other.</p>
+
+          <p>For key architecture decisions, I usually evaluate the options across a few dimensions:</p>
 
           <ol>
-            <li><strong>Scalability:</strong> What happens at 10–100x the current load?</li>
+            <li><strong>Scalability:</strong> What happens at 10–100x the current load? What happens if 40 engineers are contributing instead of 4?</li>
             <li><strong>Reversibility:</strong> How painful will it be to change this decision later?</li>
-            <li><strong>Ownership:</strong> Who is actually going to own and operate this system?</li>
-            <li><strong>Ability to re-use existing interfaces:</strong> Can we reuse something that already exists, or are we introducing a new boundary?</li>
-            <li><strong>Cost:</strong> What does this cost us now, and what will it cost us as we scale?</li>
+            <li><strong>Ownership:</strong> Who is actually going to own and operate this system? Do they have the bandwidth and track record to maintain it well?</li>
+            <li><strong>Ability to reuse existing interfaces:</strong> Can we reuse something that already exists, or are we introducing a new boundary?</li>
+            <li><strong>Verifiability:</strong> How easy is it to prove that this system is working correctly? Can we test it, observe it, and quickly tell when something is wrong?</li>
+            <li><strong>Cost:</strong> What does this cost us now? What will it cost us as we scale?</li>
           </ol>
 
           <p>Some examples of this might be:</p>
 
           <ul>
             <li>"Should we spin up a starrocks instance or reuse our existing postgres instance?"</li>
-            <li>"Does this existing microservice meet our TPS and latency standards? Should we just build our own service for this functionality from the ground up?"</li>
+            <li>"Does this existing microservice meet our TPS and latency standards, or should we build our own service for this functionality?"</li>
+            <li>"Is there an MCP an agent can use to read data from this analytics warehouse?"</li>
           </ul>
 
-          <p>Generally I like to build towards a final solution and not just one shot it, even though it is tempting to do that with AI. I think you should still deliver something in stepping stones or else it might turn into a skunkworks project that is always 2 weeks from being done.</p>
+          <h2>4. Execute in Stages - Execute</h2>
+
+          <p>Generally I like to build towards a final solution and not just one shot it, even though it is tempting to do that with AI. I think you should still deliver something in stepping stones, or else it might turn into a skunkworks project that is always 2 weeks from being done.</p>
+
+          <p>There is some version of the project you can ship in 2 weeks, another in 2 months, and another in 6 months. Build towards those. Every two weeks you should be at a point where you have something worth demoing.</p>
+
+          <h2>5. Shipping Means More Than Releasing to Prod - Validate &amp; Iterate</h2>
 
           <p>Something isn't shipped when it is released to prod. It needs to have:</p>
 
@@ -67,9 +86,10 @@
             <li>Success metrics</li>
             <li>Observability and monitoring</li>
             <li>Analytics</li>
+            <li>Rollout, adoption, and awareness (from users and the org)</li>
           </ul>
 
-          <p>So my basic loop is: understand, align, de-risk, deliver, validate, iterate.</p>
+          <p>So my basic loop is: understand, align, de-risk, execute, validate, iterate.</p>
         </div>
       </article>
     </main>
