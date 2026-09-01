@@ -476,6 +476,7 @@ h3 {
 .post-body h3,
 .post-body blockquote,
 .post-body ol,
+.post-body ul,
 .post-body pre {
   margin: 0 0 22px;
 }
@@ -537,7 +538,8 @@ h3 {
   margin-top: 8px;
 }
 
-.post-body ol {
+.post-body ol,
+.post-body ul {
   padding-left: 1.4rem;
 }
 
