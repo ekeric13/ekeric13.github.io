@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Animating “Oh, the Places You’ll Go!” with AI | Eric Kennedy</title>
+    <meta name="description" content="Building an animated storybook with AI, code, and a way to put your own kid into the story." />
+    <meta property="og:title" content="Animating “Oh, the Places You’ll Go!” with AI | Eric Kennedy" />
+    <meta property="og:description" content="Building an animated storybook with AI, code, and a way to put your own kid into the story." />
+    <meta property="og:image" content="https://ekeric13.github.io/assets/writing/storybook-launch.jpg" />
+    <meta property="og:image:secure_url" content="https://ekeric13.github.io/assets/writing/storybook-launch.jpg" />
+    <meta property="og:url" content="https://ekeric13.github.io/writing/animating-a-storybook-with-ai/" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Animating “Oh, the Places You’ll Go!” with AI | Eric Kennedy" />
+    <meta name="twitter:description" content="Building an animated storybook with AI, code, and a way to put your own kid into the story." />
+    <meta name="twitter:image" content="https://ekeric13.github.io/assets/writing/storybook-launch.jpg" />
+    <link rel="icon" href="/favicon.ico?v=6" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/assets/brand/ek-v3-mark.svg?v=6" />
+    <link rel="icon" type="image/png" href="/assets/brand/ek-v3-icon-32.png?v=6" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/brand/ek-v3-apple-touch-icon.png?v=6" />
+    <link rel="stylesheet" href="../../styles/site.css?v=modernist-print-3" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a class="back-link" href="../../#writing">Back to writing</a>
+      <article>
+        <header class="post-hero">
+          <h1>Animating “Oh, the Places You’ll Go!” with AI</h1>
+          <video class="post-hero__image" style="height: auto; max-height: none; object-fit: contain;" controls playsinline preload="metadata" poster="../../assets/writing/storybook-launch.jpg" width="1200" height="900" aria-label="Animated storybook preview">
+            <source src="../../assets/writing/storybook-launch-23s.mp4" type="video/mp4" />
+            <a href="../../assets/writing/storybook-launch-23s.mp4">Watch the storybook preview</a>
+          </video>
+        </header>
+        <div class="post-body" style="overflow-wrap: anywhere;">
+          <p>Had gpt 6 astra and opus 5.5 put together an animated version of "Oh, the places you'll go!" by Dr. Seuss.</p>
+
+          <p><a href="https://oh-the-places-storybook-ek.ekeric13.chatgpt.site">https://oh-the-places-storybook-ek.ekeric13.chatgpt.site</a></p>
+
+          <p>I am sure you have seen some amazing one prompt demos lately. Unforunately, that didn't quite work for me here. Forunately, vibe coding over the course of 2 days with me randomly checking in here and there did work. That said, it did require some thoughtful human input and iteration on the how the animation was done.<br />
+Probably used 70% of the $20 subscription plan for both anthropic and openai. No resets.</p>
+
+          <p>The main cost was definitely fal. probably $100 in credits used. And then the other one was ~$5 of eleven labs credits.</p>
+
+          <p>Nano Banana 2 + GPT Image 2 was used for the drawings.<br />
+LTX 2.3 Pro was used for motion references for character and scenery movement.<br />
+Eleven v3 was used for narration.<br />
+Scribe v2 was used to align the narration, text, and animation.<br />
+Also used FILM (think kling) to generate some interpolation images.</p>
+
+          <p>Originally was planning to just use Seedance 2.5 to animate the storybook but that was absolutely chewing through my fal credits so I ended up using a cheaper vid model for motion (LTX 2.3 Pro) that I would translate into js animations.</p>
+
+          <p>wrote in detail about that process here with some additional video clips. Worth skimming imo:<br />
+<a href="https://oh-the-places-storybook-ek.ekeric13.chatgpt.site/review">https://oh-the-places-storybook-ek.ekeric13.chatgpt.site/review</a></p>
+
+          <p>Two other reasons I moved towards animating with code - video models rarely got everything right on the first try, and I found it easier to get a specific movement by asking claude to animate it in js.</p>
+
+          <p>The real hook is that you can insert your own kid into the book. Initially I had a series of prompts that could be used if you uploaded a photo of your kid... but the image models (nano banana / gpt image) would almost always have hiccups. gpt image especially has an overly sensitive classifier and finds dumb reasons to reject your request. So I moved towards a prompt + refernce kit that people can just plugin to their coding harness.<br />
+If you have a chatGPT/gemini subscription (so you don't have to pay for images), and a coding agent with solid computer-use... the agent should do a good job hand holding you through the entire process. I think there is a growing expectation that people don't have to use their brain to get value out of your product lol.</p>
+
+          <p>Putting your kid in the storybook wasn't hard as long as they held a single pose. The real problem (to use a claude idiom... a claudiom if you may) was getting their full body animated. That workflow required an additional model to the ones above. MiniMax H3 Max was used to do the animation of the child on a white background. I then had the coding agent remove the background and composite the animation into the scene.</p>
+
+          <p>Created an eval suite of a few different types of kids (ethnicity, hair, age, etc) so a reasonable level of confidence the feature should generalize across kids.</p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>
