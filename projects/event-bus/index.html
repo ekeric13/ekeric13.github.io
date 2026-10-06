@@ -84,6 +84,7 @@ code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2p
 padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 .strip .lb{display:block;margin-bottom:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c,var(--consistency))}
 .levers,.stats,.arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}
+@media(min-width:901px){.arch.requirements{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .lever,.stat,.card,.tcard,.phasebox{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}
 .lever::before,.stat::before,.card::before,.tcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--x,var(--consistency))}
 .ix,.tag,.det-head{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--x,var(--consistency))}
@@ -195,8 +196,9 @@ padding:14px 20px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.55}
 <div class="eyebrow bus"><span class="ph">01</span> Requirements</div>
 <div class="det-title">I defined the requirements in collaboration with engineering team leads.</div>
 <p class="det-sub">Every option got scored against scale, cost, reversibility, and ownership.</p>
-<div class="arch">
-<div class="tcard" style="--x:var(--consistency)"><span class="tag">must have</span><div class="nm">strong consistency</div><div class="role">local transaction boundary</div><p>Network partitions and crashes cannot create a committed entity with no event.</p></div>
+<div class="arch requirements">
+<div class="tcard" style="--x:var(--consistency)"><span class="tag">must have</span><div class="nm">atomic event production</div><div class="role">local transaction boundary</div><p>Business state and its event commit together, or neither does.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">must have</span><div class="nm">reliable delivery</div><div class="role">no silent event loss</div><p>Failures trigger retries or an explicit failure policy.</p></div>
 <div class="tcard" style="--x:var(--bus)"><span class="tag">must have</span><div class="nm">schema validation</div><div class="role">contract compatibility</div><p>Without a schema contract, the bus just moves breaking changes faster.</p></div>
 <div class="tcard" style="--x:var(--ops)"><span class="tag">must have</span><div class="nm">developer productivity</div><div class="role">simple edge interfaces</div><p>The middle can be complex. The producer and consumer APIs cannot be.</p></div>
 </div>
