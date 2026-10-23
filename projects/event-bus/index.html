@@ -81,6 +81,7 @@ code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2p
 /* hero */
 .tagline{margin-top:clamp(18px,3vh,30px);font-family:var(--disp);font-weight:500;font-size:clamp(24px,3.1vw,46px);line-height:1.12;letter-spacing:-.02em}
 .tagline span{display:block}
+.kicker{margin:clamp(8px,1.2vh,14px) 0 0;font-family:var(--disp);font-weight:500;font-size:clamp(19px,1.9vw,28px);letter-spacing:-.015em;line-height:1.2;color:var(--ink)}
 .tagline .t1{color:var(--consistency)}.tagline .t2{color:var(--bus)}.tagline .t3{color:var(--ops)}
 
 /* cards and strips */
@@ -195,7 +196,7 @@ background:var(--panel);border:1px solid rgba(231,240,242,.18);border-radius:7px
 <div class="eyebrow ops"><span class="ph">01</span> Requirements</div>
 <h1 class="title-lg wide">I defined the requirements in collaboration with <span class="o">engineering team leads</span>.</h1>
 <p class="sub">Every option got scored against scale, cost, reversibility, and ownership.</p>
-<div class="viz" data-viz="reqs" data-w="1400" data-h="510"></div>
+<div class="viz" data-viz="reqs" data-w="1400" data-h="520"></div>
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · failure modes</div>
@@ -215,6 +216,7 @@ background:var(--panel);border:1px solid rgba(231,240,242,.18);border-radius:7px
 <div class="face overview">
 <div class="eyebrow"><span class="ph">02</span> Producer interface</div>
 <h1 class="title-lg wide">The producer API had to be <span class="c">easy to adopt</span>.</h1>
+<p class="kicker">DB inserts produce events.</p>
 <p class="sub">We needed event production to be easy to adopt, high-throughput, ordered where needed, and strongly consistent. Since every service already used Postgres, and every engineer understood database transactions, we decided services would produce events through Postgres.</p>
 <div class="levers">
 <div class="lever" style="--x:var(--consistency)"><div class="ix">Consistency</div><h3>Commit state and event together</h3><p>Postgres gave producers a transaction boundary they already understood.</p></div>
@@ -263,7 +265,7 @@ background:var(--panel);border:1px solid rgba(231,240,242,.18);border-radius:7px
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
 <div class="eyebrow bus"><span class="ph">04</span> Schema contract</div>
-<h1 class="title-lg wide">Outbox made events reliable. Schemas made them <span class="b">safe to consume</span>.</h1>
+<h1 class="title-lg wide">Schemas made events <span class="b">safe to consume</span>.</h1>
 <p class="sub">We needed producers and consumers to agree on event shape, versioning, and compatibility before messages reached production. Each producer owned the schema for the events it emitted.</p>
 <div class="viz" data-viz="schema" data-w="1400" data-h="350"></div>
 <div class="takeaways four">
@@ -286,7 +288,8 @@ background:var(--panel);border:1px solid rgba(231,240,242,.18);border-radius:7px
 <div class="flipchip"><span class="sw"></span>detail</div>
 <div class="face overview">
 <div class="eyebrow ops"><span class="ph">05</span> Consumer design</div>
-<h1 class="title-lg wide">Use Kafka in the middle. Expose <span class="o">HTTP</span> at the edge.</h1>
+<h1 class="title-lg wide">The consumer API had to be <span class="o">easy to adopt</span>.</h1>
+<p class="kicker">Kafka in the middle. HTTP at the edge.</p>
 <p class="sub">Kafka fit the scaling requirements: fanout, partitions, replay, offsets, and better debugging. But making every product team write Kafka consumers would have moved complexity to the worst place.</p>
 <div class="viz" data-viz="consumer" data-w="1400" data-h="290"></div>
 <div class="takeaways">
@@ -403,7 +406,8 @@ output:
 <div class="eyebrow ops"><span class="ph">09</span> Operating reliability</div>
 <h1 class="title-lg wide">CDC was the toughest <span class="o">reliability problem</span>.</h1>
 <p class="sub">A stalled CDC consumer can hold a replication slot open and grow WAL until the database is at risk. That makes replication lag a product reliability issue, not just an infra metric.</p>
-<div class="viz" data-viz="cdc" data-w="1400" data-h="580"></div>
+<div class="viz" data-viz="cdc" data-w="1400" data-h="430"></div>
+<div class="strip" style="--c:var(--ops);font-size:clamp(12.5px,1vw,14px)"><span class="lb">The idle database trap</span>Internal heartbeat writes grew WAL even on an unused database. A pg_cron job wrote outbox heartbeats, filtered out before any consumer, to keep the slot moving.</div>
 </div>
 <div class="face detail">
 <div class="det-head">Grounding · delivery contract</div>
@@ -511,8 +515,8 @@ intro(g){
 },
 reqs(g){
   g.t(0,0,400,'What hurt','cp','color:var(--stop)');g.t(560,0,600,'What we required','cp','color:var(--ink)');
-  const rows=[['Inconsistent state','Atomic event production','Business state and its event commit together, or neither does.','teal'],['Unsafe retries','Reliable delivery','Failures trigger retries or an explicit failure policy.','green'],['Payload contract drift','Schema validation','Without a schema contract, the bus just moves breaking changes faster.','amber'],['Producer coupling','Developer productivity','The middle can be complex. The producer and consumer APIs cannot be.','violet']];
-  rows.forEach(([p,r,d,c],i)=>{const y=36+i*120;const pb=g.n(0,y,400,98,p,null,'red','dash');const rb=g.n(560,y,840,98,r,d,c,'left');g.link(pb,'R',rb,'L',{c});});
+  const rows=[['Inconsistent state','Atomic event production','Business state and its event commit together, or neither does.','teal'],['Producer coupling','Agnostic fanout','One domain event feeds many consumers without the producer knowing each one.','amber'],['Payload contract drift','Schema validation','Without a schema contract, the bus just moves breaking changes faster.','amber'],['Silently lost events','At-least-once delivery','No silent loss: failures retry or follow an explicit failure policy.','green'],['Adoption risk','Developer productivity','The middle can be complex. The producer and consumer APIs cannot be, or teams won\'t adopt it.','violet']];
+  rows.forEach(([p,r,d,c],i)=>{const y=36+i*100;const pb=g.n(0,y,400,84,p,null,'red','dash');const rb=g.n(560,y,840,84,r,d,c,'left');g.link(pb,'R',rb,'L',{c});});
 },
 dualwrite(g){
   const L={svc:150,pg:530,br:910,cs:1250},top=0,bot=470;
@@ -598,23 +602,23 @@ consumer(g){
 },
 cdc(g){
   const ch=[['CDC consumer stalls','bug · deploy · broker outage','violet'],['Slot keeps its position','replication slot','amber'],['WAL is retained','disk usage climbs','amber'],['Database health at risk','disk full = outage','red']];
-  const ns=ch.map(([t,s,c],i)=>g.n(0,i*152,420,100,t,s,c));
-  for(let i=0;i<3;i++)g.link(ns[i],'B',ns[i+1],'T',{c:ch[i+1][2]});
-  g.p(470,0,930,370,'Retained WAL · illustrative');
-  const gx=550,gy=64,gw=820,gh=250;
+  const ns=ch.map(([t,s,c],i)=>g.n(i*365,334,305,96,t,s,c));
+  for(let i=0;i<3;i++)g.link(ns[i],'R',ns[i+1],'L',{c:ch[i+1][2]});
+  g.p(0,0,880,300,'Retained WAL · illustrative');
+  const gx=70,gy=50,gw=780,gh=200;
   for(let i=0;i<=4;i++)g.bx(gx,gy+gh*i/4,gw,1,'background:var(--line);border-radius:0');
   g.bx(gx,gy,gw,gh*.18,'background:color-mix(in srgb,var(--stop) 14%,transparent);border-radius:0');
-  g.t(gx+gw-160,gy+8,150,'disk full','m','text-align:right;color:var(--stop);font-weight:700;font-size:13px');
+  g.t(gx+gw-160,gy+6,150,'disk full','m','text-align:right;color:var(--stop);font-weight:700;font-size:13px');
   g.line([[gx,gy+gh*.42],[gx+gw,gy+gh*.42]],{c:'amber',w:2,dash:'9 7',end:false});
   g.t(gx+10,gy+gh*.42-26,400,'alert the platform owner','m','color:var(--bus);font-weight:700;font-size:13px');
   const pts=[[0,.96],[.25,.95],[.32,.94],[.38,.86],[.45,.78],[.52,.66],[.58,.55],[.64,.44],[.7,.35],[.76,.26],[.82,.2]].map(([a,b])=>[gx+a*gw,gy+b*gh]);
   g.line(pts,{c:'teal',w:4.5,end:false});
   g.bx(gx+.32*gw-9,gy+.94*gh-9,18,18,'background:var(--ops);border-radius:50%;box-shadow:0 0 14px var(--ops)');
-  g.t(gx+.32*gw-18,gy+gh+10,100,'stall','m','color:var(--ops);font-size:13px');
-  g.t(gx+gw-70,gy+gh+10,70,'time →','m','color:var(--faint);font-size:13px');
+  g.t(gx+.32*gw-18,gy+gh+8,100,'stall','m','color:var(--ops);font-size:13px');
+  g.t(gx+gw-70,gy+gh+8,70,'time →','m','color:var(--faint);font-size:13px');
   g.t(gx+10,gy+.96*gh-30,300,'healthy: slot tracks the head','m','color:var(--dim);font-size:13px');
-  g.cd(470,400,450,180,'violet','Platform owner','Monitor the CDC service','Alert the platform owner on CDC health, and on WAL growth before database health is at risk.');
-  g.cd(950,400,450,180,'green','Handler owner','Monitor dispatchers by team','The handler owner owns its consumer path.');
+  g.cd(910,0,490,140,'violet','Platform owner','Monitor the CDC service','Alert the platform owner on CDC health, and on WAL growth before database health is at risk.');
+  g.cd(910,160,490,140,'green','Handler owner','Monitor dispatchers by team','The handler owner owns its consumer path.');
 },
 };
 document.querySelectorAll('.viz').forEach(el=>{const f=D[el.dataset.viz];if(f)f(Stage(el));});
