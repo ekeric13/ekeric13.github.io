@@ -1,0 +1,1424 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Eric Kennedy Resume</title>
+    <meta
+      name="description"
+      content="Eric Kennedy resume: platform infrastructure, Kubernetes, GitOps delivery, stateful data systems, and production reliability."
+    />
+    <meta property="og:title" content="Eric Kennedy | Resume" />
+    <meta
+      property="og:description"
+      content="Platform infrastructure, Kubernetes, GitOps delivery, stateful data systems, and production reliability."
+    />
+    <meta property="og:image" content="https://ekeric13.github.io/assets/brand/ek-v3-social-preview.png?v=6" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Paper-white EK monogram on deep green" />
+    <meta property="og:url" content="https://ekeric13.github.io/resume-infra.html" />
+    <meta property="og:type" content="profile" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Eric Kennedy | Resume" />
+    <meta
+      name="twitter:description"
+      content="Platform infrastructure, Kubernetes, GitOps delivery, stateful data systems, and production reliability."
+    />
+    <meta name="twitter:image" content="https://ekeric13.github.io/assets/brand/ek-v3-social-preview.png?v=6" />
+    <meta name="twitter:image:alt" content="Paper-white EK monogram on deep green" />
+    <link rel="icon" href="/favicon.ico?v=6" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/assets/brand/ek-v3-mark.svg?v=6" />
+    <link rel="icon" type="image/png" href="/assets/brand/ek-v3-icon-32.png?v=6" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/brand/ek-v3-apple-touch-icon.png?v=6" />
+    <style>
+      :root {
+        color-scheme: light;
+        /* Modernist Print reference palette. */
+        --ref-forest: #0b6b55;
+        --ref-paper: #fbfcf9;
+        --ref-ink: #10211d;
+        --ref-cream: #f5f0d8;
+        --ref-cobalt: #2447a8;
+        --ref-vermilion: #a63d32;
+        --ref-goldenrod: #d7a928;
+        --ref-muted: #52635d;
+        --ref-line: #b2af90;
+
+        /* Light-theme roles. */
+        --bg: var(--ref-cream);
+        --ink: var(--ref-ink);
+        --muted: var(--ref-muted);
+        --line: var(--ref-line);
+        --paper: var(--ref-paper);
+        --sidebar: var(--ref-forest);
+        --sidebar-ink: var(--ref-paper);
+        --sidebar-muted: #e0ede8;
+        --sidebar-line: #4f8b7c;
+        --chip-bg: #095846;
+        --chip-ink: var(--ref-paper);
+        --chip-line: #6ba091;
+        --tile: var(--ref-paper);
+        --shadow: var(--ref-ink);
+        --link-line: var(--ref-forest);
+        --eyebrow: var(--ref-forest);
+        --role: color-mix(in oklab, var(--ref-muted) 75%, var(--ref-ink));
+        --contact-bg: var(--ref-forest);
+        --contact-ink: var(--ref-paper);
+        --proof-one-bg: var(--ref-vermilion);
+        --proof-one-ink: var(--ref-paper);
+        --proof-one-muted: var(--ref-paper);
+        --proof-two-bg: var(--ref-cobalt);
+        --proof-two-ink: var(--ref-paper);
+        --proof-two-muted: #dfe6ff;
+        --proof-three-bg: var(--ref-forest);
+        --proof-three-ink: var(--ref-paper);
+        --proof-three-muted: #d5e8e2;
+        --toggle-bg: var(--ref-forest);
+        --toggle-ink: var(--ref-paper);
+        --download-bg: var(--ref-forest);
+        --download-ink: var(--ref-paper);
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        /* Original dark direction: near-black surfaces with a neon-mint accent. */
+        --ref-dark-bg: #101412;
+        --ref-dark-paper: #171d1a;
+        --ref-dark-sidebar: #121714;
+        --ref-dark-ink: #f5f0e6;
+        --ref-dark-muted: #b7b0a3;
+        --ref-dark-line: #343a35;
+        --ref-dark-teal: #1f3a36;
+        --ref-dark-teal-soft: #1a2a28;
+        --ref-neon-mint: #8ddebf;
+
+        --bg: var(--ref-dark-bg);
+        --ink: var(--ref-dark-ink);
+        --muted: var(--ref-dark-muted);
+        --line: var(--ref-dark-line);
+        --paper: var(--ref-dark-paper);
+        --sidebar: var(--ref-dark-sidebar);
+        --sidebar-ink: var(--ref-dark-ink);
+        --sidebar-muted: var(--ref-dark-muted);
+        --sidebar-line: var(--ref-dark-line);
+        --chip-bg: var(--ref-dark-bg);
+        --chip-ink: var(--ref-dark-ink);
+        --chip-line: color-mix(in oklab, var(--ref-neon-mint) 36%, var(--ref-dark-line));
+        --tile: var(--ref-dark-bg);
+        --shadow: #000000;
+        --link-line: color-mix(in oklab, var(--ref-neon-mint) 54%, transparent);
+        --eyebrow: var(--ref-neon-mint);
+        --role: var(--muted);
+        --contact-bg: var(--ref-dark-teal);
+        --contact-ink: var(--ref-dark-ink);
+        --proof-one-bg: var(--ref-dark-bg);
+        --proof-one-ink: var(--ref-dark-ink);
+        --proof-one-muted: var(--ref-dark-muted);
+        --proof-two-bg: var(--ref-dark-teal-soft);
+        --proof-two-ink: var(--ref-dark-ink);
+        --proof-two-muted: var(--ref-dark-muted);
+        --proof-three-bg: var(--ref-neon-mint);
+        --proof-three-ink: var(--ref-dark-bg);
+        --proof-three-muted: color-mix(in oklab, var(--ref-dark-bg) 72%, transparent);
+        --toggle-bg: linear-gradient(
+          135deg,
+          var(--ref-neon-mint) 0%,
+          var(--ref-neon-mint) 48%,
+          var(--ref-dark-ink) 49%,
+          var(--ref-dark-ink) 100%
+        );
+        --toggle-ink: var(--ref-dark-bg);
+        --download-bg: var(--ref-neon-mint);
+        --download-ink: var(--ref-dark-bg);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--bg);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.38;
+        transition: background-color 180ms ease, color 180ms ease;
+      }
+
+      ::selection {
+        color: var(--ref-ink);
+        background: var(--ref-goldenrod);
+      }
+
+      a {
+        color: inherit;
+        font-weight: 760;
+        text-decoration-line: none;
+        text-decoration-color: var(--link-line);
+        text-decoration-thickness: 1.5px;
+        text-underline-offset: 3px;
+      }
+
+      .nav {
+        display: flex;
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 22px 0;
+      }
+
+      .nav a {
+        text-decoration: none;
+      }
+
+      .nav__name {
+        font-weight: 900;
+      }
+
+      .nav__links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .theme-toggle {
+        display: inline-grid;
+        grid-template-columns: 1fr;
+        min-height: 30px;
+        min-width: 62px;
+        place-items: center;
+        padding: 3px 9px;
+        border: 2px solid var(--ink);
+        border-radius: 3px;
+        color: var(--toggle-ink);
+        background: var(--toggle-bg);
+        font: inherit;
+        font-size: 0.76rem;
+        font-weight: 900;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: 4px 4px 0 var(--ink);
+        transition: box-shadow 160ms ease, transform 160ms ease;
+      }
+
+      .theme-toggle:hover {
+        box-shadow: 2px 2px 0 var(--ink);
+        transform: translate(2px, 2px);
+      }
+
+      .theme-toggle:focus-visible {
+        outline: 3px solid var(--ref-cobalt);
+        outline-offset: 3px;
+      }
+
+      .portfolio-button,
+      .pdf-download {
+        display: inline-flex;
+        min-height: 30px;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 9px;
+        border: 2px solid var(--ink);
+        border-radius: 3px;
+        color: var(--download-ink);
+        background: var(--download-bg);
+        font-size: 0.76rem;
+        font-weight: 900;
+        line-height: 1;
+        white-space: nowrap;
+        box-shadow: 4px 4px 0 var(--ink);
+        transition: box-shadow 160ms ease, transform 160ms ease;
+      }
+
+      .portfolio-button:hover,
+      .pdf-download:hover {
+        box-shadow: 2px 2px 0 var(--ink);
+        transform: translate(2px, 2px);
+      }
+
+      .portfolio-button:focus-visible,
+      .pdf-download:focus-visible {
+        outline: 3px solid var(--ref-cobalt);
+        outline-offset: 3px;
+      }
+
+      .page {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto 72px;
+        border: 2px solid var(--ink);
+        background: var(--paper);
+        box-shadow: 10px 10px 0 var(--shadow);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.78fr);
+        gap: 32px;
+        padding: 42px;
+        border-bottom: 2px solid var(--ink);
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--eyebrow);
+        font-size: 0.76rem;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        font-size: clamp(3.4rem, 7vw, 5.9rem);
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+      }
+
+      .summary {
+        max-width: 760px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .contact {
+        display: grid;
+        gap: 10px;
+        justify-items: start;
+        align-self: start;
+        padding: 22px;
+        border: 2px solid var(--ink);
+        color: var(--contact-ink);
+        background: var(--contact-bg);
+        font-style: normal;
+      }
+
+      .contact strong {
+        display: block;
+        font-size: 1.1rem;
+      }
+
+      .contact span,
+      .contact a {
+        display: inline-block;
+        width: fit-content;
+        font-size: 0.96rem;
+        user-select: text;
+      }
+
+      .proof {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-bottom: 2px solid var(--ink);
+      }
+
+      .proof div {
+        min-height: 112px;
+        padding: 18px;
+        border-right: 2px solid var(--ink);
+        color: var(--proof-one-ink);
+        background: var(--proof-one-bg);
+      }
+
+      .proof div:nth-child(2) {
+        color: var(--proof-two-ink);
+        background: var(--proof-two-bg);
+      }
+
+      .proof div:nth-child(3) {
+        color: var(--proof-three-ink);
+        background: var(--proof-three-bg);
+      }
+
+      .proof div:last-child {
+        border-right: 0;
+      }
+
+      .proof strong {
+        display: block;
+        font-size: 1.46rem;
+        line-height: 1;
+      }
+
+      .proof a {
+        text-decoration-line: underline;
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 2px;
+      }
+
+      .proof span {
+        display: block;
+        margin-top: 8px;
+        color: var(--proof-one-muted);
+        font-size: 0.86rem;
+      }
+
+      .proof div:nth-child(2) span {
+        color: var(--proof-two-muted);
+      }
+
+      .proof div:nth-child(3) span {
+        color: var(--proof-three-muted);
+      }
+
+      .body {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        align-items: start;
+        position: relative;
+      }
+
+      .body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 280px;
+        border-right: 2px solid var(--ink);
+        z-index: 2;
+      }
+
+      .body::after {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 280px;
+        background: var(--sidebar);
+        z-index: 0;
+      }
+
+      aside {
+        padding: 30px 24px;
+        color: var(--sidebar-ink);
+        background: var(--sidebar);
+        position: relative;
+        z-index: 1;
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+      }
+
+      .side-section + .side-section {
+        margin-top: 30px;
+        padding-top: 24px;
+        border-top: 1px solid var(--sidebar-line);
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: 0.84rem;
+        font-weight: 950;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .chip {
+        padding: 5px 8px;
+        border: 1px solid var(--chip-line);
+        border-radius: 999px;
+        color: var(--chip-ink);
+        background: var(--chip-bg);
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+
+      .rail-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .rail-list li {
+        color: var(--sidebar-muted);
+        font-size: 0.9rem;
+        font-weight: 650;
+      }
+
+      .portfolio-links a {
+        color: var(--sidebar-ink);
+        text-decoration-line: underline;
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 2px;
+      }
+
+      main li a {
+        text-decoration-line: underline;
+      }
+
+      main {
+        padding: 30px 34px 38px;
+      }
+
+      .job {
+        display: grid;
+        grid-template-columns: 58px minmax(0, 1fr);
+        gap: 18px;
+        padding: 26px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .job:first-child {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .mark {
+        display: grid;
+        width: 58px;
+        height: 58px;
+        place-items: center;
+        overflow: hidden;
+        border: 2px solid var(--ink);
+        background: white;
+        font-size: 0.76rem;
+        font-weight: 950;
+      }
+
+      .mark img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .mark--ethos {
+        padding: 4px;
+      }
+
+      .mark--ethos img {
+        max-width: 96%;
+      }
+
+      .job-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 8px;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 1.38rem;
+        line-height: 1.1;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-weight: 780;
+        white-space: nowrap;
+      }
+
+      .role {
+        margin: 0 0 10px;
+        color: var(--role);
+        font-weight: 760;
+      }
+
+      .highlight {
+        color: var(--ink);
+        font-weight: 900;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      li {
+        margin: 7px 0;
+      }
+
+      .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 12px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .detail-grid li {
+        grid-column: span 2;
+        margin: 0;
+        padding: 10px 11px;
+        border: 1px solid var(--line);
+        background: var(--tile);
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .detail-grid strong {
+        color: var(--ink);
+      }
+
+      .detail-grid > li:nth-last-child(2):nth-child(3n + 1) {
+        grid-column: 2 / span 2;
+      }
+
+      .compact {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+
+      .mini {
+        padding: 14px;
+        border: 1px solid var(--line);
+        background: var(--tile);
+      }
+
+      .mini strong {
+        display: block;
+      }
+
+      .mini-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: baseline;
+        gap: 10px;
+        margin-bottom: 4px;
+      }
+
+      .mini-date {
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 780;
+        white-space: nowrap;
+      }
+
+      .mini p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media screen and (max-width: 1050px) {
+        .detail-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .detail-grid > li,
+        .detail-grid > li:nth-last-child(2):nth-child(3n + 1) {
+          grid-column: auto;
+        }
+      }
+
+      @media (max-width: 820px) {
+        .hero,
+        .body,
+        .proof,
+        .compact {
+          grid-template-columns: 1fr;
+        }
+
+        .body::before {
+          display: none;
+        }
+
+        .body::after {
+          display: none;
+        }
+
+        aside {
+          border-bottom: 2px solid var(--ink);
+        }
+
+        .job-head {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 12px;
+        }
+
+        .job-head .meta {
+          display: inline;
+          flex: none;
+          margin-top: 0;
+          text-align: right;
+          white-space: nowrap;
+        }
+      }
+
+      @media screen and (max-width: 820px) {
+        .proof div:nth-child(-n + 2) {
+          border-right: 0;
+        }
+
+        :root:not([data-theme="dark"]) .proof div:nth-child(3) {
+          color: var(--ref-ink);
+          background: var(--ref-goldenrod);
+        }
+
+        :root:not([data-theme="dark"]) .proof div:nth-child(3) span {
+          color: var(--ref-ink);
+        }
+      }
+
+      @media (max-width: 560px) {
+        .nav,
+        .page {
+          width: calc(100% - 24px);
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 12px;
+          padding: 16px 0;
+        }
+
+        .nav__links {
+          gap: 8px;
+          justify-content: flex-start;
+        }
+
+        .page {
+          margin-bottom: 40px;
+          box-shadow: 6px 6px 0 var(--shadow);
+        }
+
+        .hero {
+          gap: 24px;
+          padding: 30px 22px;
+        }
+
+        h1 {
+          font-size: clamp(3rem, 15vw, 4.2rem);
+        }
+
+        .summary {
+          margin-top: 18px;
+          font-size: 1rem;
+        }
+
+        .contact {
+          padding: 18px;
+        }
+
+        .proof div {
+          min-height: 0;
+          padding: 18px 20px;
+        }
+
+        aside,
+        main {
+          padding-right: 20px;
+          padding-left: 20px;
+        }
+
+        .job {
+          grid-template-columns: 1fr;
+          gap: 12px;
+          padding: 24px 0;
+        }
+
+        .mark {
+          width: 52px;
+          height: 52px;
+        }
+      }
+
+      @media screen and (max-width: 560px) {
+        .job {
+          grid-template-columns: 52px minmax(0, 1fr);
+          column-gap: 14px;
+          row-gap: 4px;
+        }
+
+        .job > div {
+          display: contents;
+        }
+
+        .job .mark {
+          grid-row: 1 / span 2;
+        }
+
+        .job-head,
+        .role {
+          grid-column: 2;
+        }
+
+        .job-head {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 10px;
+          align-self: end;
+          margin-bottom: 0;
+        }
+
+        .job-head .meta {
+          display: inline;
+          flex: none;
+          margin-top: 0;
+          text-align: right;
+          white-space: nowrap;
+        }
+
+        .role {
+          align-self: start;
+          margin: 0;
+        }
+
+        .job > div > ul {
+          grid-column: 1 / -1;
+          margin-top: 8px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      @media print {
+        @page {
+          size: Letter;
+          margin: 0.25in;
+          background: #eee6c7;
+        }
+
+        :root,
+        :root[data-theme="dark"] {
+          --ref-print-outer: #eee6c7;
+          --print-gutter: 11px;
+          --ink: var(--ref-ink);
+          --muted: var(--ref-muted);
+          --line: var(--ref-line);
+          --paper: #ffffff;
+          --sidebar: var(--ref-forest);
+          --sidebar-ink: var(--ref-paper);
+          --sidebar-muted: #e0ede8;
+          --sidebar-line: #4f8b7c;
+          --chip-bg: #095846;
+          --chip-ink: var(--ref-paper);
+          --chip-line: #6ba091;
+          --tile: #ffffff;
+          --contact-bg: var(--ref-forest);
+          --contact-ink: var(--ref-paper);
+          --proof-one-bg: var(--ref-vermilion);
+          --proof-one-ink: var(--ref-paper);
+          --proof-one-muted: var(--ref-paper);
+          --proof-two-bg: var(--ref-cobalt);
+          --proof-two-ink: var(--ref-paper);
+          --proof-two-muted: #dfe6ff;
+          --proof-three-bg: var(--ref-forest);
+          --proof-three-ink: var(--ref-paper);
+          --proof-three-muted: #d5e8e2;
+        }
+
+        body {
+          position: relative;
+          color: var(--ink);
+          background: var(--ref-print-outer);
+          font-size: 8.8pt;
+          line-height: 1.16;
+          print-color-adjust: exact;
+        }
+
+        .theme-toggle {
+          display: none;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .page {
+          position: relative;
+          width: auto;
+          margin: 0;
+          border: 1px solid var(--ink);
+          background: var(--paper);
+          box-shadow: none;
+          -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+        }
+
+        .hero {
+          grid-template-columns: 1.5fr 0.82fr;
+          gap: 18px;
+          padding: 11px var(--print-gutter) 14px;
+          border-bottom: 1px solid #222;
+        }
+
+        h1 {
+          font-size: 31pt;
+        }
+
+        .summary {
+          margin-top: 9px;
+          font-size: 9.6pt;
+          color: #26312d;
+        }
+
+        .contact {
+          padding: 10px;
+          border: 1px solid #222;
+        }
+
+        .proof {
+          grid-template-columns: repeat(3, 1fr);
+          border-bottom: 1px solid #222;
+        }
+
+        .proof div {
+          min-height: auto;
+          padding: 8px var(--print-gutter);
+          border-right: 1px solid #222;
+        }
+
+        .proof strong {
+          font-size: 12pt;
+        }
+
+        .body {
+          grid-template-columns: 1.62in 1fr;
+          background: linear-gradient(
+            to right,
+            var(--sidebar) 0,
+            var(--sidebar) calc(1.62in - 1px),
+            #222 calc(1.62in - 1px),
+            #222 1.62in,
+            var(--paper) 1.62in,
+            var(--paper) 100%
+          );
+          -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+        }
+
+        .body::before {
+          display: none;
+        }
+
+        .body::after {
+          display: none;
+        }
+
+        aside {
+          padding: 14px var(--print-gutter) 0;
+          border-bottom: 0;
+          background: var(--sidebar);
+        }
+
+        main {
+          padding: 14px var(--print-gutter) 8px 18px;
+        }
+
+        .print-page-start {
+          break-before: page;
+          padding-top: 12px;
+        }
+
+        .job {
+          grid-template-columns: 0.34in 1fr;
+          gap: 9px;
+          padding: 8px 0;
+          break-inside: auto;
+        }
+
+        .job-head,
+        .role {
+          break-after: avoid;
+        }
+
+        .job-head {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 12px;
+        }
+
+        .job-head .meta {
+          display: inline;
+          margin-top: 0;
+          white-space: nowrap;
+        }
+
+        .job li {
+          break-inside: avoid;
+        }
+
+        .mark {
+          width: 0.34in;
+          height: 0.34in;
+          border: 1px solid #222;
+          font-size: 6pt;
+        }
+
+        .mark--ethos {
+          padding: 2px;
+        }
+
+        h2 {
+          margin-bottom: 7px;
+          font-size: 7.4pt;
+        }
+
+        h3 {
+          font-size: 12pt;
+        }
+
+        .role,
+        .meta,
+        .mini-date,
+        .mini p {
+          font-size: 7.8pt;
+          color: #26312d;
+        }
+
+        .rail-list li {
+          color: var(--sidebar-muted);
+          font-size: 7.8pt;
+          line-height: 1.28;
+        }
+
+        .rail-list a {
+          padding-bottom: 1px;
+          background-image: linear-gradient(currentColor, currentColor);
+          background-repeat: no-repeat;
+          background-position: 0 100%;
+          background-size: 100% 1px;
+          text-decoration: none;
+          -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+        }
+
+        .chip {
+          font-size: 7.8pt;
+        }
+
+        li {
+          margin: 1px 0;
+        }
+
+        .side-section + .side-section {
+          margin-top: 14px;
+          padding-top: 12px;
+        }
+
+        .side-section {
+          break-inside: avoid;
+        }
+
+        .chip {
+          padding: 2px 5px;
+          background: var(--chip-bg);
+          color: var(--chip-ink);
+        }
+
+        .compact {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 6px;
+          margin-top: 4px;
+          padding-top: 4px;
+          break-inside: avoid;
+        }
+
+        .detail-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 5px;
+          margin-top: 7px;
+        }
+
+        .detail-grid > li,
+        .detail-grid > li:nth-last-child(2):nth-child(3n + 1) {
+          grid-column: auto;
+        }
+
+        .detail-grid li {
+          padding: 5px 6px;
+          border-color: var(--line);
+          background: var(--tile);
+          color: var(--ink);
+          font-size: 7.5pt;
+        }
+
+        .detail-grid > li:last-child:nth-child(odd) {
+          grid-column: 1 / -1;
+          justify-self: center;
+          width: calc(50% - 3px);
+          min-width: 0;
+          box-sizing: border-box;
+        }
+
+        .mini {
+          padding: 5px;
+          border-color: var(--line);
+          background: var(--tile);
+        }
+
+        .mini-date,
+        .mini p {
+          font-size: 7.5pt;
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav" aria-label="Resume navigation">
+      <a class="nav__name" href="index.html">Eric Kennedy</a>
+      <nav class="nav__links">
+        <a class="portfolio-button" href="index.html">Portfolio</a>
+        <a class="pdf-download" href="resume-infra.pdf" download="Eric-Kennedy-Resume.pdf">Download PDF</a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark resume theme" aria-pressed="false">
+          Dark
+        </button>
+      </nav>
+    </header>
+
+    <div class="page">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Software engineer - platform, infrastructure, reliability</p>
+          <h1>Eric Kennedy</h1>
+          <p class="summary">
+            Platform and infrastructure engineer with 10+ years running production systems for other engineers and
+            customers. I've migrated live workloads onto Kubernetes, built GitOps delivery that other teams deploy
+            through every day, run Postgres and Kafka as stateful platforms, and turned observability into code. I'd
+            rather automate an operational task than repeat it, and I own reliability through on-call, incidents, and
+            the fixes that follow.
+          </p>
+        </div>
+        <address class="contact">
+          <span>714.884.7490</span>
+          <a href="mailto:ekeric13@gmail.com">ekeric13@gmail.com</a>
+          <a class="contact__portfolio" href="https://ekeric13.github.io">Portfolio: ekeric13.github.io</a>
+          <a href="https://www.linkedin.com/in/ekeric13">linkedin.com/in/ekeric13</a>
+          <a href="https://github.com/ekeric13">github.com/ekeric13</a>
+        </address>
+      </section>
+
+      <section class="proof" aria-label="Selected impact">
+        <div><strong>5 hrs → 5 min</strong><span>Deploy time after I built a GitOps pipeline on Argo CD</span></div>
+        <div><strong>ECS → EKS</strong><span>Moved 20+ production services to Kubernetes with 100% uptime</span></div>
+        <div>
+          <strong
+            >Stealth →
+            <a href="https://www.sec.gov/Archives/edgar/data/1788451/000095012325006749/filename1.htm">$159.8M annual revenue</a></strong
+          ><span>Helped scale Ethos from stealth through hypergrowth during my tenure</span>
+        </div>
+      </section>
+
+      <div class="body">
+        <aside>
+          <section class="side-section">
+            <h2>Infrastructure &amp; Tools</h2>
+            <div class="chips">
+              <span class="chip">Kubernetes</span><span class="chip">Terraform</span><span class="chip">Docker</span>
+              <span class="chip">Argo CD</span><span class="chip">Argo Rollouts</span>
+              <span class="chip">Jenkins</span><span class="chip">GitHub Actions</span><span class="chip">AWS</span>
+              <span class="chip">EKS</span><span class="chip">ECS</span><span class="chip">ECR</span>
+              <span class="chip">RDS</span><span class="chip">MSK</span><span class="chip">IAM</span>
+              <span class="chip">S3</span><span class="chip">SQS</span><span class="chip">SNS</span>
+              <span class="chip">Postgres</span><span class="chip">Kafka</span><span class="chip">Debezium</span>
+              <span class="chip">Benthos</span><span class="chip">Avro</span><span class="chip">Redis</span>
+              <span class="chip">OpenSearch</span><span class="chip">Nginx</span><span class="chip">Prometheus</span><span class="chip">Wavefront</span>
+              <span class="chip">Datadog</span><span class="chip">Splunk</span><span class="chip">pganalyze</span>
+              <span class="chip">pg_cron</span><span class="chip">CUDA</span><span class="chip">PyTorch</span>
+            </div>
+          </section>
+          <section class="side-section">
+            <h2>Languages</h2>
+            <div class="chips">
+              <span class="chip">Go</span><span class="chip">Python</span><span class="chip">TypeScript</span>
+              <span class="chip">Java</span><span class="chip">SQL</span><span class="chip">JavaScript</span>
+            </div>
+          </section>
+          <section class="side-section">
+            <h2>Focus &amp; Strengths</h2>
+            <ul class="rail-list">
+              <li>Kubernetes platforms and GitOps delivery</li>
+              <li>Infrastructure and observability as code</li>
+              <li>Stateful systems: Postgres, Kafka, CDC</li>
+              <li>Incident response and root-cause debugging</li>
+            </ul>
+          </section>
+          <section class="side-section">
+            <h2>Portfolio Links</h2>
+            <ul class="rail-list portfolio-links">
+              <li><a href="projects/event-bus/">Event bus architecture</a></li>
+              <li><a href="projects/ai-agent-gateway-redacted/">AI agent gateway</a></li>
+              <li><a href="projects/anime-pics/">GPU pipeline (AnimePics)</a></li>
+              <li><a href="projects/ai-contact-center-matching-redacted/">AI contact-center matching</a></li>
+              <li><a href="writing/music-visualizer-you-can-drive-through/">YouTubeDrive (audio pipeline)</a></li>
+            </ul>
+          </section>
+          <section class="side-section">
+            <h2>Education</h2>
+            <ul class="rail-list">
+              <li><strong><a href="https://www.northwestern.edu/">Northwestern</a></strong><br />Economics, 2014</li>
+              <li>
+                <strong><a href="https://bradfieldcs.com/">Bradfield CS</a></strong><br />Databases, Networks,
+                Computer Architecture, Deep Learning, 2018
+              </li>
+            </ul>
+          </section>
+        </aside>
+
+        <main>
+          <section aria-labelledby="experience-title">
+            <h2 id="experience-title">Professional Experience</h2>
+
+            <article class="job">
+              <a class="mark" href="https://www.intuit.com/" aria-label="Intuit"><img src="assets/logos/intuit.png" alt="Intuit logo" /></a>
+              <div>
+                <div class="job-head">
+                  <h3>Intuit</h3>
+                  <span class="meta">2024 - Present</span>
+                </div>
+                <p class="role">Senior Software Engineer (Technical Lead) | <a href="https://www.intuit.com/">intuit.com</a></p>
+                <ul>
+                  <li>
+                    <strong>Production reliability:</strong> Tech lead and on-call for the real-time platform behind
+                    TurboTax Live and QuickBooks Live, serving <span class="highlight">4.2M customers and 26K experts</span>
+                    at tax-season peak. Own <span class="highlight">40+ alerts</span>, each with a runbook, and have written
+                    root-cause analyses for 4 incidents.
+                  </li>
+                  <li>
+                    <strong>Observability as code:</strong> Moved alerting into Terraform so alerts ship in the same pull
+                    request as the code they watch, instead of in a quarterly observability sprint. Alert output went from
+                    <span class="highlight">10 per quarter to 5 per week</span>, and better alert definitions cut false
+                    pages. Added domain-specific Splunk and Wavefront alerts on top of the platform's error-rate paging.
+                  </li>
+                  <li>
+                    <strong>Kubernetes:</strong> Tuned the services I owned on Intuit's shared Kubernetes platform: HPA autoscaling
+                    targets, PodDisruptionBudgets, resource requests and limits, and liveness and readiness probes.
+                    Shipped through Argo Rollouts.
+                  </li>
+                  <li>
+                    <strong>Incident root cause:</strong> Ended a
+                    <span class="highlight">two-week incident paging on-call overnight twice a week</span>. Used heap
+                    dumps, thread dumps, and Prometheus to trace a cascade from heap OOM through consumer-thread exit and
+                    blocking-queue deadlock to pod failure. Fixed the leak and added graceful shutdown and SIGTERM
+                    handling so pod restarts no longer corrupted in-flight data.
+                  </li>
+                  <li>
+                    <strong>CPU saturation:</strong> Diagnosed FastAPI pods failing Kubernetes liveness checks. CPU-bound
+                    JSON parsing of large transcripts was starving the ASGI event loop, so the server stopped accepting
+                    requests. Moved parsing onto thread and process pools to fix it.
+                  </li>
+                  <li>
+                    <strong>Real-time routing:</strong> Scaled AI-driven matching from 0.2% to
+                    <span class="highlight">36% of contact-center traffic</span> ($11.4M in 2025, patent filed), then
+                    re-architected it into a fully automated, real-time routing system: a Kafka stream processor handling <span class="highlight">3K+ messages per second</span>
+                    that matches incoming customers against transcript embeddings at contact time. Kept the hot-path
+                    endpoints that pick each customer's best expert attributes at
+                    <span class="highlight">p99 under 1 second</span>. Sized work by event-bus
+                    partitions and managed consumer lag and throughput by scaling consumer groups. Delivered
+                    <span class="highlight">$14M in 2026</span> business impact.
+                  </li>
+                  <li>
+                    <strong>Vector search:</strong> First team on Intuit's OpenSearch platform to use k-NN vector search,
+                    and defined how the feature worked. Sized the cluster and shard count with the OpenSearch platform
+                    team.
+                  </li>
+                  <li>
+                    <strong>CI/CD:</strong> Extended our Jenkins pipeline to run unit and integration tests against a
+                    Dockerized Postgres that pulls the schema from the RDS team's config repository and seeds it, with
+                    merge gates on test coverage.
+                  </li>
+                  <li>
+                    <strong>Agent platform:</strong> Built a hosted
+                    <a href="projects/ai-agent-gateway-redacted/">agent gateway</a> that serves 20+ domain AI agents to
+                    <span class="highlight">90+ weekly users</span>. One shared runtime owns access control, session
+                    state, tool integrations, and deployment, which cut onboarding a new agent from
+                    <span class="highlight">weeks of platform work to 1–2 days</span>.
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="job">
+              <a class="mark" href="projects/anime-pics/" aria-label="AnimePics"><img src="assets/logos/animepics.png" alt="AnimePics logo" /></a>
+              <div>
+                <div class="job-head">
+                  <h3>AnimePics</h3>
+                  <span class="meta">2023</span>
+                </div>
+                <p class="role">Founder | <a href="projects/anime-pics/">animepics.xyz</a></p>
+                <ul>
+                  <li>
+                    <strong>GPU pipeline:</strong> Built and ran the GPU infrastructure for a paid
+                    <a href="projects/anime-pics/">GenAI product</a>: per-customer diffusion fine-tuning, model merging,
+                    inference, and upscaling. Merging each customer's trained weights into style checkpoints instead of
+                    retraining per style cut <span class="highlight">GPU time per order by ~50%</span>.
+                  </li>
+                  <li>
+                    <strong>Async job orchestration:</strong> Connected the web service and GPU workers with Kafka for
+                    <span class="highlight">durable handoffs</span> on jobs that ran over an hour. Kept order
+                    state in Postgres and images in S3, and created a paid order before any GPU work started.
+                  </li>
+                  <li>
+                    <strong>GPU environments and capacity:</strong> Kept PyTorch, CUDA, and xformers versions pinned and
+                    working together on the GPU hosts. Planned queue depth and delivery promises around a single GPU,
+                    and validated and cropped photos in the browser so bad inputs never used GPU time.
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="job">
+              <a class="mark mark--ethos" href="https://www.ethos.com/" aria-label="Ethos"><img src="assets/logos/ethos.webp" alt="Ethos logo" /></a>
+              <div>
+                <div class="job-head">
+                  <h3>Ethos</h3>
+                  <span class="meta">2018 - 2023</span>
+                </div>
+                <p class="role">Staff Software Engineer | <a href="https://www.ethos.com/">ethoslife.com</a></p>
+                <ul>
+                  <li>
+                    <strong>Early engineer:</strong> Helped scale Ethos from stealth to
+                    <span class="highlight">$159.8M in 2023 revenue</span> and
+                    <span class="highlight">100+ engineers</span> after joining pre-launch as the company's 3rd engineer.
+                    Built foundational frontend and backend systems that became core company infrastructure.
+                  </li>
+                  <li>
+                    <strong>Deploy automation:</strong> Cut deploy time from
+                    <span class="highlight">about 5 hours to 5 minutes</span> with a GitOps pipeline on GitHub Actions,
+                    ECR, a Go deployment service, and Argo CD. Every team shipped through it daily, and a release UI let
+                    operators map commits to releases.
+                  </li>
+                  <li>
+                    <strong>Kubernetes migration:</strong> Moved production workloads from ECS to EKS with
+                    <span class="highlight">100% uptime</span> as the company grew from one engineering group into many
+                    teams. Standardized deployment, service ownership, and Datadog observability across
+                    <span class="highlight">20+ Kubernetes services</span>. Wrote the AWS Terraform for IAM, networking, and
+                    MSK.
+                  </li>
+                  <li>
+                    <strong>Database operations:</strong> Owned production Postgres reliability, recovery, performance,
+                    and cost: Multi-AZ RDS, point-in-time recovery, pganalyze, pg_cron jobs, reserved-instance planning,
+                    and reusable Terraform modules. Migrated MongoDB to Postgres to enforce schemas and ACID transactions
+                    across financial workflows.
+                  </li>
+                  <li>
+                    <strong>Event platform:</strong> Designed and built a shared
+                    <a href="projects/event-bus/">event platform</a> handling
+                    <span class="highlight">50K+ events per day</span> across 5–10 services and 10–20 topics. Services
+                    wrote events through a Postgres transactional outbox, and a Go CDC publisher I wrote streamed them
+                    from the WAL to Kafka on MSK, with Avro schemas and a Benthos HTTP dispatcher sidecar for consumers.
+                  </li>
+                  <li>
+                    <strong>CDC operations:</strong> Ran the CDC pipeline as a platform. Monitored replication-slot
+                    health, WAL growth, and publisher lag, and used pg_cron heartbeats to keep slots advancing so a
+                    stalled consumer couldn't fill the database disk. Offered retry, DLQ, or drop per consumer, and
+                    self-serve Kafka topics through a Terraform module.
+                  </li>
+                  <li>
+                    <strong>Technical leadership:</strong> Reached Ethos's highest IC level and mentored engineers through
+                    transitions into engineering management. Served as the final escalation point for major production
+                    incidents across the platform.
+                  </li>
+                  <li>
+                    Additional platform work across Kubernetes, caching, schema changes, and query performance:
+                    <ul class="detail-grid">
+                      <li>
+                        <strong>Kubernetes operator:</strong> Wrote an operator that invalidated the CDN when images
+                        changed, so clients stopped getting stale assets.
+                      </li>
+                      <li>
+                        <strong>Zero-downtime schema change:</strong> Replaced polymorphic relationships with
+                        exclusive-arc constraints on live tables without downtime.
+                      </li>
+                      <li>
+                        <strong>Caching and edge:</strong> Added Redis middleware and Nginx asset caching, and
+                        standardized CORS and cookies across subdomains.
+                      </li>
+                      <li>
+                        <strong>Service decomposition:</strong> Mapped domain and data boundaries to split the monolith
+                        into independently owned microservices.
+                      </li>
+                      <li>
+                        <strong>Query optimization:</strong> Cut a payments query from
+                        <span class="highlight">4 hours to 5 seconds</span> by
+                        <a href="writing/sql-query-optimization-skill/">reading its execution plan</a> and restructuring
+                        the SQL.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </section>
+
+          <section class="compact" aria-label="Earlier experience">
+            <article class="mini">
+              <div class="mini-head">
+                <strong>Curology | Fullstack Engineer</strong>
+                <span class="mini-date">2017 - 2018</span>
+              </div>
+              <p>
+                Built photo metadata APIs and an in-browser editor used to create
+                <span class="highlight">hundreds of photos per week</span>.
+              </p>
+            </article>
+            <article class="mini">
+              <div class="mini-head">
+                <strong>hiQ Labs | Lead Frontend Engineer</strong>
+                <span class="mini-date">2015 - 2017</span>
+              </div>
+              <p>
+                Built AWS-backed upload and download workflows and modernized the build toolchain to ship minified,
+                gzipped production assets.
+              </p>
+            </article>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script>
+      const root = document.documentElement;
+      const toggle = document.querySelector(".theme-toggle");
+      const savedTheme = localStorage.getItem("resume-theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      function setTheme(theme) {
+        root.dataset.theme = theme;
+        toggle.textContent = theme === "dark" ? "Light" : "Dark";
+        toggle.setAttribute("aria-pressed", String(theme === "dark"));
+        toggle.setAttribute(
+          "aria-label",
+          theme === "dark" ? "Switch to light resume theme" : "Switch to dark resume theme"
+        );
+      }
+
+      setTheme(savedTheme || (prefersDark ? "dark" : "light"));
+
+      toggle.addEventListener("click", () => {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        localStorage.setItem("resume-theme", next);
+        setTheme(next);
+      });
+    </script>
+  </body>
+</html>
