@@ -348,11 +348,11 @@ output:
 <div class="face detail">
 <div class="det-head">Grounding · production evolution</div>
 <div class="det-title">I built the first publisher against the WAL, then moved the platform toward <span class="b">Debezium</span>.</div>
-<p class="det-sub">The first version used a custom WAL monitor because I did not yet know about Debezium. It proved the outbox design, but it also made replication behavior platform code we had to own. Moving toward Debezium kept the producer and consumer contracts intact while replacing custom CDC machinery with a purpose-built tool.</p>
+<p class="det-sub">I built the first version as a custom WAL monitor because I wanted higher throughput and a smaller memory footprint than Debezium offered. It proved the outbox design and performed well, but it also made replication behavior specialized platform code that few people could own. Since we were committed to Kafka, moving to Debezium reduced that bus factor while keeping the producer and consumer contracts intact.</p>
 <div class="arch">
-<div class="tcard" style="--x:var(--bus)"><span class="tag">first version</span><div class="nm">Custom WAL monitor</div><div class="role">prove the contract</div><p>I built the initial replication and publishing path around committed outbox rows.</p></div>
+<div class="tcard" style="--x:var(--bus)"><span class="tag">first version</span><div class="nm">Custom WAL monitor</div><div class="role">throughput and memory</div><p>I built a lean Go replication and publishing path around committed outbox rows.</p></div>
 <div class="tcard" style="--x:var(--ops)"><span class="tag">operating cost</span><div class="nm">Custom CDC ownership</div><div class="role">replication edge cases</div><p>The platform team inherited WAL behavior, replication health, and recovery logic.</p></div>
-<div class="tcard" style="--x:var(--ok)"><span class="tag">evolution</span><div class="nm">Move toward Debezium</div><div class="role">purpose-built CDC</div><p>The product-facing outbox API stayed stable while the publishing implementation matured.</p></div>
+<div class="tcard" style="--x:var(--ok)"><span class="tag">evolution</span><div class="nm">Move toward Debezium</div><div class="role">reduce bus factor</div><p>With Kafka as our committed backbone, a standard CDC tool was easier to staff and maintain, and the outbox API stayed stable.</p></div>
 </div>
 </div>
 </section>
